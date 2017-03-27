@@ -4,5 +4,6 @@ import bookList from '../imports/components/bookList/bookList';
 
 angular.module('liby', [
   angularMeteor,
+  'ui.ace',
     bookList.name
 ]);

@@ -1,0 +1,46 @@
+{
+  "name": "catalog",
+  "plural": "catalog",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "default": "book"
+    },
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Title!"
+    },
+    "entryNum": {
+      "type": "number"
+    },
+    "callNum": {
+      "type": "string"
+    },
+    "isbn": {
+      "type": "string"
+    },
+    "author": {
+      "type": "string"
+    },
+    "publisher": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "libCat": {
+      "type": "belongsTo",
+      "model": "libCat",
+      "foreignKey": "libCatId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

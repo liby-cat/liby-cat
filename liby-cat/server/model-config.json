@@ -14,28 +14,41 @@
     ]
   },
   "User": {
-    "dataSource": "db"
+    "dataSource": "mongol",
+    "public": false
   },
   "AccessToken": {
-    "dataSource": "db",
+    "dataSource": "mongol",
     "public": false
   },
   "ACL": {
-    "dataSource": "db",
+    "dataSource": "mongol",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "db",
+    "dataSource": "mongol",
     "public": false,
     "options": {
       "strictObjectIDCoercion": true
     }
   },
   "Role": {
-    "dataSource": "db",
+    "dataSource": "mongol",
     "public": false
   },
-  "book": {
+  "org": {
+    "dataSource": "mongol",
+    "public": true
+  },
+  "libCat": {
+    "dataSource": "mongol",
+    "public": true
+  },
+  "user": {
+    "dataSource": "mongol",
+    "public": true
+  },
+  "catalog": {
     "dataSource": "mongol",
     "public": true
   }

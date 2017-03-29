@@ -1,24 +1,21 @@
 {
-  "name": "book",
-  "plural": "books",
+  "name": "org",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "title": {
+    "orgId": {
+      "type": "string",
+      "required": true,
+      "index": {"unique": true}
+    },
+    "name": {
       "type": "string",
       "required": true
     },
-    "author": {
-      "type": "string"
-    },
-    "serial": {
-      "type": "number",
-      "required": true
-    },
-    "publisher": {
+    "creator": {
       "type": "string"
     }
   },

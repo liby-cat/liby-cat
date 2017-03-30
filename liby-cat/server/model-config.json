@@ -40,7 +40,7 @@
     "dataSource": "mongol",
     "public": true
   },
-  "libCat": {
+  "catalog": {
     "dataSource": "mongol",
     "public": true
   },
@@ -48,8 +48,8 @@
     "dataSource": "mongol",
     "public": true
   },
-  "catalog": {
+  "entry": {
     "dataSource": "mongol",
-    "public": true
+    "public": false
   }
 }

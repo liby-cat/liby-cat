@@ -7,38 +7,38 @@
     "validateUpsert": true
   },
   "properties": {
-    "type": {
+    "catalogId": {
       "type": "string",
       "required": true,
-      "default": "book"
+      "index": {"unique": true}
     },
     "title": {
       "type": "string",
+      "required": true
+    },
+    "owners": {
+      "type": [
+        "object"
+      ],
+      "required": true
+    },
+    "readers": {
+      "type": [
+        "object"
+      ]
+    },
+    "type": {
+      "type": "string",
       "required": true,
-      "default": "Title!"
-    },
-    "entryNum": {
-      "type": "number"
-    },
-    "callNum": {
-      "type": "string"
-    },
-    "isbn": {
-      "type": "string"
-    },
-    "author": {
-      "type": "string"
-    },
-    "publisher": {
-      "type": "string"
+      "default": "books"
     }
   },
   "validations": [],
   "relations": {
-    "libCat": {
+    "org": {
       "type": "belongsTo",
-      "model": "libCat",
-      "foreignKey": "libCatId"
+      "model": "org",
+      "foreignKey": "orgId"
     }
   },
   "acls": [],

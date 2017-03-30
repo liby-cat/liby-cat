@@ -1,5 +1,5 @@
 'use strict';
 
-module.exports = function(Catalog) {
+module.exports = function(catalog) {
 
 };

@@ -10,7 +10,9 @@
     "catalogId": {
       "type": "string",
       "required": true,
-      "index": {"unique": true}
+      "index": {
+        "unique": true
+      }
     },
     "title": {
       "type": "string",
@@ -39,6 +41,11 @@
       "type": "belongsTo",
       "model": "org",
       "foreignKey": "orgId"
+    },
+    "entries": {
+      "type": "hasMany",
+      "model": "entry",
+      "foreignKey": ""
     }
   },
   "acls": [],

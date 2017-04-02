@@ -9,7 +9,9 @@
     "orgId": {
       "type": "string",
       "required": true,
-      "index": {"unique": true}
+      "index": {
+        "unique": true
+      }
     },
     "name": {
       "type": "string",

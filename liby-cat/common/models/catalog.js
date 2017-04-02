@@ -2,6 +2,7 @@
 
 module.exports = function(Catalog) {
   Catalog.entries = function (id, cb) {
+    
     cb(null, {book:'khaa'});
   };
 

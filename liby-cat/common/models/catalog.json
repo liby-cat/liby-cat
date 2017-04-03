@@ -40,7 +40,7 @@
     "org": {
       "type": "belongsTo",
       "model": "org",
-      "foreignKey": "orgId"
+      "foreignKey": ""
     },
     "entries": {
       "type": "hasMany",

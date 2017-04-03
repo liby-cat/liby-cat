@@ -37,7 +37,7 @@
     "catalog": {
       "type": "belongsTo",
       "model": "catalog",
-      "foreignKey": "catalogId"
+      "foreignKey": ""
     }
   },
   "acls": [],

@@ -7,12 +7,12 @@
     "validateUpsert": true
   },
   "properties": {
-    "catalogId": {
+    "catalogIdx": {
       "type": "string",
-      "required": true,
-      "index": {
-        "unique": true
-      }
+      "required": true
+    },
+    "orgIdx": {
+      "type": "string"
     },
     "title": {
       "type": "string",
@@ -33,6 +33,15 @@
       "type": "string",
       "required": true,
       "default": "books"
+    }
+  },
+  "catalogIndex": {
+    "keys": {
+      "orgIdx": 1,
+      "catalogIdx": 1
+    },
+    "options": {
+      "unique": true
     }
   },
   "validations": [],

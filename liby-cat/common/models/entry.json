@@ -6,6 +6,10 @@
     "validateUpsert": true
   },
   "properties": {
+    "catalogIdx": {
+      "type": "string",
+      "required": true
+    },
     "type": {
       "type": "string",
       "required": true,
@@ -29,6 +33,12 @@
       "type": "string"
     },
     "publisher": {
+      "type": "string"
+    },
+    "editor": {
+      "type": "string"
+    },
+    "translator": {
       "type": "string"
     }
   },

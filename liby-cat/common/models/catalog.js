@@ -1,21 +1,27 @@
 'use strict';
 
 module.exports = function(Catalog) {
-  Catalog.validatesUniquenessOf('catalogId');
-
   Catalog.observe('before save', function enforceOrgId(ctx, next) {
+    console.log('catalog.enforceOrgId before save');
     if (ctx.instance) {
       var orgId = ctx.instance.orgId;
-      var org = ctx.instance.__get__org();
-      console.log(org);
-      console.log(orgId);
-      console.log(Catalog.app.models.Org.find);
-      Catalog.app.models.Org.find({where: {orgId: orgId}}, function(e, i) {
-        org = i;
+      Catalog.app.models.Org.find({where: {id: orgId}}, function(err, orgs) {
+        if (err) {
+          console.log(err);
+          throw err;
+        } else {
+          if (Array.isArray(orgs) && orgs.length === 1) {
+            var org = orgs[0];
+            ctx.instance.orgIdx = org.orgIdx;
+            next();
+          } else {
+            throw 'invalid org';
+          }
+        }
       });
-      console.log(org);
+    } else {
+      throw 'instance not found';
     }
-    next();
   });
 
   Catalog.test = function(id, cb) {

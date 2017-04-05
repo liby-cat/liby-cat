@@ -7,12 +7,13 @@
     "validateUpsert": true
   },
   "properties": {
-    "catalogIdx": {
+    "orgIdx": {
       "type": "string",
       "required": true
     },
-    "orgIdx": {
-      "type": "string"
+    "catalogIdx": {
+      "type": "string",
+      "required": true
     },
     "title": {
       "type": "string",

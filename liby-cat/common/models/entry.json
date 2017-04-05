@@ -6,6 +6,10 @@
     "validateUpsert": true
   },
   "properties": {
+    "orgIdx": {
+      "type": "string",
+      "required": true
+    },
     "catalogIdx": {
       "type": "string",
       "required": true

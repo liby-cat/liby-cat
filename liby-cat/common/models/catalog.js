@@ -1,5 +1,12 @@
 'use strict';
 
+function validationError(msg) {
+  var error = new Error();
+  error.status = 422;
+  error.message = msg;
+  return error;
+}
+
 module.exports = function(Catalog) {
   Catalog.observe('before save', function enforceOrgId(ctx, next) {
     console.log('catalog.enforceOrgId before save');
@@ -8,19 +15,19 @@ module.exports = function(Catalog) {
       Catalog.app.models.Org.find({where: {id: orgId}}, function(err, orgs) {
         if (err) {
           console.log(err);
-          throw err;
+          next(err);
         } else {
           if (Array.isArray(orgs) && orgs.length === 1) {
             var org = orgs[0];
             ctx.instance.orgIdx = org.orgIdx;
             next();
           } else {
-            throw 'invalid org';
+            next(validationError('org not found with id:' + orgId));
           }
         }
       });
     } else {
-      throw 'instance not found';
+      next(validationError('instance not found'));
     }
   });
 

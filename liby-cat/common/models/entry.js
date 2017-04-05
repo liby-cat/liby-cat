@@ -14,6 +14,13 @@ module.exports = function(Entry) {
             var cat = cats[0];
             ctx.instance.orgIdx = cat.orgIdx;
             ctx.instance.catalogIdx = cat.catalogIdx;
+            
+            const token = ctx.options && ctx.options.accessToken;
+            const userId = token && token.userId;
+            const user = userId ? 'user#' + userId : '<anonymous>';
+            console.log('token');
+            console.log(token);
+            console.log('userId:'+userId);
             next();
           } else {
             next(validationError('Catalog not found with id:' + catId));

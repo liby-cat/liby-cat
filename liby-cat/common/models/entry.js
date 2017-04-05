@@ -21,6 +21,7 @@ module.exports = function(Entry) {
             console.log('token');
             console.log(token);
             console.log('userId:'+userId);
+            Entry.app.models.Catalog.prototype.__exists__owners();
             next();
           } else {
             next(validationError('Catalog not found with id:' + catId));

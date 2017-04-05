@@ -31,6 +31,22 @@ module.exports = function(Catalog) {
     }
   });
 
+  Catalog.beforeRemote('prototype.__get__entries', function(ctx, unused, next) {
+    if (ctx.instance) {
+      var cat = ctx.instance;
+      var catSlug = (cat.orgIdx ? cat.orgIdx : '') +
+        '/' + (cat.catalogIdx ? cat.catalogIdx : '');
+      console.log('getting entries from ' + catSlug + ' #' + cat.id);
+      next();
+    } else {
+      next(validationError('invalid catalog Id'));
+    }
+  });
+  Catalog.beforeRemote('**', function(ctx, unused, next) {
+    console.log('method:' + ctx.methodString);
+    next();
+  });
+
   Catalog.test = function(id, cb) {
     cb(null, {book: 'khaa'});
   };

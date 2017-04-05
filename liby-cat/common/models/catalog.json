@@ -6,6 +6,15 @@
   "options": {
     "validateUpsert": true
   },
+  "catalogIndex": {
+    "keys": {
+      "orgIdx": 1,
+      "catalogIdx": 1
+    },
+    "options": {
+      "unique": true
+    }
+  },
   "properties": {
     "orgIdx": {
       "type": "string",
@@ -19,30 +28,10 @@
       "type": "string",
       "required": true
     },
-    "owners": {
-      "type": [
-        "object"
-      ],
-      "required": true
-    },
-    "readers": {
-      "type": [
-        "object"
-      ]
-    },
     "type": {
       "type": "string",
       "required": true,
       "default": "books"
-    }
-  },
-  "catalogIndex": {
-    "keys": {
-      "orgIdx": 1,
-      "catalogIdx": 1
-    },
-    "options": {
-      "unique": true
     }
   },
   "validations": [],
@@ -56,6 +45,11 @@
       "type": "hasMany",
       "model": "entry",
       "foreignKey": ""
+    },
+    "owners": {
+      "type": "hasAndBelongsToMany",
+      "model": "user",
+      "foreignKey": "userId"
     }
   },
   "acls": [],

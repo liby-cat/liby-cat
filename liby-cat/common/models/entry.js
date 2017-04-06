@@ -28,10 +28,10 @@ module.exports = function(Entry) {
               if(err){
                 next(err)
               } else if(res){
-                console.log('User:'+userId+' can add to catalog:'+ catId+ '; saving new entry.');
+                console.log('ALLOW User:'+userId+' can add to catalog:'+ catId+ '; saving new entry.');
                 next();
               } else {
-                console.log('User:'+userId+' not authorized on catalog:'+ catId+'.');
+                console.log('DENY User:'+userId+' not authorized on catalog:'+ catId+'.');
                 next(validationError('User is not an owner of this catalog'));
               }
             });

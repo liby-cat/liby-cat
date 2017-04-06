@@ -31,6 +31,32 @@ module.exports = function(Catalog) {
     }
   });
 
+  Catalog.beforeRemote('prototype.__link__owners', function(ctx, cat, next) {
+    if (ctx.instance && ctx.args && ctx.args.fk) {
+      var userId = ctx.args.fk;
+      Catalog.app.models.user.exists(userId, function(err, exists) {
+        if (err) {
+          next(err);
+        } else if (exists) {
+          ctx.instance.ownerIds =
+            ctx.instance.ownerIds ? ctx.instance.ownerIds : [];
+          ctx.instance.ownerIds.push(userId);
+          ctx.instance.anOwner = 'dfsdfd';
+          ctx.instance.anOwnerId = userId;
+          console.log(ctx.instance.anOwner);
+          console.log(ctx.instance.anOwnerId);
+          console.log(ctx.instance);
+          next();
+          Catalog.upsert(ctx.instance, function() {  });
+        } else {
+          next(validationError('cannot find user'));
+        }
+      });
+    } else {
+      next(validationError('invalid arguments'));
+    }
+  });
+
   Catalog.beforeRemote('prototype.__get__entries', function(ctx, unused, next) {
     if (ctx.instance) {
       var cat = ctx.instance;

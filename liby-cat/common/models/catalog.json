@@ -32,6 +32,11 @@
       "type": "string",
       "required": true,
       "default": "books"
+    },
+    "ownerIds": {
+      "type": [
+        "string"
+      ]
     }
   },
   "validations": [],

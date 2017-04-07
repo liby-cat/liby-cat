@@ -1,10 +1,10 @@
 'use strict';
 
-function validationError(msg) {
-  var error = new Error();
-  error.status = 422;
-  error.message = msg;
-  return error;
+function error(msg) {
+  var e = new Error();
+  e.status = 422;
+  e.message = msg;
+  return e;
 }
 
 module.exports = function(Catalog) {
@@ -30,11 +30,11 @@ module.exports = function(Catalog) {
                 if(cats==null || cats===null || cats.length===0) {
                   next();
                 } else {
-                  next(validationError('Catalog with same catalogIdx withing this org already exists'));
+                  next(error('Catalog with same catalogIdx withing this org already exists'));
                 }
               });
           } else {
-            next(validationError('org not found with id:' + orgId));
+            next(error('org not found with id:' + orgId));
           }
         }
       });
@@ -80,23 +80,32 @@ module.exports = function(Catalog) {
           next();
           Catalog.upsert(ctx.instance, function(e, i) {});
         } else {
-          next(validationError('cannot find user'));
+          next(error('cannot find user'));
         }
       });
     } else {
-      next(validationError('invalid arguments'));
+      next(error('invalid arguments'));
     }
   });
 
   Catalog.beforeRemote('prototype.__get__entries', function(ctx, unused, next) {
     if (ctx.instance) {
       var cat = ctx.instance;
-      var catSlug = (cat.orgIdx ? cat.orgIdx : '') +
-        '/' + (cat.catalogIdx ? cat.catalogIdx : '');
-      console.log('getting entries from ' + catSlug + ' #' + cat.id);
-      next();
+      console.log('catalog.enforceUserAccess');
+      const token = ctx.args && ctx.args.options && ctx.args.options.accessToken;
+      const userId = token && token.userId;
+  
+      cat.__exists__owners(userId, function (err, res) {
+        if(err){ next(err);}
+        if(res){
+          console.log('GET catalog entries:' + cat.orgIdx+'/'+cat.catalogIdx);
+          next();
+        } else {
+          next(error("User is not permitted to read entries from this catalog"));
+        }
+      });
     } else {
-      next(validationError('invalid catalog Id'));
+      next(error('invalid catalog Id'));
     }
   });
   Catalog.beforeRemote('**', function(ctx, unused, next) {

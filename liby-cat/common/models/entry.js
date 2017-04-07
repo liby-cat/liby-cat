@@ -1,6 +1,6 @@
 'use strict';
 
-function validationError(msg) {
+function error(msg) {
   var error = new Error();
   error.status = 422;
   error.message = msg;
@@ -32,16 +32,16 @@ module.exports = function(Entry) {
                 next();
               } else {
                 console.log('DENY User:'+userId+' not authorized on catalog:'+ catId+'.');
-                next(validationError('User is not an owner of this catalog'));
+                next(err('User is not an owner of this catalog'));
               }
             });
           } else {
-            next(validationError('Catalog not found with id:' + catId));
+            next(err('Catalog not found with id:' + catId));
           }
         }
       });
     } else {
-      next(validationError('instance not found'));
+      next(error('instance not found'));
     }
   });
 };

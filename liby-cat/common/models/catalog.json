@@ -34,9 +34,7 @@
       "default": "books"
     },
     "ownerIds": {
-      "type": [
-        "string"
-      ]
+      "type": "object"
     }
   },
   "validations": [],
@@ -58,5 +56,11 @@
     }
   },
   "acls": [],
-  "methods": {}
+  "methods": {
+    "list": {
+    "accepts": [
+      {"arg": "options", "type": "object", "http": "optionsFromRequest"}
+    ],
+    "http": {"verb": "GET", "path": "/list"}
+  }}
 }

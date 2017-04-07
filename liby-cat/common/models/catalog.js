@@ -8,10 +8,14 @@ function validationError(msg) {
 }
 
 module.exports = function(Catalog) {
+  Catalog.observe('access', function enforceOrgId(ctx, next) {
+    next();
+  });
   Catalog.observe('before save', function enforceOrgId(ctx, next) {
     console.log('catalog.enforceOrgId before save');
-    if (ctx.instance) {
-      var orgId = ctx.instance.orgId;
+    if (ctx.instance || ctx.data) {
+      var cat = ctx.instance ? ctx.instance : ctx.data;
+      var orgId = cat.orgId;
       Catalog.app.models.Org.find({where: {id: orgId}}, function(err, orgs) {
         if (err) {
           console.log(err);
@@ -19,17 +23,49 @@ module.exports = function(Catalog) {
         } else {
           if (Array.isArray(orgs) && orgs.length === 1) {
             var org = orgs[0];
-            ctx.instance.orgIdx = org.orgIdx;
-            next();
+            cat.orgIdx = org.orgIdx;
+            Catalog.find({where:{orgIdx:cat.orgIdx, catalogIdx:cat.catalogIdx}},
+              function (e, cats) {
+                if(e){next(e);}
+                if(cats==null || cats===null || cats.length===0) {
+                  next();
+                } else {
+                  next(validationError('Catalog with same catalogIdx withing this org already exists'));
+                }
+              });
           } else {
             next(validationError('org not found with id:' + orgId));
           }
         }
       });
     } else {
-      next(validationError('instance not found'));
+      console.log('no instance');
+      next();
     }
   });
+  
+  Catalog.beforeRemote('find', enforceUserAccessFilter);
+  Catalog.beforeRemote('count', enforceUserAccessWhere);
+  
+  function enforceUserAccessFilter(ctx, unused, next) {
+    console.log('catalog.enforceUserAccessFilter');
+    const token = ctx.args && ctx.args.options && ctx.args.options.accessToken;
+    const userId = token && token.userId;
+    ctx.args.filter = ctx.args.filter ? ctx.args.filter : {};
+    ctx.args.filter.where = ctx.args.filter.where ? ctx.args.filter.where : {};
+    ctx.args.filter.where['ownerIds.'+userId] = 1;
+    console.log(ctx.args);
+    next();
+  }
+  function enforceUserAccessWhere(ctx, unused, next) {
+    console.log('catalog.enforceUserAccess');
+    const token = ctx.args && ctx.args.options && ctx.args.options.accessToken;
+    const userId = token && token.userId;
+    ctx.args.where= ctx.args.where? ctx.args.where: {};
+    ctx.args.where['ownerIds.'+userId] = 1;
+    console.log(ctx.args);
+    next();
+  }
 
   Catalog.beforeRemote('prototype.__link__owners', function(ctx, cat, next) {
     if (ctx.instance && ctx.args && ctx.args.fk) {
@@ -39,15 +75,10 @@ module.exports = function(Catalog) {
           next(err);
         } else if (exists) {
           ctx.instance.ownerIds =
-            ctx.instance.ownerIds ? ctx.instance.ownerIds : [];
-          ctx.instance.ownerIds.push(userId);
-          ctx.instance.anOwner = 'dfsdfd';
-          ctx.instance.anOwnerId = userId;
-          console.log(ctx.instance.anOwner);
-          console.log(ctx.instance.anOwnerId);
-          console.log(ctx.instance);
+            ctx.instance.ownerIds ? ctx.instance.ownerIds : {};
+          ctx.instance.ownerIds[userId] = 1;
           next();
-          Catalog.upsert(ctx.instance, function() {  });
+          Catalog.upsert(ctx.instance, function(e, i) {});
         } else {
           next(validationError('cannot find user'));
         }
@@ -73,15 +104,9 @@ module.exports = function(Catalog) {
     next();
   });
 
-  Catalog.test = function(id, cb) {
-    cb(null, {book: 'khaa'});
+  Catalog.list = function(options) {
+    console.log(options);
+    return {text:"message"};
   };
 
-  Catalog.remoteMethod(
-    'test',
-    {
-      accepts: {arg: 'id', type: 'string', required: true},
-      http: {path: '/:id/test', verb: 'get'},
-      returns: {arg: 'data', type: 'Object'},
-    });
 };

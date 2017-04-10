@@ -25,6 +25,8 @@ module.exports = function (Catalog) {
   Catalog.disableRemoteMethodByName('prototype.__updateById__readers', false);
   Catalog.disableRemoteMethodByName('prototype.__destroyById__readers', false);
   
+  Catalog.disableRemoteMethodByName('prototype.__delete__entries', false);//DELETE /catalog/{id}/entries
+  
   
   //#region INSTANCE METHODS
   
@@ -38,50 +40,56 @@ module.exports = function (Catalog) {
   Catalog.observe('access', function enforceOrgId(ctx, next) {
     next();
   });
-  Catalog.observe('before save', function enforceOrgId(ctx, next) {
-    if (ctx.currentInstance) {
-      console.log("altering Catalog child relations");
-      next();
-    } else {
-      console.log('catalog.enforceOrgId before save');
-      if (ctx.instance || ctx.data) {
-        var cat = ctx.instance ? ctx.instance : ctx.data;
-        var orgId = cat.orgId;
-        Catalog.app.models.Org.find({where: {id: orgId}}, function (err, orgs) {
-          if (err) {
-            console.log(err);
-            next(err);
-          } else {
-            if (Array.isArray(orgs) && orgs.length === 1) {
-              var org = orgs[0];
-              cat.orgIdx = org.orgIdx;
-              Catalog.find({where: {orgIdx: cat.orgIdx, catalogIdx: cat.catalogIdx}},
-                function (e, cats) {
-                  if (e) {
-                    next(e);
-                  }
-                  if (cats == null || cats === null || cats.length === 0) {
-                    next();
-                  } else {
-                    next(error('Catalog with same catalogIdx withing this org already exists'));
-                  }
-                });
-            } else {
-              next(error('org not found with id:' + orgId));
-            }
-          }
-        });
-      } else {
-        console.log('no instance');
-        next();
-      }
-    }
-  });
   
   //#region REMOTE HOOKS
   
   Catalog.beforeRemote('**', function (ctx, unused, next) {
-    console.log('method:' + ctx.methodString);
+    console.log('in Catalog method:' + ctx.methodString);
+    next();
+  });
+  
+  Catalog.beforeRemote('create', function enforceOrgId(ctx, unused, next) {
+    console.log('Catalog>beforeRemote>create:enforceOrgId');
+    console.log(unused);
+    if (ctx.args && ctx.args.data) {
+      var cat = ctx.args.data;
+      var orgId = cat.orgId;
+      Catalog.app.models.Org.find({where: {id: orgId}}, function (err, orgs) {
+        if (err) {
+          console.log(err);
+          next(err);
+        } else {
+          if (Array.isArray(orgs) && orgs.length === 1) {
+            var org = orgs[0];
+            cat.orgIdx = org.orgIdx;
+            Catalog.find({where: {orgIdx: cat.orgIdx, catalogIdx: cat.catalogIdx}},
+              function (err, cats) {
+                if (err) {
+                  next(err);
+                }
+                if (cats == null || cats === null || cats.length === 0) {
+                  next();
+                } else {
+                  next(error('Catalog with same catalogIdx withing this org already exists'));
+                }
+              });
+          } else {
+            next(error('org not found with id:' + orgId));
+          }
+        }
+      });
+    } else {
+      console.log('no data');
+      next();
+    }
+  });
+  
+  Catalog.afterRemote('create', function relateUserAsOwnerReader(ctx, cat, next) {
+    console.log('Catalog>afterRemote>create:relateUserAsOwnerReader');
+    const token = ctx.args && ctx.args.options && ctx.args.options.accessToken;
+    const userId = token && token.userId;
+    cat.owners.add(userId);
+    cat.readers.add(userId);
     next();
   });
   
@@ -129,13 +137,12 @@ module.exports = function (Catalog) {
   });
   
   //#region ENTRIES
-  Catalog.beforeRemote('prototype.__get__entries', function (ctx, unused, next) {
+  Catalog.beforeRemote('prototype.__get__entries', function enforceUserIsReader(ctx, unused, next) {
+    console.log('Catalog>beforeRemote>__get__entries:enforceUserIsReader');
     if (ctx.instance) {
       var cat = ctx.instance;
-      console.log('catalog.enforceUserAccess');
       const token = ctx.args && ctx.args.options && ctx.args.options.accessToken;
       const userId = token && token.userId;
-      
       cat.readers.exists(userId, function (err, res) {
         if (err) {
           next(err)
@@ -144,11 +151,52 @@ module.exports = function (Catalog) {
           console.log('READ catalog entries:' + cat.orgIdx + '/' + cat.catalogIdx);
           next();
         } else {
-          next(error("DENY User is not permitted to read entries from this catalog"));
+          next(error("User is not permitted to read entries from this catalog"));
         }
       });
     } else {
-      next(error('invalid catalog Id'));
+      next(error('invalid catalog instance'));
     }
   });
+
+  Catalog.beforeRemote('prototype.__create__entries', function validateNewEntry(ctx, inst, next) {
+    console.log('Catalog>beforeRemote>__create__entries:validateNewEntry');
+    validateEntryUpsert(ctx, inst, next);
+  });
+  
+  Catalog.beforeRemote('prototype.__updateById__entries', function validateEntryUpdate(ctx, inst, next) {
+    console.log('Catalog>beforeRemote>__updateById__entries:validateEntryUpdate');
+    validateEntryUpsert(ctx, inst, next);
+  });
+  
+  function validateEntryUpsert(ctx, unused, next) {
+    console.log('Catalog>beforeRemote>__updateById__entries:validateEntryUpdate');
+    if (ctx.instance) {
+      var cat = ctx.instance;
+      var entryData = ctx.args.data;
+      if(entryData==={} || !entryData.title){
+        next(error('No data provided or title empty.'));
+        return;
+      }
+      const token = ctx.args && ctx.args.options && ctx.args.options.accessToken;
+      const userId = token && token.userId;
+      cat.owners.exists(userId, function (err, res) {
+        if (err) {
+          next(err)
+        }
+        else if (res) {
+          console.log('ADD catalog entry:' + cat.orgIdx + '/' + cat.catalogIdx);
+          entryData.orgIdx = cat.orgIdx;
+          entryData.catalogIdx = cat.catalogIdx;
+          next();
+        } else {
+          console.log('DENY User:'+userId+' not an owner of catalog:'+ catId+'.');
+          next(error('User is not permitted to add new entry in this catalog.'));
+        }
+      });
+    } else {
+      next(error('invalid catalog instance'));
+    }
+  }
+  
 };

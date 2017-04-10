@@ -66,11 +66,5 @@
     }
   },
   "acls": [],
-  "methods": {
-    "list": {
-    "accepts": [
-      {"arg": "options", "type": "object", "http": "optionsFromRequest"}
-    ],
-    "http": {"verb": "GET", "path": "/list"}
-  }}
+  "methods": {}
 }

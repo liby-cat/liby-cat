@@ -7,5 +7,6 @@ function error(msg) {
   return error;
 }
 
-module.exports = function(Entry) {
+module.exports = function (Entry) {
+  const neverUnsetFields = ['_id', 'orgIdx', 'catalogIdx', 'title', 'type'];
 };

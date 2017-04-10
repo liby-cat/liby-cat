@@ -24,7 +24,7 @@ module.exports = function(Entry) {
             ctx.instance.catalogIdx = cat.catalogIdx;
             const token = ctx.options && ctx.options.accessToken;
             const userId = token && token.userId;
-            cat.__exists__owners(userId, function (err, res) {
+            cat.owners.exists(userId, function (err, res) {
               if(err){
                 next(err)
               } else if(res){
@@ -32,11 +32,11 @@ module.exports = function(Entry) {
                 next();
               } else {
                 console.log('DENY User:'+userId+' not authorized on catalog:'+ catId+'.');
-                next(err('User is not an owner of this catalog'));
+                next(error('User is not permitted to add new entry in this catalog.'));
               }
             });
           } else {
-            next(err('Catalog not found with id:' + catId));
+            next(error('Catalog not found with id:' + catId));
           }
         }
       });

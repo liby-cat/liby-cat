@@ -8,39 +8,51 @@ function error(msg) {
 }
 
 module.exports = function(Catalog) {
+  Catalog.prototype.userCanRead = function userCanRead(userId) {
+    console.log(this);
+    return this.ownerIds && this.ownerIds[userId] === 1;
+  };
+  
   Catalog.observe('access', function enforceOrgId(ctx, next) {
     next();
   });
   Catalog.observe('before save', function enforceOrgId(ctx, next) {
-    console.log('catalog.enforceOrgId before save');
-    if (ctx.instance || ctx.data) {
-      var cat = ctx.instance ? ctx.instance : ctx.data;
-      var orgId = cat.orgId;
-      Catalog.app.models.Org.find({where: {id: orgId}}, function(err, orgs) {
-        if (err) {
-          console.log(err);
-          next(err);
-        } else {
-          if (Array.isArray(orgs) && orgs.length === 1) {
-            var org = orgs[0];
-            cat.orgIdx = org.orgIdx;
-            Catalog.find({where:{orgIdx:cat.orgIdx, catalogIdx:cat.catalogIdx}},
-              function (e, cats) {
-                if(e){next(e);}
-                if(cats==null || cats===null || cats.length===0) {
-                  next();
-                } else {
-                  next(error('Catalog with same catalogIdx withing this org already exists'));
-                }
-              });
-          } else {
-            next(error('org not found with id:' + orgId));
-          }
-        }
-      });
-    } else {
-      console.log('no instance');
+    if (ctx.currentInstance) {
+      console.log("altering Catalog child relations");
       next();
+    } else {
+      console.log('catalog.enforceOrgId before save');
+      if (ctx.instance || ctx.data) {
+        var cat = ctx.instance ? ctx.instance : ctx.data;
+        var orgId = cat.orgId;
+        Catalog.app.models.Org.find({where: {id: orgId}}, function (err, orgs) {
+          if (err) {
+            console.log(err);
+            next(err);
+          } else {
+            if (Array.isArray(orgs) && orgs.length === 1) {
+              var org = orgs[0];
+              cat.orgIdx = org.orgIdx;
+              Catalog.find({where: {orgIdx: cat.orgIdx, catalogIdx: cat.catalogIdx}},
+                function (e, cats) {
+                  if (e) {
+                    next(e);
+                  }
+                  if (cats == null || cats === null || cats.length === 0) {
+                    next();
+                  } else {
+                    next(error('Catalog with same catalogIdx withing this org already exists'));
+                  }
+                });
+            } else {
+              next(error('org not found with id:' + orgId));
+            }
+          }
+        });
+      } else {
+        console.log('no instance');
+        next();
+      }
     }
   });
   
@@ -53,8 +65,8 @@ module.exports = function(Catalog) {
     const userId = token && token.userId;
     ctx.args.filter = ctx.args.filter ? ctx.args.filter : {};
     ctx.args.filter.where = ctx.args.filter.where ? ctx.args.filter.where : {};
-    ctx.args.filter.where['ownerIds.'+userId] = 1;
-    console.log(ctx.args);
+    ctx.args.filter.where.readerIds = userId;
+    console.log(ctx.args.filter);
     next();
   }
   function enforceUserAccessWhere(ctx, unused, next) {
@@ -62,7 +74,7 @@ module.exports = function(Catalog) {
     const token = ctx.args && ctx.args.options && ctx.args.options.accessToken;
     const userId = token && token.userId;
     ctx.args.where= ctx.args.where? ctx.args.where: {};
-    ctx.args.where['ownerIds.'+userId] = 1;
+    ctx.args.where.readerIds = userId;
     console.log(ctx.args);
     next();
   }
@@ -74,11 +86,8 @@ module.exports = function(Catalog) {
         if (err) {
           next(err);
         } else if (exists) {
-          ctx.instance.ownerIds =
-            ctx.instance.ownerIds ? ctx.instance.ownerIds : {};
-          ctx.instance.ownerIds[userId] = 1;
+          ctx.instance.readers.add(userId);
           next();
-          Catalog.upsert(ctx.instance, function(e, i) {});
         } else {
           next(error('cannot find user'));
         }
@@ -95,19 +104,22 @@ module.exports = function(Catalog) {
       const token = ctx.args && ctx.args.options && ctx.args.options.accessToken;
       const userId = token && token.userId;
   
-      cat.__exists__owners(userId, function (err, res) {
-        if(err){ next(err);}
-        if(res){
-          console.log('GET catalog entries:' + cat.orgIdx+'/'+cat.catalogIdx);
+      cat.readers.exists(userId, function (err, res) {
+        if (err) {
+          next(err)
+        }
+        else if (res) {
+          console.log('READ catalog entries:' + cat.orgIdx + '/' + cat.catalogIdx);
           next();
         } else {
-          next(error("User is not permitted to read entries from this catalog"));
+          next(error("DENY User is not permitted to read entries from this catalog"));
         }
       });
     } else {
       next(error('invalid catalog Id'));
     }
   });
+  
   Catalog.beforeRemote('**', function(ctx, unused, next) {
     console.log('method:' + ctx.methodString);
     next();

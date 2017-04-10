@@ -32,9 +32,6 @@
       "type": "string",
       "required": true,
       "default": "books"
-    },
-    "ownerIds": {
-      "type": "object"
     }
   },
   "validations": [],
@@ -50,9 +47,22 @@
       "foreignKey": ""
     },
     "owners": {
-      "type": "hasAndBelongsToMany",
+      "type": "referencesMany",
       "model": "user",
-      "foreignKey": "userId"
+      "foreignKey": "ownerIds",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    },
+    "readers": {
+      "type": "referencesMany",
+      "model": "user",
+      "foreignKey": "readerIds",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
     }
   },
   "acls": [],

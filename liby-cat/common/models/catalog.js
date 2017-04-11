@@ -1,4 +1,5 @@
 'use strict';
+var extend = require('extend');
 
 function error(msg) {
   var e = new Error();
@@ -8,24 +9,31 @@ function error(msg) {
 }
 
 module.exports = function (Catalog) {
-
+  Catalog.createOptionsFromRemotingContext = function (ctx) {
+    //console.log('Catalog.createOptionsFromRemotingContext')
+    var base = this.base.createOptionsFromRemotingContext(ctx);
+    return extend(base, {
+      currentUserId: base.accessToken && base.accessToken.userId
+    });
+  };
+  
   //#region HIDE UNSUPPORTED API ENDPOINTS
-  Catalog.disableRemoteMethodByName('patchOrCreate', false);//PATH /catalog
-  Catalog.disableRemoteMethodByName('replaceOrCreate', false);//PUT /catalog
-
-  Catalog.disableRemoteMethodByName('prototype.__create__owners', false);
-  Catalog.disableRemoteMethodByName('prototype.__delete__owners', false);
-  Catalog.disableRemoteMethodByName('prototype.__findById__owners', false);//GET /catalog/{id}/owners/{fk}
-  Catalog.disableRemoteMethodByName('prototype.__updateById__owners', false);
-  Catalog.disableRemoteMethodByName('prototype.__destroyById__owners', false);
-
-  Catalog.disableRemoteMethodByName('prototype.__create__readers', false);
-  Catalog.disableRemoteMethodByName('prototype.__delete__readers', false);
-  Catalog.disableRemoteMethodByName('prototype.__findById__readers', false);
-  Catalog.disableRemoteMethodByName('prototype.__updateById__readers', false);
-  Catalog.disableRemoteMethodByName('prototype.__destroyById__readers', false);
-
-  Catalog.disableRemoteMethodByName('prototype.__delete__entries', false);//DELETE /catalog/{id}/entries
+  Catalog.disableRemoteMethodByName('patchOrCreate');//PATH /catalog
+  Catalog.disableRemoteMethodByName('replaceOrCreate');//PUT /catalog
+  
+  Catalog.disableRemoteMethodByName('prototype.__create__owners');
+  Catalog.disableRemoteMethodByName('prototype.__delete__owners');
+  Catalog.disableRemoteMethodByName('prototype.__findById__owners');//GET /catalog/{id}/owners/{fk}
+  Catalog.disableRemoteMethodByName('prototype.__updateById__owners');
+  Catalog.disableRemoteMethodByName('prototype.__destroyById__owners');
+  
+  Catalog.disableRemoteMethodByName('prototype.__create__readers');
+  Catalog.disableRemoteMethodByName('prototype.__delete__readers');
+  Catalog.disableRemoteMethodByName('prototype.__findById__readers');
+  Catalog.disableRemoteMethodByName('prototype.__updateById__readers');
+  Catalog.disableRemoteMethodByName('prototype.__destroyById__readers');
+  
+  Catalog.disableRemoteMethodByName('prototype.__delete__entries');//DELETE /catalog/{id}/entries
 
 
   //#region INSTANCE METHODS
@@ -36,8 +44,21 @@ module.exports = function (Catalog) {
   };
 
   //#region OBSERVERS
-
-  Catalog.observe('access', function enforceOrgId(ctx, next) {
+  
+  Catalog.observe('access', function enforceUserReadAccess(ctx, next) {
+    console.log('Catalog>observe>access:enforceUserReadAccess');
+    const token = ctx.options && ctx.options.accessToken;
+    const userId = token && token.userId;
+    ctx.query = ctx.query ? ctx.query : {};
+    ctx.query.where = ctx.query.where ? ctx.query.where : {};
+    ctx.query.where.readerIds = userId;
+    next();
+  });
+  
+  Catalog.observe('before save', function enforceUserWriteAccess(ctx, next) {
+    console.log('Catalog>observe>access:enforceUserWriteAccess');
+    const token = ctx.options && ctx.options.accessToken;
+    const userId = token && token.userId;
     next();
   });
 
@@ -53,40 +74,32 @@ module.exports = function (Catalog) {
     if (ctx.args && ctx.args.data) {
       var cat = ctx.args.data;
       var orgId = cat.orgId;
+      const token = ctx.args && ctx.args.options && ctx.args.options.accessToken;
+      const userId = token && token.userId;
       const Org = Catalog.app.models.Org;
-      Org.findById(orgId, function (err, org) {
-        if(err){
+      Org.find({id: orgId, adminIds: userId}, function (err, orgs) {
+        if (err) {
           next(err);
         }
-        if(org){
+        if (orgs && orgs.length === 1) {
+          var org = orgs[0];
           console.log(org);
-          const token = ctx.args && ctx.args.options && ctx.args.options.accessToken;
-          const userId = token && token.userId;
-          org.admins.exists(userId, function (err, res) {
-            if(err){
-              next(err);
-            }
-            if(res){
-              cat.orgIdx = org.orgIdx;
-              Catalog.find({where: {orgIdx: cat.orgIdx, catalogIdx: cat.catalogIdx}},
-                function (err, cats) {
-                  if (err) {
-                    next(err);
-                  }
-                  if (cats == null || cats === null || cats.length === 0) {
-                    cat.ownerIds=[userId];
-                    cat.readerIds=[userId];
-                    next();
-                  } else {
-                    next(error('Catalog with same catalogIdx withing this org already exists'));
-                  }
-                });
-            } else {
-              next(error('User not authorised to add a catalog in this org.'));
-            }
-          });
+          cat.orgIdx = org.orgIdx;
+          Catalog.find({where: {orgIdx: cat.orgIdx, catalogIdx: cat.catalogIdx}},
+            function (err, cats) {
+              if (err) {
+                next(err);
+              }
+              if (cats == null || cats === null || cats.length === 0) {
+                cat.ownerIds = [userId];
+                cat.readerIds = [userId];
+                next();
+              } else {
+                next(error('Catalog with same catalogIdx withing this org already exists'));
+              }
+            });
         } else {
-          next(error('org not found'))
+          next(error('org not found/user not permitted'))
         }
       });
     } else {
@@ -95,27 +108,7 @@ module.exports = function (Catalog) {
     }
   });
 
-  Catalog.beforeRemote('find', enforceUserAccessFilter);
-  Catalog.beforeRemote('count', enforceUserAccessWhere);
 
-  function enforceUserAccessFilter(ctx, unused, next) {
-    console.log('catalog.enforceUserAccessFilter');
-    const token = ctx.args && ctx.args.options && ctx.args.options.accessToken;
-    const userId = token && token.userId;
-    ctx.args.filter = ctx.args.filter ? ctx.args.filter : {};
-    ctx.args.filter.where = ctx.args.filter.where ? ctx.args.filter.where : {};
-    ctx.args.filter.where.readerIds = userId;
-    next();
-  }
-
-  function enforceUserAccessWhere(ctx, unused, next) {
-    console.log('catalog.enforceUserAccess');
-    const token = ctx.args && ctx.args.options && ctx.args.options.accessToken;
-    const userId = token && token.userId;
-    ctx.args.where = ctx.args.where ? ctx.args.where : {};
-    ctx.args.where.readerIds = userId;
-    next();
-  }
 
   //#region OWNERS
   Catalog.beforeRemote('prototype.__link__owners', function (ctx, cat, next) {
@@ -137,26 +130,6 @@ module.exports = function (Catalog) {
   });
 
   //#region ENTRIES
-  Catalog.beforeRemote('prototype.__get__entries', function enforceUserIsReader(ctx, unused, next) {
-    console.log('Catalog>beforeRemote>__get__entries:enforceUserIsReader');
-    if (ctx.instance) {
-      var cat = ctx.instance;
-      const token = ctx.args && ctx.args.options && ctx.args.options.accessToken;
-      const userId = token && token.userId;
-      cat.readers.exists(userId, function (err, res) {
-        if (err) {
-          next(err)
-        } else if (res) {
-          console.log('READ catalog entries:' + cat.orgIdx + '/' + cat.catalogIdx);
-          next();
-        } else {
-          next(error("User is not permitted to read entries from this catalog"));
-        }
-      });
-    } else {
-      next(error('invalid catalog instance'));
-    }
-  });
 
   Catalog.beforeRemote('prototype.__create__entries', function validateNewEntry(ctx, inst, next) {
     console.log('Catalog>beforeRemote>__create__entries:validateNewEntry');

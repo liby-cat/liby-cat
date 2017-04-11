@@ -34,8 +34,16 @@ module.exports = function (Catalog) {
   Catalog.disableRemoteMethodByName('prototype.__destroyById__readers');
   
   Catalog.disableRemoteMethodByName('prototype.__delete__entries');//DELETE /catalog/{id}/entries
-
-
+  
+  // hide endpoints that are semantically wrong
+  Catalog.disableRemoteMethodByName('prototype.__count__owners', false);//GET /catalog/{id}/owners/count
+  Catalog.disableRemoteMethodByName('prototype.__count__readers', false);//GET /catalog/{id}/readers/count
+  
+  // temporarily hide  buggy
+  Catalog.disableRemoteMethodByName('prototype.__exists__owners', false);//HEAD /catalog/{id}/owners/rel/{fk}
+  Catalog.disableRemoteMethodByName('prototype.__exists__readers', false);//HEAD /catalog/{id}/readers/rel/{fk}
+  
+  
   //#region INSTANCE METHODS
 
   Catalog.prototype.userCanRead = function userCanRead(userId) {
@@ -59,6 +67,9 @@ module.exports = function (Catalog) {
     console.log('Catalog>observe>access:enforceUserWriteAccess');
     const token = ctx.options && ctx.options.accessToken;
     const userId = token && token.userId;
+    ctx.query = ctx.query ? ctx.query : {};
+    ctx.query.where = ctx.query.where ? ctx.query.where : {};
+    ctx.query.where.ownerIds = userId;
     next();
   });
 
@@ -77,7 +88,7 @@ module.exports = function (Catalog) {
       const token = ctx.args && ctx.args.options && ctx.args.options.accessToken;
       const userId = token && token.userId;
       const Org = Catalog.app.models.Org;
-      Org.find({id: orgId, adminIds: userId}, function (err, orgs) {
+      Org.find({where:{id: orgId, adminIds: userId}}, function (err, orgs) {
         if (err) {
           next(err);
         }
@@ -118,7 +129,11 @@ module.exports = function (Catalog) {
         if (err) {
           next(err);
         } else if (exists) {
-          ctx.instance.readers.add(userId);
+          ctx.instance.readers.exists(userId, function (err, res) {
+            if(!res){
+              ctx.instance.readers.add(userId);
+            }
+          });
           next();
         } else {
           next(error('cannot find user'));

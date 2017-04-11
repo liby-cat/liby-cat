@@ -45,15 +45,15 @@ module.exports = function (Org) {
   //#region OBSERVERS
   
   Org.observe('access', function enforceUserAccess(ctx, next) {
-    console.log('Org>observe>access:enforceUserAccess');
     if (ctx.options && ctx.options.contextWithin) {
+      console.log('Org>observe>access:enforceUserAccess');
       const token = ctx.options && ctx.options.accessToken;
       const userId = token && token.userId;
       ctx.query = ctx.query ? ctx.query : {};
       ctx.query.where = ctx.query.where ? ctx.query.where : {};
       ctx.query.where.adminIds = userId;
-      console.log(ctx.query);
     }
+    console.log(ctx.query);
     next();
   });
   

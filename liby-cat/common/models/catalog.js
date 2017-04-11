@@ -109,24 +109,25 @@ module.exports = function (Catalog) {
     }
   });
 
-
-
   //#region OWNERS
   Catalog.beforeRemote('prototype.__link__owners', function (ctx, cat, next) {
+    const token = ctx.args.options && ctx.args.options.accessToken;
+    const userId = token && token.userId;
     if (ctx.instance && ctx.args && ctx.args.fk) {
-      var userId = ctx.args.fk;
-      Catalog.app.models.user.exists(userId, function (err, exists) {
+      var newOwnerId = ctx.args.fk;
+      ctx.instance.owners.exists(userId, function (err, canWrite) {
         if (err) {
           next(err);
-        } else if (exists) {
-          ctx.instance.readers.exists(userId, function (err, res) {
+        } else if (canWrite) {
+          ctx.instance.readers.exists(newOwnerId, function (err, res) {
             if(!res){
-              ctx.instance.readers.add(userId);
+              ctx.instance.readers.add(newOwnerId);
+              console.log('also granting read access');
             }
           });
           next();
         } else {
-          next(error('cannot find user'));
+          next(error('Permission Denied'));
         }
       });
     } else {

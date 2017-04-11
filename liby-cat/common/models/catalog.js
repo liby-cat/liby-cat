@@ -48,9 +48,8 @@ module.exports = function (Catalog) {
     next();
   });
 
-  Catalog.beforeRemote('create', function enforceOrgId(ctx, unused, next) {
-    console.log('Catalog>beforeRemote>create:enforceOrgId');
-    console.log(unused);
+  Catalog.beforeRemote('create', function onCatalogCreation(ctx, unused, next) {
+    console.log('Catalog>beforeRemote>create:onCatalogCreation');
     if (ctx.args && ctx.args.data) {
       var cat = ctx.args.data;
       var orgId = cat.orgId;
@@ -106,7 +105,6 @@ module.exports = function (Catalog) {
     ctx.args.filter = ctx.args.filter ? ctx.args.filter : {};
     ctx.args.filter.where = ctx.args.filter.where ? ctx.args.filter.where : {};
     ctx.args.filter.where.readerIds = userId;
-    console.log(ctx.args.filter);
     next();
   }
 
@@ -116,7 +114,6 @@ module.exports = function (Catalog) {
     const userId = token && token.userId;
     ctx.args.where = ctx.args.where ? ctx.args.where : {};
     ctx.args.where.readerIds = userId;
-    console.log(ctx.args);
     next();
   }
 

@@ -16,13 +16,20 @@
     "title": {
       "type": "string",
       "required": true
-    },
-    "creator": {
-      "type": "string"
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "admins": {
+      "type": "referencesMany",
+      "model": "user",
+      "foreignKey": "adminIds",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    }
+  },
   "acls": [],
   "methods": {}
 }

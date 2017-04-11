@@ -62,16 +62,6 @@ module.exports = function (Catalog) {
     ctx.query.where.readerIds = userId;
     next();
   });
-  
-  Catalog.observe('before save', function enforceUserWriteAccess(ctx, next) {
-    console.log('Catalog>observe>access:enforceUserWriteAccess');
-    const token = ctx.options && ctx.options.accessToken;
-    const userId = token && token.userId;
-    ctx.query = ctx.query ? ctx.query : {};
-    ctx.query.where = ctx.query.where ? ctx.query.where : {};
-    ctx.query.where.ownerIds = userId;
-    next();
-  });
 
   //#region REMOTE HOOKS
 

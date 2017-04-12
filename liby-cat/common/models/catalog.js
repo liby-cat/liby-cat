@@ -17,7 +17,7 @@ module.exports = function (Catalog) {
     });
   };
 
-  //#region HIDE UNSUPPORTED API ENDPOINTS
+  //region HIDE UNSUPPORTED API ENDPOINTS
   Catalog.disableRemoteMethodByName('patchOrCreate');//PATH /catalog
   Catalog.disableRemoteMethodByName('replaceOrCreate');//PUT /catalog
   Catalog.disableRemoteMethodByName('deleteById');//DELETE /catalog{id}
@@ -50,6 +50,7 @@ module.exports = function (Catalog) {
   Catalog.disableRemoteMethodByName('prototype.__exists__readers', false);//HEAD /catalog/{id}/readers/rel/{fk}
 
 
+  //endregion
   //#region INSTANCE METHODS
 
   Catalog.prototype.userCanRead = function userCanRead(uid) {
@@ -57,7 +58,8 @@ module.exports = function (Catalog) {
     return this.ownerIds && this.ownerIds[uid] === 1;
   };
 
-  //#region OBSERVERS
+  //endregion
+  //region OBSERVERS
 
   Catalog.observe('access', function enforceUserReadAccess(ctx, next) {
     console.log('Catalog>observe>access:enforceUserReadAccess');
@@ -69,12 +71,31 @@ module.exports = function (Catalog) {
     next();
   });
 
-  //#region REMOTE HOOKS
-
+  //endregion
+  //region REMOTE HOOKS
   Catalog.beforeRemote('**', function (ctx, unused, next) {
     console.log('in Catalog method:' + ctx.methodString);
     next();
   });
+
+  function hasWriteAccess(ctx, cat, next, applyFn) {
+    const token = ctx.args && ctx.args.options && ctx.args.options.accessToken;
+    const loginId = token && token.userId;
+    if (ctx.instance) {
+      ctx.instance.owners.exists(loginId, function (err, isOwner) {
+        if (err) {
+          next(err);
+        }
+        else if (isOwner) {
+          applyFn(ctx, cat, next, loginId);
+        } else {
+          next(error('Permission Denied'));
+        }
+      })
+    } else {
+      next(error('instance not found'));
+    }
+  }
 
   Catalog.beforeRemote('create', function onCatalogCreation(ctx, unused, next) {
     console.log('Catalog>beforeRemote>create:onCatalogCreation');
@@ -115,26 +136,8 @@ module.exports = function (Catalog) {
     }
   });
 
-  function hasWriteAccess(ctx, cat, next, applyFn) {
-    const token = ctx.args && ctx.args.options && ctx.args.options.accessToken;
-    const loginId = token && token.userId;
-    if (ctx.instance) {
-      ctx.instance.owners.exists(loginId, function (err, isOwner) {
-        if (err) {
-          next(err);
-        }
-        else if (isOwner) {
-          applyFn(ctx, cat, next, loginId);
-        } else {
-          next(error('Permission Denied'));
-        }
-      })
-    } else {
-      next(error('instance not found'));
-    }
-  }
-
-  //#region OWNERS & READERS
+  //endregion
+  //region REMOTE HOOKS: OWNERS & READERS
   Catalog.beforeRemote('prototype.__link__owners', function (ctx, cat, next) {
     hasWriteAccess(ctx, cat, next, function (ctx, cat, next, loginId) {
       var uid = ctx.args.fk;
@@ -173,8 +176,8 @@ module.exports = function (Catalog) {
     });
   });
 
-
-  //#region ENTRIES
+  //endregion
+  //region REMOTE HOOKS: ENTRIES
 
   Catalog.beforeRemote('prototype.__create__entries', function (ctx, inst, next) {
     hasWriteAccess(ctx, inst, next, onEntryUpsert);
@@ -200,5 +203,7 @@ module.exports = function (Catalog) {
       next(error('instance not found'));
     }
   }
+
+  //endregion
 
 };

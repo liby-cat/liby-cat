@@ -1,12 +1,6 @@
 'use strict';
 var extend = require('extend');
-
-function error(msg) {
-  var e = new Error();
-  e.status = 422;
-  e.message = msg;
-  return e;
-}
+var error = require('../error');
 
 module.exports = function (Org) {
   Org.validatesUniquenessOf('orgIdx');

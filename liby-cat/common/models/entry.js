@@ -1,11 +1,6 @@
 'use strict';
 
-function error(msg) {
-  var error = new Error();
-  error.status = 422;
-  error.message = msg;
-  return error;
-}
+var error = require('../error');
 
 module.exports = function (Entry) {
   const neverUnsetFields = ['_id', 'orgIdx', 'catalogIdx', 'title', 'type'];

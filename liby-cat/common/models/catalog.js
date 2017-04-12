@@ -134,14 +134,14 @@ module.exports = function (Catalog) {
     }
   }
 
-  //#region OWNERS
+  //#region OWNERS & READERS
   Catalog.beforeRemote('prototype.__link__owners', function (ctx, cat, next) {
     hasWriteAccess(ctx, cat, next, function (ctx, cat, next, loginId) {
       var uid = ctx.args.fk;
       ctx.instance.readers.exists(uid, function (err, res) {
         if (!res) {
+          //also grant read access to owner
           ctx.instance.readers.add(uid);
-          console.log('also granting read access');
         }
       });
       next();
@@ -174,21 +174,17 @@ module.exports = function (Catalog) {
   });
 
 
-
   //#region ENTRIES
 
-  Catalog.beforeRemote('prototype.__create__entries', function validateNewEntry(ctx, inst, next) {
-    console.log('Catalog>beforeRemote>__create__entries:validateNewEntry');
-    validateEntryUpsert(ctx, inst, next);
+  Catalog.beforeRemote('prototype.__create__entries', function (ctx, inst, next) {
+    hasWriteAccess(ctx, inst, next, onEntryUpsert);
   });
 
-  Catalog.beforeRemote('prototype.__updateById__entries', function validateEntryUpdate(ctx, inst, next) {
-    console.log('Catalog>beforeRemote>__updateById__entries:validateEntryUpdate');
-    validateEntryUpsert(ctx, inst, next);
+  Catalog.beforeRemote('prototype.__updateById__entries', function (ctx, inst, next) {
+    hasWriteAccess(ctx, inst, next, onEntryUpsert);
   });
 
-  function validateEntryUpsert(ctx, unused, next) {
-    console.log('Catalog>beforeRemote>__updateById__entries:validateEntryUpdate');
+  function onEntryUpsert(ctx, unused, next, loginId) {
     if (ctx.instance) {
       var cat = ctx.instance;
       var entryData = ctx.args.data;
@@ -196,24 +192,12 @@ module.exports = function (Catalog) {
         next(error('No data provided or title empty.'));
         return;
       }
-      const token = ctx.args && ctx.args.options && ctx.args.options.accessToken;
-      const userId = token && token.userId;
-      cat.owners.exists(userId, function (err, res) {
-        if (err) {
-          next(err)
-        }
-        else if (res) {
-          console.log('ADD catalog entry:' + cat.orgIdx + '/' + cat.catalogIdx);
-          entryData.orgIdx = cat.orgIdx;
-          entryData.catalogIdx = cat.catalogIdx;
-          next();
-        } else {
-          console.log('DENY User:' + userId + ' not an owner of catalog:' + catId + '.');
-          next(error('User is not permitted to add new entry in this catalog.'));
-        }
-      });
+      console.log('WRITE catalog entry to' + cat.orgIdx + '/' + cat.catalogIdx);
+      entryData.orgIdx = cat.orgIdx;
+      entryData.catalogIdx = cat.catalogIdx;
+      next();
     } else {
-      next(error('invalid catalog instance'));
+      next(error('instance not found'));
     }
   }
 

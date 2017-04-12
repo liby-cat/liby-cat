@@ -16,50 +16,50 @@ module.exports = function (Catalog) {
       currentUserId: base.accessToken && base.accessToken.userId
     });
   };
-  
+
   //#region HIDE UNSUPPORTED API ENDPOINTS
   Catalog.disableRemoteMethodByName('patchOrCreate');//PATH /catalog
   Catalog.disableRemoteMethodByName('replaceOrCreate');//PUT /catalog
-  
+
   Catalog.disableRemoteMethodByName('prototype.__create__owners');
   Catalog.disableRemoteMethodByName('prototype.__delete__owners');
   Catalog.disableRemoteMethodByName('prototype.__findById__owners');//GET /catalog/{id}/owners/{fk}
   Catalog.disableRemoteMethodByName('prototype.__updateById__owners');
   Catalog.disableRemoteMethodByName('prototype.__destroyById__owners');
-  
+
   Catalog.disableRemoteMethodByName('prototype.__create__readers');
   Catalog.disableRemoteMethodByName('prototype.__delete__readers');
   Catalog.disableRemoteMethodByName('prototype.__findById__readers');
   Catalog.disableRemoteMethodByName('prototype.__updateById__readers');
   Catalog.disableRemoteMethodByName('prototype.__destroyById__readers');
-  
+
   Catalog.disableRemoteMethodByName('prototype.__delete__entries');//DELETE /catalog/{id}/entries
-  
+
   // hide endpoints that are semantically wrong
   Catalog.disableRemoteMethodByName('prototype.__count__owners', false);//GET /catalog/{id}/owners/count
   Catalog.disableRemoteMethodByName('prototype.__count__readers', false);//GET /catalog/{id}/readers/count
-  
+
   // temporarily hide  buggy
   Catalog.disableRemoteMethodByName('prototype.__exists__owners', false);//HEAD /catalog/{id}/owners/rel/{fk}
   Catalog.disableRemoteMethodByName('prototype.__exists__readers', false);//HEAD /catalog/{id}/readers/rel/{fk}
-  
-  
+
+
   //#region INSTANCE METHODS
 
-  Catalog.prototype.userCanRead = function userCanRead(userId) {
+  Catalog.prototype.userCanRead = function userCanRead(uid) {
     console.log(this);
-    return this.ownerIds && this.ownerIds[userId] === 1;
+    return this.ownerIds && this.ownerIds[uid] === 1;
   };
 
   //#region OBSERVERS
-  
+
   Catalog.observe('access', function enforceUserReadAccess(ctx, next) {
     console.log('Catalog>observe>access:enforceUserReadAccess');
     const token = ctx.options && ctx.options.accessToken;
-    const userId = token && token.userId;
+    const loginId = token && token.userId;
     ctx.query = ctx.query ? ctx.query : {};
     ctx.query.where = ctx.query.where ? ctx.query.where : {};
-    ctx.query.where.readerIds = userId;
+    ctx.query.where.readerIds = loginId;
     next();
   });
 
@@ -76,9 +76,9 @@ module.exports = function (Catalog) {
       var cat = ctx.args.data;
       var orgId = cat.orgId;
       const token = ctx.args && ctx.args.options && ctx.args.options.accessToken;
-      const userId = token && token.userId;
+      const loginId = token && token.userId;
       const Org = Catalog.app.models.Org;
-      Org.find({where:{id: orgId, adminIds: userId}}, function (err, orgs) {
+      Org.find({where: {id: orgId, adminIds: loginId}}, function (err, orgs) {
         if (err) {
           next(err);
         }
@@ -92,11 +92,11 @@ module.exports = function (Catalog) {
                 next(err);
               }
               if (cats == null || cats === null || cats.length === 0) {
-                cat.ownerIds = [userId];
-                cat.readerIds = [userId];
+                cat.ownerIds = [loginId];
+                cat.readerIds = [loginId];
                 next();
               } else {
-                next(error('Catalog with same catalogIdx withing this org already exists'));
+                next(error('Catalog with same catalogIdx within this org already exists'));
               }
             });
         } else {
@@ -109,31 +109,65 @@ module.exports = function (Catalog) {
     }
   });
 
-  //#region OWNERS
-  Catalog.beforeRemote('prototype.__link__owners', function (ctx, cat, next) {
-    const token = ctx.args.options && ctx.args.options.accessToken;
-    const userId = token && token.userId;
-    if (ctx.instance && ctx.args && ctx.args.fk) {
-      var newOwnerId = ctx.args.fk;
-      ctx.instance.owners.exists(userId, function (err, canWrite) {
+  function hasWriteAccess(ctx, cat, next, applyFn) {
+    const token = ctx.args && ctx.args.options && ctx.args.options.accessToken;
+    const loginId = token && token.userId;
+    if (ctx.instance) {
+      ctx.instance.owners.exists(loginId, function (err, isOwner) {
         if (err) {
           next(err);
-        } else if (canWrite) {
-          ctx.instance.readers.exists(newOwnerId, function (err, res) {
-            if(!res){
-              ctx.instance.readers.add(newOwnerId);
-              console.log('also granting read access');
-            }
-          });
-          next();
+        }
+        else if (isOwner) {
+          applyFn(ctx, cat, next, loginId);
         } else {
           next(error('Permission Denied'));
         }
-      });
+      })
     } else {
-      next(error('invalid arguments'));
+      next(error('instance not found'));
     }
+  }
+
+  //#region OWNERS
+  Catalog.beforeRemote('prototype.__link__owners', function (ctx, cat, next) {
+    hasWriteAccess(ctx, cat, next, function (ctx, cat, next, loginId) {
+      var uid = ctx.args.fk;
+      ctx.instance.readers.exists(uid, function (err, res) {
+        if (!res) {
+          ctx.instance.readers.add(uid);
+          console.log('also granting read access');
+        }
+      });
+      next();
+    });
   });
+
+  Catalog.beforeRemote('prototype.__unlink__owners', function (ctx, cat, next) {
+    hasWriteAccess(ctx, cat, next, function (ctx, cat, next, loginId) {
+      next();
+    });
+  });
+
+  Catalog.beforeRemote('prototype.__link__readers', function (ctx, cat, next) {
+    hasWriteAccess(ctx, cat, next, function (ctx, cat, next, loginId) {
+      next();
+    });
+  });
+
+  Catalog.beforeRemote('prototype.__unlink__readers', function (ctx, cat, next) {
+    hasWriteAccess(ctx, cat, next, function (ctx, cat, next, loginId) {
+      var uid = ctx.args.fk;
+      ctx.instance.owners.exists(uid, function (err, res) {
+        if (res) {
+          next(error('Cannot remove read access from an owner'))
+        } else {
+          next();
+        }
+      });
+    });
+  });
+
+
 
   //#region ENTRIES
 
@@ -152,7 +186,7 @@ module.exports = function (Catalog) {
     if (ctx.instance) {
       var cat = ctx.instance;
       var entryData = ctx.args.data;
-      if(entryData==={} || !entryData.title){
+      if (entryData === {} || !entryData.title) {
         next(error('No data provided or title empty.'));
         return;
       }
@@ -168,7 +202,7 @@ module.exports = function (Catalog) {
           entryData.catalogIdx = cat.catalogIdx;
           next();
         } else {
-          console.log('DENY User:'+userId+' not an owner of catalog:'+ catId+'.');
+          console.log('DENY User:' + userId + ' not an owner of catalog:' + catId + '.');
           next(error('User is not permitted to add new entry in this catalog.'));
         }
       });

@@ -36,12 +36,12 @@ module.exports = function (Catalog) {
   Catalog.disableRemoteMethodByName('prototype.__delete__entries');//DELETE /catalog/{id}/entries
 
   // hide endpoints that are semantically wrong
-  Catalog.disableRemoteMethodByName('prototype.__count__owners', false);//GET /catalog/{id}/owners/count
-  Catalog.disableRemoteMethodByName('prototype.__count__readers', false);//GET /catalog/{id}/readers/count
+  Catalog.disableRemoteMethodByName('prototype.__count__owners');//GET /catalog/{id}/owners/count
+  Catalog.disableRemoteMethodByName('prototype.__count__readers');//GET /catalog/{id}/readers/count
 
   // temporarily hide  buggy
-  Catalog.disableRemoteMethodByName('prototype.__exists__owners', false);//HEAD /catalog/{id}/owners/rel/{fk}
-  Catalog.disableRemoteMethodByName('prototype.__exists__readers', false);//HEAD /catalog/{id}/readers/rel/{fk}
+  Catalog.disableRemoteMethodByName('prototype.__exists__owners');//HEAD /catalog/{id}/owners/rel/{fk}
+  Catalog.disableRemoteMethodByName('prototype.__exists__readers');//HEAD /catalog/{id}/readers/rel/{fk}
 
 
   //endregion

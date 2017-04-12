@@ -1,6 +1,6 @@
 'use strict';
 var extend = require('extend');
-var error = require('../error');
+var error = require('../util/error');
 
 module.exports = function (Catalog) {
   Catalog.createOptionsFromRemotingContext = function (ctx) {
@@ -83,11 +83,11 @@ module.exports = function (Catalog) {
         else if (isOwner) {
           applyFn(ctx, cat, next, loginId);
         } else {
-          next(error('Permission Denied'));
+          next(error(403, 'Permission Denied'));
         }
       })
     } else {
-      next(error('instance not found'));
+      next(error(404, 'instance not found'));
     }
   }
 
@@ -121,7 +121,7 @@ module.exports = function (Catalog) {
               }
             });
         } else {
-          next(error('org not found/user not permitted'))
+          next(error(404, 'org not found/user not permitted'))
         }
       });
     } else {
@@ -194,7 +194,7 @@ module.exports = function (Catalog) {
       entryData.catalogIdx = cat.catalogIdx;
       next();
     } else {
-      next(error('instance not found'));
+      next(error(404, 'instance not found'));
     }
   }
 

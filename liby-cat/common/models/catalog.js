@@ -20,6 +20,12 @@ module.exports = function (Catalog) {
   //#region HIDE UNSUPPORTED API ENDPOINTS
   Catalog.disableRemoteMethodByName('patchOrCreate');//PATH /catalog
   Catalog.disableRemoteMethodByName('replaceOrCreate');//PUT /catalog
+  Catalog.disableRemoteMethodByName('deleteById');//DELETE /catalog{id}
+  Catalog.disableRemoteMethodByName('replaceById');//PUT /catalog/{id}, POST /catalog/{id}/replace
+  Catalog.disableRemoteMethodByName('updateAll');//POST /catalog/update
+  Catalog.disableRemoteMethodByName('upsertWithWhere');//POST /catalog/upsertWithWhere
+  Catalog.disableRemoteMethodByName('prototype.patchAttributes');//PATCH
+  Catalog.disableRemoteMethodByName('findOne');//GET /catalog/findOne
 
   Catalog.disableRemoteMethodByName('prototype.__create__owners');
   Catalog.disableRemoteMethodByName('prototype.__delete__owners');

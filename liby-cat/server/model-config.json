@@ -10,7 +10,8 @@
       "loopback/common/mixins",
       "loopback/server/mixins",
       "../common/mixins",
-      "./mixins"
+      "./mixins",
+      "../node_modules/loopback-ds-computed-mixin/lib"
     ]
   },
   "User": {
@@ -42,7 +43,14 @@
   },
   "catalog": {
     "dataSource": "mongol",
-    "public": true
+    "public": true,
+    "mixins": {
+      "Computed": {
+        "properties": {
+          "isOwned": "computeIsOwned"
+        }
+      }
+    }
   },
   "user": {
     "dataSource": "mongol",

@@ -52,8 +52,28 @@ module.exports = function (Catalog) {
     return this.ownerIds && this.ownerIds[uid] === 1;
   };
 
+  Catalog.computeIsOwned = function computeIsOwned(cat) {
+    return cat.isOwn;
+  };
+
   //endregion
   //region OBSERVERS
+
+  Catalog.observe('loaded', function onLoad(ctx, next) {
+    const token = ctx.options && ctx.options.accessToken;
+    const loginId = token && token.userId;
+    if(loginId && ctx.instance){
+      ctx.instance.isOwn = ctx.instance.ownerIds.includes(loginId);
+    } else if(loginId && ctx.data){
+      ctx.data.isOwn = false;
+      for (var i in ctx.data.ownerIds){
+        ctx.data.isOwn = ctx.data.isOwn || ''+loginId===''+ctx.data.ownerIds[i];
+      }
+      ctx.data.loginId = loginId;
+    }
+    console.log(ctx.data);
+    next();
+  });
 
   Catalog.observe('access', function enforceUserReadAccess(ctx, next) {
     console.log('Catalog>observe>access:enforceUserReadAccess');

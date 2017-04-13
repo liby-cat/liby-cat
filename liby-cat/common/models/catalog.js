@@ -52,10 +52,6 @@ module.exports = function (Catalog) {
     return this.ownerIds && this.ownerIds[uid] === 1;
   };
 
-  Catalog.computeIsOwned = function computeIsOwned(cat) {
-    return cat.isOwn;
-  };
-
   //endregion
   //region OBSERVERS
 

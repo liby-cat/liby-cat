@@ -9,6 +9,23 @@
   },
   "rules": {
     "no-const-assign": 2,
-    "max-len": ["error", 120, 2]
+    "max-len": [
+      "error",
+      {
+        "code": 100,
+        "tabWidth": 2,
+        "ignoreComments":true
+      }
+    ],
+    "comma-dangle": [
+      "error",
+      {
+        "arrays": "never",
+        "objects": "never",
+        "imports": "never",
+        "exports": "never",
+        "functions": "ignore"
+      }
+    ]
   }
 }

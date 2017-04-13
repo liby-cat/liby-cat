@@ -2,10 +2,10 @@
 var extend = require('extend');
 var error = require('../util/error');
 
-module.exports = function (Org) {
+module.exports = function(Org) {
   Org.validatesUniquenessOf('orgIdx');
 
-  Org.createOptionsFromRemotingContext = function (ctx) {
+  Org.createOptionsFromRemotingContext = function(ctx) {
     //console.log('Org.createOptionsFromRemotingContext')
     var base = this.base.createOptionsFromRemotingContext(ctx);
     return extend(base, {
@@ -31,10 +31,9 @@ module.exports = function (Org) {
   Org.disableRemoteMethodByName('prototype.__destroyById__admins');
 
   // hide endpoints that are semantically wrong
-  Org.disableRemoteMethodByName('prototype.__count__admins', false);//GET /orgs/{id}/admins/count
+  Org.disableRemoteMethodByName('prototype.__count__admins');//GET /orgs/{id}/admins/count
   // temporarily hide  buggy
-  Org.disableRemoteMethodByName('prototype.__exists__admins', false);//HEAD /orgs/{id}/admins/rel/{fk}
-
+  Org.disableRemoteMethodByName('prototype.__exists__admins');//HEAD /orgs/{id}/admins/rel/{fk}
 
   //#region OBSERVERS
 
@@ -52,7 +51,7 @@ module.exports = function (Org) {
   });
 
   //#region REMOTE HOOKS
-  Org.beforeRemote('**', function (ctx, unused, next) {
+  Org.beforeRemote('**', function(ctx, unused, next) {
     console.log('in Org method:' + ctx.methodString);
     next();
   });
@@ -70,5 +69,4 @@ module.exports = function (Org) {
       next();
     }
   });
-
 };

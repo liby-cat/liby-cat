@@ -1,0 +1,1600 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "liby.cat"
+  },
+  "basePath": "/api",
+  "paths": {
+    "/orgs/{id}/admins/rel/{fk}": {
+      "put": {
+        "tags": [
+          "org"
+        ],
+        "summary": "Add a related item by id for admins.",
+        "operationId": "org.prototype.__link__admins",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "org id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "fk",
+            "in": "path",
+            "description": "Foreign key for admins",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "org"
+        ],
+        "summary": "Remove the admins relation to an item by id.",
+        "operationId": "org.prototype.__unlink__admins",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "org id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "fk",
+            "in": "path",
+            "description": "Foreign key for admins",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Request was successful"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/orgs/{id}/admins": {
+      "get": {
+        "tags": [
+          "org"
+        ],
+        "summary": "Queries admins of org.",
+        "operationId": "org.prototype.__get__admins",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "org id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/user"
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/orgs": {
+      "post": {
+        "tags": [
+          "org"
+        ],
+        "summary": "Create a new instance of the model and persist it into the data source.",
+        "operationId": "org.create",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Model instance data",
+            "required": false,
+            "schema": {
+              "description": "Model instance data",
+              "$ref": "#/definitions/org"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/org"
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "get": {
+        "tags": [
+          "org"
+        ],
+        "summary": "Find all instances of the model matched by filter from the data source.",
+        "operationId": "org.find",
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string ({\"something\":\"value\"})",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/org"
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/orgs/{id}/exists": {
+      "get": {
+        "tags": [
+          "org"
+        ],
+        "summary": "Check whether a model instance exists in the data source.",
+        "operationId": "org.exists__get_orgs_{id}_exists",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Model id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "exists": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/orgs/{id}": {
+      "head": {
+        "tags": [
+          "org"
+        ],
+        "summary": "Check whether a model instance exists in the data source.",
+        "operationId": "org.exists__head_orgs_{id}",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Model id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "exists": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "get": {
+        "tags": [
+          "org"
+        ],
+        "summary": "Find a model instance by {{id}} from the data source.",
+        "operationId": "org.findById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Model id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter defining fields and include - must be a JSON-encoded string ({\"something\":\"value\"})",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/org"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/orgs/count": {
+      "get": {
+        "tags": [
+          "org"
+        ],
+        "summary": "Count instances of the model matched by where from the data source.",
+        "operationId": "org.count",
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "description": "Criteria to match model instances",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "number",
+                  "format": "double"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/orgs/change-stream": {
+      "post": {
+        "tags": [
+          "org"
+        ],
+        "summary": "Create a change stream.",
+        "operationId": "org.createChangeStream__post_orgs_change-stream",
+        "parameters": [
+          {
+            "name": "options",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "file"
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "get": {
+        "tags": [
+          "org"
+        ],
+        "summary": "Create a change stream.",
+        "operationId": "org.createChangeStream__get_orgs_change-stream",
+        "parameters": [
+          {
+            "name": "options",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "file"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/catalog/{id}/org": {
+      "get": {
+        "tags": [
+          "catalog"
+        ],
+        "summary": "Fetches belongsTo relation org.",
+        "operationId": "catalog.prototype.__get__org",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "catalog id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "refresh",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/org"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/catalog/{id}/owners/rel/{fk}": {
+      "put": {
+        "tags": [
+          "catalog"
+        ],
+        "summary": "Add a related item by id for owners.",
+        "operationId": "catalog.prototype.__link__owners",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "catalog id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "fk",
+            "in": "path",
+            "description": "Foreign key for owners",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "catalog"
+        ],
+        "summary": "Remove the owners relation to an item by id.",
+        "operationId": "catalog.prototype.__unlink__owners",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "catalog id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "fk",
+            "in": "path",
+            "description": "Foreign key for owners",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Request was successful"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/catalog/{id}/readers/rel/{fk}": {
+      "put": {
+        "tags": [
+          "catalog"
+        ],
+        "summary": "Add a related item by id for readers.",
+        "operationId": "catalog.prototype.__link__readers",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "catalog id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "fk",
+            "in": "path",
+            "description": "Foreign key for readers",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "catalog"
+        ],
+        "summary": "Remove the readers relation to an item by id.",
+        "operationId": "catalog.prototype.__unlink__readers",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "catalog id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "fk",
+            "in": "path",
+            "description": "Foreign key for readers",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Request was successful"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/catalog/{id}/entries/{fk}": {
+      "get": {
+        "tags": [
+          "catalog"
+        ],
+        "summary": "Find a related item by id for entries.",
+        "operationId": "catalog.prototype.__findById__entries",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "catalog id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "fk",
+            "in": "path",
+            "description": "Foreign key for entries",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/entry"
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "catalog"
+        ],
+        "summary": "Delete a related item by id for entries.",
+        "operationId": "catalog.prototype.__destroyById__entries",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "catalog id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "fk",
+            "in": "path",
+            "description": "Foreign key for entries",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Request was successful"
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "catalog"
+        ],
+        "summary": "Update a related item by id for entries.",
+        "operationId": "catalog.prototype.__updateById__entries",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "catalog id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "fk",
+            "in": "path",
+            "description": "Foreign key for entries",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/entry"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/entry"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/catalog/{id}/owners": {
+      "get": {
+        "tags": [
+          "catalog"
+        ],
+        "summary": "Queries owners of catalog.",
+        "operationId": "catalog.prototype.__get__owners",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "catalog id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/user"
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/catalog/{id}/readers": {
+      "get": {
+        "tags": [
+          "catalog"
+        ],
+        "summary": "Queries readers of catalog.",
+        "operationId": "catalog.prototype.__get__readers",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "catalog id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/user"
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/catalog/{id}/entries": {
+      "get": {
+        "tags": [
+          "catalog"
+        ],
+        "summary": "Queries entries of catalog.",
+        "operationId": "catalog.prototype.__get__entries",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "catalog id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/entry"
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "catalog"
+        ],
+        "summary": "Creates a new instance in entries of this model.",
+        "operationId": "catalog.prototype.__create__entries",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "catalog id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/entry"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/entry"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/catalog/{id}/entries/count": {
+      "get": {
+        "tags": [
+          "catalog"
+        ],
+        "summary": "Counts entries of catalog.",
+        "operationId": "catalog.prototype.__count__entries",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "catalog id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "where",
+            "in": "query",
+            "description": "Criteria to match model instances",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "number",
+                  "format": "double"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/catalog": {
+      "post": {
+        "tags": [
+          "catalog"
+        ],
+        "summary": "Create a new instance of the model and persist it into the data source.",
+        "operationId": "catalog.create",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Model instance data",
+            "required": false,
+            "schema": {
+              "description": "Model instance data",
+              "$ref": "#/definitions/catalog"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/catalog"
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "get": {
+        "tags": [
+          "catalog"
+        ],
+        "summary": "Find all instances of the model matched by filter from the data source.",
+        "operationId": "catalog.find",
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string ({\"something\":\"value\"})",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/catalog"
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/catalog/{id}/exists": {
+      "get": {
+        "tags": [
+          "catalog"
+        ],
+        "summary": "Check whether a model instance exists in the data source.",
+        "operationId": "catalog.exists__get_catalog_{id}_exists",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Model id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "exists": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/catalog/{id}": {
+      "head": {
+        "tags": [
+          "catalog"
+        ],
+        "summary": "Check whether a model instance exists in the data source.",
+        "operationId": "catalog.exists__head_catalog_{id}",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Model id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "exists": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "get": {
+        "tags": [
+          "catalog"
+        ],
+        "summary": "Find a model instance by {{id}} from the data source.",
+        "operationId": "catalog.findById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Model id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter defining fields and include - must be a JSON-encoded string ({\"something\":\"value\"})",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/catalog"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/catalog/count": {
+      "get": {
+        "tags": [
+          "catalog"
+        ],
+        "summary": "Count instances of the model matched by where from the data source.",
+        "operationId": "catalog.count",
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "description": "Criteria to match model instances",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "number",
+                  "format": "double"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/catalog/change-stream": {
+      "post": {
+        "tags": [
+          "catalog"
+        ],
+        "summary": "Create a change stream.",
+        "operationId": "catalog.createChangeStream__post_catalog_change-stream",
+        "parameters": [
+          {
+            "name": "options",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "file"
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "get": {
+        "tags": [
+          "catalog"
+        ],
+        "summary": "Create a change stream.",
+        "operationId": "catalog.createChangeStream__get_catalog_change-stream",
+        "parameters": [
+          {
+            "name": "options",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "file"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/users/{id}/accessTokens/{fk}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Find a related item by id for accessTokens.",
+        "operationId": "user.prototype.__findById__accessTokens",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "fk",
+            "in": "path",
+            "description": "Foreign key for accessTokens",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/AccessToken"
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Delete a related item by id for accessTokens.",
+        "operationId": "user.prototype.__destroyById__accessTokens",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "fk",
+            "in": "path",
+            "description": "Foreign key for accessTokens",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Request was successful"
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Update a related item by id for accessTokens.",
+        "operationId": "user.prototype.__updateById__accessTokens",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "fk",
+            "in": "path",
+            "description": "Foreign key for accessTokens",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/AccessToken"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/AccessToken"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/users/{id}/accessTokens": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Queries accessTokens of user.",
+        "operationId": "user.prototype.__get__accessTokens",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AccessToken"
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Creates a new instance in accessTokens of this model.",
+        "operationId": "user.prototype.__create__accessTokens",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/AccessToken"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/AccessToken"
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Deletes all accessTokens of this model.",
+        "operationId": "user.prototype.__delete__accessTokens",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Request was successful"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/users/{id}/accessTokens/count": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Counts accessTokens of user.",
+        "operationId": "user.prototype.__count__accessTokens",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "string",
+            "format": "JSON"
+          },
+          {
+            "name": "where",
+            "in": "query",
+            "description": "Criteria to match model instances",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "number",
+                  "format": "double"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/users": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create a new instance of the model and persist it into the data source.",
+        "operationId": "user.create",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Model instance data",
+            "required": false,
+            "schema": {
+              "description": "Model instance data",
+              "$ref": "#/definitions/user"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Login a user with username/email and password.",
+        "operationId": "user.login",
+        "parameters": [
+          {
+            "name": "credentials",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "description": "Related objects to include in the response. See the description of return value for more details.",
+            "required": false,
+            "type": "string",
+            "format": "JSON"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request was successful",
+            "schema": {
+              "description": "The response body contains properties of the AccessToken created on login.\nDepending on the value of `include` parameter, the body may contain additional properties:\n\n  - `user` - `U+007BUserU+007D` - Data of the currently logged in user. (`include=user`)\n\n",
+              "type": "object"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/users/logout": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logout a user with access token.",
+        "operationId": "user.logout",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": "Request was successful"
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "org"
+    },
+    {
+      "name": "catalog"
+    },
+    {
+      "name": "user"
+    }
+  ],
+  "consumes": [
+    "application/json",
+    "application/x-www-form-urlencoded",
+    "application/xml",
+    "text/xml"
+  ],
+  "produces": [
+    "application/json",
+    "application/xml",
+    "text/xml",
+    "application/javascript",
+    "text/javascript"
+  ],
+  "definitions": {
+    "x-any": {
+      "properties": {}
+    },
+    "user": {
+      "properties": {
+        "realm": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "emailVerified": {
+          "type": "boolean"
+        },
+        "id": {
+          "$ref": "#/definitions/ObjectID"
+        }
+      },
+      "required": [
+        "email"
+      ],
+      "additionalProperties": false
+    },
+    "org": {
+      "properties": {
+        "orgIdx": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "id": {
+          "$ref": "#/definitions/ObjectID"
+        },
+        "adminIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ObjectID"
+          }
+        }
+      },
+      "required": [
+        "orgIdx",
+        "title"
+      ],
+      "additionalProperties": false
+    },
+    "entry": {
+      "properties": {
+        "orgIdx": {
+          "type": "string"
+        },
+        "catalogIdx": {
+          "type": "string"
+        },
+        "type": {
+          "default": "book",
+          "type": "string"
+        },
+        "title": {
+          "default": "Title!",
+          "type": "string"
+        },
+        "entryNum": {
+          "type": "number",
+          "format": "double"
+        },
+        "callNum": {
+          "type": "string"
+        },
+        "isbn": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        },
+        "publisher": {
+          "type": "string"
+        },
+        "editor": {
+          "type": "string"
+        },
+        "translator": {
+          "type": "string"
+        },
+        "id": {
+          "$ref": "#/definitions/ObjectID"
+        },
+        "catalogId": {
+          "$ref": "#/definitions/ObjectID"
+        }
+      },
+      "required": [
+        "orgIdx",
+        "catalogIdx",
+        "type",
+        "title"
+      ],
+      "additionalProperties": false
+    },
+    "catalog": {
+      "properties": {
+        "orgIdx": {
+          "type": "string"
+        },
+        "catalogIdx": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "default": "books",
+          "type": "string"
+        },
+        "id": {
+          "$ref": "#/definitions/ObjectID"
+        },
+        "orgId": {
+          "$ref": "#/definitions/ObjectID"
+        },
+        "ownerIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ObjectID"
+          }
+        },
+        "readerIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ObjectID"
+          }
+        }
+      },
+      "required": [
+        "orgIdx",
+        "catalogIdx",
+        "title",
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "AccessToken": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "ttl": {
+          "default": 1209600,
+          "description": "time to live in seconds (2 weeks by default)",
+          "type": "number",
+          "format": "double"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "userId": {
+          "$ref": "#/definitions/ObjectID"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "ObjectID": {
+      "type": "string",
+      "pattern": "^[a-fA-F\\d]{24}$"
+    }
+  }
+}

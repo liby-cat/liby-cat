@@ -59,11 +59,11 @@ module.exports = function (Catalog) {
     const token = ctx.options && ctx.options.accessToken;
     const loginId = token && token.userId;
     if(loginId && ctx.instance){
-      ctx.instance.isOwn = ctx.instance.ownerIds.includes(loginId);
+      ctx.instance.isOwned = ctx.instance.ownerIds.includes(loginId);
     } else if(loginId && ctx.data){
-      ctx.data.isOwn = false;
+      ctx.data.isOwned = false;
       for (var i in ctx.data.ownerIds){
-        ctx.data.isOwn = ctx.data.isOwn || ''+loginId===''+ctx.data.ownerIds[i];
+        ctx.data.isOwned = ctx.data.isOwned || ''+loginId===''+ctx.data.ownerIds[i];
       }
       ctx.data.loginId = loginId;
     }

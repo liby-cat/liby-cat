@@ -1,13 +1,14 @@
 'use strict';
 var extend = require('extend');
 var error = require('../util/error');
+var arrayToMap = require('../util/array-to-map');
 
 module.exports = function(Catalog) {
   Catalog.createOptionsFromRemotingContext = function(ctx) {
     //console.log('Catalog.createOptionsFromRemotingContext')
     var base = this.base.createOptionsFromRemotingContext(ctx);
     return extend(base, {
-      currentUserId: base.accessToken && base.accessToken.userId,
+      currentUserId: base.accessToken && base.accessToken.userId
     });
   };
 
@@ -57,17 +58,28 @@ module.exports = function(Catalog) {
   Catalog.observe('loaded', function onLoad(ctx, next) {
     const token = ctx.options && ctx.options.accessToken;
     const loginId = token && token.userId;
-    if (loginId && ctx.instance) {
-      ctx.instance.isOwned = ctx.instance.ownerIds.includes(loginId);
-    } else if (loginId && ctx.data) {
-      ctx.data.isOwned = false;
-      for (var i in ctx.data.ownerIds) {
-        ctx.data.isOwned = ctx.data.isOwned || '' + loginId === '' + ctx.data.ownerIds[i];
+    if (ctx.data) {
+      let cat = ctx.data;
+      cat._meta = {};
+      let meta = cat._meta;
+      if (loginId) {
+        meta.isOwned = false;
+        for (let i in cat.ownerIds) {
+          meta.isOwned = meta.isOwned || '' + loginId === '' + cat.ownerIds[i];
+        }
+        meta.loginId = loginId;
       }
-      ctx.data.loginId = loginId;
+      const user = Catalog.app.models.user;
+      user.find({
+        where: {id: {inq: cat.readerIds}},
+        fields: {id: true, username: true}
+      }, function(err, obj) {
+        if (obj) {
+          meta.userIdMap = arrayToMap(obj, 'id');
+        }
+        next();
+      });
     }
-    console.log(ctx.data);
-    next();
   });
 
   Catalog.observe('access', function enforceUserReadAccess(ctx, next) {

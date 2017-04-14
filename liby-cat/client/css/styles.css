@@ -4,3 +4,12 @@ body {
 .glyphicon-remove:hover {
   cursor:pointer
 }
+
+.login-form md-card {
+  padding: 0 !important;
+}
+
+.login-form md-card-title {
+  background-color: blue;
+
+}

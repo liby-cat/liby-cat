@@ -4,16 +4,22 @@
 angular
   .module('app', [
     'lbServices',
-    'ui.router'
+    'ui.router',
+    'ngMaterial','ngAnimate','ngAria'
   ])
-  .config(['$stateProvider', '$urlRouterProvider', function($stateProvider,
-                                                            $urlRouterProvider) {
+  .config(['$stateProvider', '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('todo', {
         url: '',
-        templateUrl: 'views/todo.html',
-        controller: 'TodoController'
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
+      })
+      .state('login', {
+        url: '',
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
       });
     
-    $urlRouterProvider.otherwise('todo');
+    $urlRouterProvider.otherwise('login');
   }]);

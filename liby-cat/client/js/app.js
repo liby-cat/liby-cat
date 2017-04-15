@@ -10,15 +10,15 @@ angular
   .config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
     $stateProvider
-      .state('todo', {
-        url: '',
-        templateUrl: 'views/login.html',
-        controller: 'LoginCtrl'
-      })
       .state('login', {
         url: '',
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
+      })
+      .state('todo', {
+        url: '',
+        templateUrl: 'views/todo.html',
+        controller: 'TodoCtrl'
       });
     
     $urlRouterProvider.otherwise('login');

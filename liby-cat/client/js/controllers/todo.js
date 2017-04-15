@@ -4,7 +4,7 @@
 
 angular
   .module('app')
-  .controller('TodoController', [
+  .controller('TodoCtrl', [
     '$scope', '$state', 'Todo',
     function($scope, $state, Todo) {
     $scope.todos = [];

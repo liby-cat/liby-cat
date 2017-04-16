@@ -11,12 +11,12 @@ angular
     function($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('login', {
-        url: '',
+        url: '/login',
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
       })
       .state('todo', {
-        url: '',
+        url: '/todo',
         templateUrl: 'views/todo.html',
         controller: 'TodoCtrl'
       });

@@ -1,7 +1,7 @@
 angular.module('app')
   .controller('LoginCtrl', [
-    '$scope', '$state', 'User', '$mdToast',
-    function ($scope, $state, User, $mdToast) {
+    '$scope', '$rootScope','$state', 'User', '$mdToast',
+    function ($scope, $rootScope, $state, User, $mdToast) {
       $scope.vm = {
         formData: {},
         submit: function () {
@@ -15,10 +15,13 @@ angular.module('app')
           User.login(cred,
             function success(value, res) {
               let username = value.user.username;
-              $mdToast.showSimple('Successfully signed in: '+username);
+              $mdToast.showSimple('Successfully signed in: ' + username);
+              $rootScope.user = value.user;
+              $state.go('dashboard');
             },
             function error(er) {
               $mdToast.showSimple('Invalid credentials');
+              User.logout();
             });
         }
       };

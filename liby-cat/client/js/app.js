@@ -23,6 +23,11 @@ angular
           templateUrl: 'views/login.html',
           controller: 'LoginCtrl'
         })
+        .state('dashboard', {
+          url: '/dashboard',
+          templateUrl: 'views/dashboard.html',
+          controller: 'DashboardCtrl'
+        })
         .state('todo', {
           url: '/todo',
           templateUrl: 'views/todo.html',

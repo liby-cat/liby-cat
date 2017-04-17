@@ -1,8 +1,9 @@
 body {
   overflow-y: hidden !important;
 }
+
 .glyphicon-remove:hover {
-  cursor:pointer
+  cursor: pointer
 }
 
 .login-form md-card {
@@ -17,7 +18,19 @@ body {
   /*text-transform: none;*/
 }
 
-.landing-div{
+.landing-div {
   text-align: center;
   background-image: url("../res/bg.jpeg");
+}
+
+.full-height {
+  height: 100%;
+}
+
+.front-page {
+  padding-bottom: 10%;
+}
+
+.front-page-center-row {
+
 }

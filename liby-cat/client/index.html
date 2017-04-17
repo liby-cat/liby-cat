@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, height=device-height">
   <title>Liby.cat</title>
   
   <!-- Angular Material -->
@@ -19,10 +19,8 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body ng-app="app" ng-cloak>
-<div class="container">
-  <div ui-view></div>
-</div>
+<body ng-app="app" ng-cloak layout="column">
+<div ui-view class="container full-height"></div>
 
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/angular/angular.js"></script>

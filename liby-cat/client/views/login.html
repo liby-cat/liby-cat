@@ -13,7 +13,8 @@
         <form name="Form">
           <md-input-container class="md-block">
             <label>Username or email</label>
-            <input type="text" name="login" ng-model="vm.formData.login" placeholder="login" required="" maxlength="64"/>
+            <input type="text" name="login" ng-model="vm.formData.login" placeholder="login" required=""
+                   maxlength="64"/>
             <div ng-messages="Form.login.$error" role="alert" multiple="">
               <div ng-message="required" class="my-message">Please enter your username or email.</div>
             </div>
@@ -25,7 +26,14 @@
               <div ng-message="required" class="my-message">Please enter your password.</div>
             </div>
           </md-input-container>
-          <md-button ng-click="vm.submit()" class="md-raised md-primary">&nbsp Sign in &nbsp</md-button>
+          <section layout="row" layout-align="space-between center">
+            <md-button ng-click="vm.submit()" class="md-raised md-primary">
+              <i class="fa fa-sign-in" aria-hidden="true"></i> Sign in
+            </md-button>
+            <md-button ng-click="vm.goHome()" class="push-right" ui-sref="frontPage">
+              <i class="fa fa-long-arrow-left" aria-hidden="true"></i> go back
+            </md-button>
+          </section>
         </form>
       </md-card-content>
     </md-card>

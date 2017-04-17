@@ -13,3 +13,8 @@ body {
   background-color: blue;
 
 }
+
+.landing-div{
+  text-align: center;
+  background-image: url("../res/bg.jpeg");
+}

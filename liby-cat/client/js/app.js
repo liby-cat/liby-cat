@@ -10,6 +10,11 @@ angular
   .config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
     $stateProvider
+      .state('landingPage', {
+        url: '',
+        templateUrl: 'views/landing-page.html',
+        controller: 'LandingPageCtrl'
+      })
       .state('login', {
         url: '/login',
         templateUrl: 'views/login.html',
@@ -21,5 +26,5 @@ angular
         controller: 'TodoCtrl'
       });
     
-    $urlRouterProvider.otherwise('login');
+    $urlRouterProvider.otherwise('landingPage');
   }]);

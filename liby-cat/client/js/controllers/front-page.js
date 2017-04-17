@@ -1,5 +1,5 @@
 angular.module('app')
-  .controller('LandingPageCtrl', [
+  .controller('FrontPageCtrl', [
     '$scope', '$state',
     function ($scope, $state) {
       $scope.goToLogin = function () {

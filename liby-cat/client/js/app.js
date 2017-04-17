@@ -13,10 +13,10 @@ angular
         .defaultFontSet( 'fa' );
       
       $stateProvider
-        .state('landingPage', {
+        .state('frontPage', {
           url: '',
-          templateUrl: 'views/landing-page.html',
-          controller: 'LandingPageCtrl'
+          templateUrl: 'views/front-page.html',
+          controller: 'FrontPageCtrl'
         })
         .state('login', {
           url: '/login',
@@ -30,5 +30,5 @@ angular
         });
       
       $urlRouterProvider
-        .otherwise('landingPage');
+        .otherwise('frontPage');
     }]);

@@ -15,7 +15,7 @@ angular.module('app')
           User.login(cred,
             function success(value, res) {
               let username = value.user.username;
-              toast($mdToast, 'Successfully signed in: '+username);
+              $mdToast.showSimple('Successfully signed in: '+username);
             },
             function error(er) {
               $mdToast.showSimple('Invalid credentials');

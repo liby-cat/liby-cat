@@ -11,7 +11,10 @@ body {
 
 .login-form md-card-title {
   background-color: blue;
+}
 
+.md-button {
+  /*text-transform: none;*/
 }
 
 .landing-div{

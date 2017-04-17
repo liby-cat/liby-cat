@@ -28,6 +28,11 @@ angular
           templateUrl: 'views/dashboard.html',
           controller: 'DashboardCtrl'
         })
+        .state('catalog', {
+          url: '/catalog/:id',
+          templateUrl: 'views/catalog.html',
+          controller: 'CatalogCtrl'
+        })
         .state('todo', {
           url: '/todo',
           templateUrl: 'views/todo.html',

@@ -1,7 +1,7 @@
 {
   "name": "liby-client",
   "homepage": "http://liby.cat",
-  "description": "Liby.cat web app client (AngularJS)",
+  "description": "liby-cat web app client (AngularJS)",
   "main": "",
   "authors": [
     "nafSadh"

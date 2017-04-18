@@ -1,7 +1,7 @@
 /**
  * Created by nafSadh on 13 Apr 2017.
  */
-angular
+var app = angular
   .module('app', [
     'lbServices',
     'ui.router',
@@ -42,7 +42,7 @@ angular
         })
         .state('wirefx', {
           url: '/wirefx',
-          templateUrl: 'views/liby-wireframe.html',
+          templateUrl: 'views/wireframe.html',
           controller: 'WireframeCtrl'
         });
       

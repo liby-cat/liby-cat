@@ -18,7 +18,7 @@ body {
   /*text-transform: none;*/
 }
 
-.no-text-transform{
+.btn-no-trans{
   text-transform: none!important;
 }
 

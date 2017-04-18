@@ -1,4 +1,4 @@
-<div>
+<div ng-if="loggedIn">
   <md-toolbar>
     <header layout="row" layout-align="space-between center">
       <section layout="row" layout-align="start" class="md-toolbar-tools">
@@ -10,8 +10,8 @@
         <h1>Liby.cat</h1>
       </section>
       <section layout="row" layout-align="end" class="md-toolbar-tools">
-        <md-button> {{userText}} </md-button>
-        <md-button> logout </md-button>
+        <md-button class="btn-no-trans"><md-icon>person</md-icon> {{user.username}} </md-button>
+        <md-button class="btn-no-trans"><i class="fa fa-sign-out" aria-hidden="true"></i>logout </md-button>
       </section>
     </header>
   </md-toolbar>
@@ -27,4 +27,7 @@
       <main ng-transclude></main>
     </md-content>
   </div>
+</div>
+<div ng-if="!loggedIn">
+  NOT LOGGED IN
 </div>

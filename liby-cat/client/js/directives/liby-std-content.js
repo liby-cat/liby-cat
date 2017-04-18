@@ -1,7 +1,10 @@
-app.directive("libyStdContent", function libyStdContent() {
+app.directive("libyStdContent", function libyStdContent(User) {
   return {
-    restrict: "E",
     transclude: true,
-    templateUrl: "../views/directives/liby-std-content.html"
+    templateUrl: "../views/directives/liby-std-content.html",
+    link: function link($scope, iElement, iAttrs, controller, transcludeFn) {
+        $scope.loggedIn = User.isAuthenticated();
+      $scope.user = User.getCachedCurrent();
+    }
   };
 });

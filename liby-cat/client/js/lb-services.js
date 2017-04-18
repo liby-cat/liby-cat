@@ -2974,8 +2974,8 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
       function save(storage, name, value) {
         try {
           var key = propsPrefix + name;
-          if (value == null) value = '';
-          storage[key] = JSON.stringify(value);
+          var val = val=== null ? value  : JSON.stringify(value);
+          storage[key] = val;
         } catch (err) {
           console.log('Cannot access local/session storage:', err);
         }

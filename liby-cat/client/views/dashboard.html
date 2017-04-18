@@ -3,20 +3,7 @@
     <section>
       <h2>Catalogs</h2>
       <div flex-xs="" flex-gt-xs="50" layout="column">
-        <md-card ng-repeat="cat in catalogs">
-          <md-card-title>
-            <md-card-title-text>
-              <span class="md-headline">{{ cat.title }}</span>
-              <span class="md-subhead">{{ cat.orgIdx}}/{{cat.catalogIdx}}</span>
-            </md-card-title-text>
-            <md-card-title-media>
-              <div class="md-media-sm card-media"></div>
-            </md-card-title-media>
-          </md-card-title>
-          <md-card-actions layout="row" layout-align="end center">
-            <md-button ui-sref="catalog({id: cat.id})">View</md-button>
-          </md-card-actions>
-        </md-card>
+        <liby-catalogs></liby-catalogs>
       </div>
     </section>
 </liby-std-content>

@@ -1,0 +1,30 @@
+<div ng-controller="WireframeCtrl">
+  <md-toolbar>
+    <header layout="row" layout-align="space-between center">
+      <section layout="row" layout-align="start" class="md-toolbar-tools">
+        <md-button>
+          <md-icon>menu</md-icon>
+        </md-button>
+      </section>
+      <section layout="row" layout-align="center center" class="md-toolbar-tools">
+        <h1>Liby.cat</h1>
+      </section>
+      <section layout="row" layout-align="end" class="md-toolbar-tools">
+        <md-button> user </md-button>
+        <md-button> logout </md-button>
+      </section>
+    </header>
+  </md-toolbar>
+  <div class="main-container" layout="row" flex>
+    <md-sidenav md-is-locked-open="true">
+      <md-list>
+        <md-list-item><md-button>Org</md-button></md-list-item>
+        <md-list-item><md-button>Catalogs</md-button></md-list-item>
+        <md-list-item><md-button>Catalogs are very wide</md-button></md-list-item>
+      </md-list>
+    </md-sidenav>
+    <md-content>
+      <main></main>
+    </md-content>
+  </div>
+</div>

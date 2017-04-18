@@ -39,6 +39,11 @@ angular
           url: '/todo',
           templateUrl: 'views/todo.html',
           controller: 'TodoCtrl'
+        })
+        .state('wirefx', {
+          url: '/wirefx',
+          templateUrl: 'views/liby-wireframe.html',
+          controller: 'WireframeCtrl'
         });
       
       $urlRouterProvider

@@ -61,9 +61,5 @@
   "entry": {
     "dataSource": "mongol",
     "public": false
-  },
-  "Todo": {
-    "dataSource": "db",
-    "public": true
   }
 }

@@ -15,7 +15,7 @@ var app = angular
       ;
       $stateProvider
         .state('frontPage', {
-          url: '',
+          url: '/',
           templateUrl: 'views/front-page.html',
           controller: 'FrontPageCtrl'
         })
@@ -51,5 +51,5 @@ var app = angular
         });
       
       $urlRouterProvider
-        .otherwise('frontPage');
+        .otherwise('/');
     }]);

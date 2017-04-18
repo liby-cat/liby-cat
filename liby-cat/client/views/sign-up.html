@@ -1,0 +1,54 @@
+<div>
+  <md-content ng-controller="SignUpCtrl" layout="row"
+              layout-align="space-around"
+              layout-padding="layout-padding"
+              ng-cloak="ng-cloak" class="login-form">
+    <md-card flex="flex" flex-gt-sm="50" flex-gt-md="33">
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <h2 flex >Register an account with us</h2>
+          <md-button class="md-icon-button" ui-sref="frontPage">
+            <md-icon>close</md-icon>
+          </md-button>
+        </div>
+      </md-toolbar>
+      <md-card-content>
+        <form name="Form">
+          <md-input-container class="md-block">
+            <label>Pick an username</label>
+            <input type="text" name="username" ng-model="vm.formData.username" placeholder="username" required=""
+                   maxlength="64"/>
+            <div ng-messages="Form.username.$error" role="alert" multiple="">
+              <div ng-message="required" class="my-message">Please enter an username that you want to use</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Email</label>
+            <input type="email" name="email" ng-model="vm.formData.email" placeholder="email" required=""
+                   maxlength="64"/>
+            <div ng-messages="Form.email.$error" role="alert" multiple="">
+              <div ng-message="required" class="my-message">Please enter a valid email address.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Password</label>
+            <input type="password" name="password" ng-model="vm.formData.password" placeholder="password" required=""/>
+            <div ng-messages="Form.password.$error" role="alert">
+              <div ng-message="required" class="my-message">Type in a password.</div>
+            </div>
+          </md-input-container>
+          <section layout="row" layout-align="space-between center">
+            <md-button ng-click="vm.submit()" class="md-raised md-primary">
+              <i class="fa fa-sign-up" aria-hidden="true"></i> Register
+            </md-button>
+            <md-button class="push-right" ui-sref="frontPage">
+              <i class="fa fa-long-arrow-left" aria-hidden="true"></i> go back
+            </md-button>
+          </section>
+        </form>
+      </md-card-content>
+    </md-card>
+  </md-content>
+  <!-- Angular Material Dependencies-->
+
+</div>

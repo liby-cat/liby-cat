@@ -9,14 +9,16 @@ angular
   ])
   .config(['$stateProvider', '$urlRouterProvider', '$mdIconProvider',
     function ($stateProvider, $urlRouterProvider, $mdIconProvider) {
-      $mdIconProvider
-        .defaultFontSet( 'fa' );
-      
       $stateProvider
         .state('frontPage', {
           url: '',
           templateUrl: 'views/front-page.html',
           controller: 'FrontPageCtrl'
+        })
+        .state('signUp', {
+          url: '/sign-up',
+          templateUrl: 'views/sign-up.html',
+          controller: 'SignUpCtrl'
         })
         .state('login', {
           url: '/login',

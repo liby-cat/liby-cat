@@ -6,7 +6,10 @@
     <md-card flex="flex" flex-gt-sm="50" flex-gt-md="33">
       <md-toolbar>
         <div class="md-toolbar-tools">
-          <h2><span>Sign in</span></h2>
+          <h2 flex>Sign in</h2>
+          <md-button class="md-icon-button" ui-sref="frontPage">
+            <md-icon>close</md-icon>
+          </md-button>
         </div>
       </md-toolbar>
       <md-card-content>
@@ -30,9 +33,7 @@
             <md-button ng-click="vm.submit()" class="md-raised md-primary">
               <i class="fa fa-sign-in" aria-hidden="true"></i> Sign in
             </md-button>
-            <md-button ng-click="vm.goHome()" class="push-right" ui-sref="frontPage">
-              <i class="fa fa-long-arrow-left" aria-hidden="true"></i> go back
-            </md-button>
+            <md-button class="no-text-transform" ui-sref="signUp">Don't have an account? Sign up!</md-button>
           </section>
         </form>
       </md-card-content>

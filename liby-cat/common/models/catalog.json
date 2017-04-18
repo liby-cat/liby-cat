@@ -66,5 +66,13 @@
     }
   },
   "acls": [],
-  "methods": {}
+  "methods": {
+    "owned": {
+      "accepts": [
+        {"arg": "options", "type": "object", "http": "optionsFromRequest"}
+      ],
+      "returns": {"arg": "catalogs", "type": "string"},
+      "http": {"verb": "GET", "path": "/owned"}
+    }
+  }
 }

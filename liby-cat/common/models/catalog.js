@@ -89,6 +89,7 @@ module.exports = function(Catalog) {
     ctx.query = ctx.query ? ctx.query : {};
     ctx.query.where = ctx.query.where ? ctx.query.where : {};
     ctx.query.where.readerIds = loginId;
+    console.log(ctx.query);
     next();
   });
 
@@ -224,5 +225,17 @@ module.exports = function(Catalog) {
     }
   }
 
+  //endregion
+  //region CUSTOM ENDPOINTS (REMOTES)
+  Catalog.owned = function owned(options, cb) {
+    console.log(options);
+    const token =  options && options.accessToken;
+    const loginId = token && token.userId;
+    Catalog.find({where: {ownerIds: loginId}}, options, function(err, res) {
+      console.log(err);
+      console.log(res);
+      cb(null, res);
+    });
+  };
   //endregion
 };

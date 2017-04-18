@@ -71,7 +71,7 @@
       "accepts": [
         {"arg": "options", "type": "object", "http": "optionsFromRequest"}
       ],
-      "returns": {"arg": "catalogs", "type": "string"},
+      "returns": {"type": "array", "root": true},
       "http": {"verb": "GET", "path": "/owned"}
     }
   }

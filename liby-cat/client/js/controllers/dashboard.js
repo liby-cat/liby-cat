@@ -6,9 +6,6 @@ angular.module('app')
     function ($scope, $rootScope, $state,
               User, Catalog,
               $mdToast) {
-      $scope.loggedIn = User.isAuthenticated();
-      $scope.user = User.getCachedCurrent();
-      console.log($scope.user);
       Catalog.find(
         function success(val) {
           console.log(val);

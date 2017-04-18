@@ -10,18 +10,29 @@
         <h1>Liby.cat</h1>
       </section>
       <section layout="row" layout-align="end" class="md-toolbar-tools">
-        <md-button class="btn-no-trans"><md-icon>person</md-icon> {{user.username}} </md-button>
+        <md-button class="btn-no-trans">
+          <md-icon>person</md-icon>
+          {{user.username}}
+        </md-button>
         <md-button class="btn-no-trans"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Log out</md-button>
       </section>
     </header>
   </md-toolbar>
   <div class="main-container" layout="row" flex>
     <md-sidenav md-is-locked-open="true" md-whiteframe="4">
-      <md-list>
-        <md-list-item><md-button>Org</md-button></md-list-item>
-        <md-list-item><md-button>Catalogs</md-button></md-list-item>
-        <md-list-item><md-button>Catalogs are very wide</md-button></md-list-item>
-      </md-list>
+      <md-button layout-align="start"><md-icon>person</md-icon>{{user.username}}</md-button>
+      <md-divider></md-divider>
+      <md-sidemenu>
+        <md-sidemenu-group>
+          <md-sidemenu-button ui-sref="dashboard"><md-icon>dashboard</md-icon> Dashboard</md-sidemenu-button>
+          <md-sidemenu-button ui-sref="orgs"><md-icon>local_library</md-icon> Orgs</md-sidemenu-button>
+          <md-sidemenu-button ui-sref="own-catalogs"><md-icon>library_books</md-icon>My Catalogs</md-sidemenu-button>
+          <md-sidemenu-button ui-sref="settings"><md-icon>settings</md-icon> Setting</md-sidemenu-button>
+          </md-sidemenu-content>
+        </md-sidemenu-group>
+        <md-divider></md-divider>
+        <md-sidemenu-button ui-sref="catalogs"><md-icon md-svg-icon="pile_books"></md-icon> Catalogs</md-sidemenu-button>
+      </md-sidemenu>
     </md-sidenav>
     <md-content flex>
       <main ng-transclude></main>

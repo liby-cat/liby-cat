@@ -5,10 +5,14 @@ var app = angular
   .module('app', [
     'lbServices',
     'ui.router',
-    'ngMaterial', 'ngAnimate', 'ngAria'
+    'ngMaterial', 'ngAnimate', 'ngAria', 'ngMaterialSidemenu'
   ])
   .config(['$stateProvider', '$urlRouterProvider', '$mdIconProvider',
     function ($stateProvider, $urlRouterProvider, $mdIconProvider) {
+      $mdIconProvider
+        .icon('wiki_books', '../res/Books.svg')
+        .icon('pile_books', '../res/pile-books.svg')
+      ;
       $stateProvider
         .state('frontPage', {
           url: '',

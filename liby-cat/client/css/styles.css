@@ -26,6 +26,9 @@ body {
   height: 100%;
 }
 
+.md-sidemenu-button md-icon{
+  margin: 0;
+}
 .front-page {
   padding-bottom: 10%;
 }

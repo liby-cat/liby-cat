@@ -3,6 +3,13 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="960px" height="960px" viewBox="0 0 960 960" enable-background="new 0 0 960 960" xml:space="preserve">
+    <defs>
+        <linearGradient id="GlassGradient" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="5%"  stop-color="#BBDEFB"/>
+            <stop offset="50%" stop-color="#90CAF9"/>
+            <stop offset="95%" stop-color="#E3F2FD"/>
+        </linearGradient>
+    </defs>
 <g id="Mustache">
 	<path id="core" fill="none" stroke="#777777" stroke-miterlimit="10" d="M333,651.167c54.905,0,147-29.366,147-51.167
 		c0,20.401,120.3,64,173,64"/>
@@ -26,8 +33,8 @@
 	</g>
 </g>
 <g id="glass">
-    <circle fill="#E3F2FD" stroke="#0D47A1" stroke-width="5" cx="398.024" cy="445.681" r="50"/>
-    <circle fill="#E3F2FD" stroke="#0D47A1" stroke-width="5" cx="561.975" cy="448" r="50"/>
+    <circle fill="url(#GlassGradient)" fill-opacity=".6" stroke="#0D47A1" stroke-width="5" cx="398.024" cy="445.681" r="50"/>
+    <circle fill="url(#GlassGradient)" fill-opacity=".6" stroke="#0D47A1" stroke-width="5" cx="561.975" cy="448" r="50"/>
     <path fill="none" stroke="#0D47A1" stroke-width="3" d="M448.024,445.681c15.894-15.894,48.04-15.91,63.95,0"/>
     <path fill="none" stroke="#0D47A1" stroke-width="3" d="M611.975,445.681c0-1.531,51.431-33.5,53.859-33.5"/>
     <path fill="none" stroke="#0D47A1" stroke-width="3" d="M348.024,445.681c0-1.531-51.431-33.5-53.859-33.5"/>

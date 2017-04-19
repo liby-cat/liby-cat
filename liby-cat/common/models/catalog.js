@@ -6,7 +6,7 @@ var arrayToMap = require('../util/array-to-map');
 module.exports = function(Catalog) {
   Catalog.createOptionsFromRemotingContext = function(ctx) {
     //console.log('Catalog.createOptionsFromRemotingContext')
-    var base = this.base.createOptionsFromRemotingContext(ctx);
+    let base = this.base.createOptionsFromRemotingContext(ctx);
     return extend(base, {
       currentUserId: base.accessToken && base.accessToken.userId
     });

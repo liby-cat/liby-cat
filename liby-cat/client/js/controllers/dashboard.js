@@ -9,7 +9,7 @@ angular.module('app')
       Catalog.find(
         function success(val) {
           console.log(val);
-          $scope.catalogs = val;
+          $scope.readableCatalogs = val;
         },
         function error(er) {
         

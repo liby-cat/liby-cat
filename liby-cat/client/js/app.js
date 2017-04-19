@@ -34,6 +34,26 @@ var app = angular
           templateUrl: 'views/dashboard.html',
           controller: 'DashboardCtrl'
         })
+        .state('settings', {
+          url: '/settings',
+          templateUrl: 'views/settings.html',
+          controller: 'SettingsCtrl'
+        })
+        .state('orgs', {
+          url: '/orgs',
+          templateUrl: 'views/orgs.html',
+          controller: 'OrgsCtrl'
+        })
+        .state('owned-catalogs', {
+          url: '/owned-catalogs',
+          templateUrl: 'views/owned-catalogs.html',
+          controller: 'OwnedCatalogsCtrl'
+        })
+        .state('catalog-list', {
+          url: '/catalog-list',
+          templateUrl: 'views/catalog-list.html',
+          controller: 'CatalogListCtrl'
+        })
         .state('catalog', {
           url: '/catalog/:id',
           templateUrl: 'views/catalog.html',

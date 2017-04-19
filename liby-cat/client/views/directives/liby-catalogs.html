@@ -1,7 +1,9 @@
 <md-card ng-repeat="cat in cats">
   <md-card-title>
     <md-card-title-text>
-      <span class="md-headline">{{ cat.title }}</span>
+      <span class="md-headline">
+        {{ cat.title }}<sup><md-icon ng-if="cat._meta.isOwned" md-svg-icon="crown-sharp" style="fill: goldenrod"></md-icon></sup>
+      </span>
       <span class="md-subhead">{{ cat.orgIdx}}/{{cat.catalogIdx}}</span>
     </md-card-title-text>
     <md-card-title-media>

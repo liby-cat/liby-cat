@@ -1090,6 +1090,42 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               url: urlBase + "/catalog/change-stream",
               method: "POST",
             },
+            
+            /**
+             * @ngdoc method
+             * @name lbServices.Catalog#owned
+             * @methodOf lbServices.Catalog
+             *
+             * @description
+             *
+             * <em>
+             * (The remote method definition does not provide any description.)
+             * </em>
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Array.<Object>,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Array.<Object>} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Catalog` object.)
+             * </em>
+             */
+            "owned": {
+              isArray: true,
+              url: urlBase + "/catalog/owned",
+              method: "GET",
+            },
           }
         );
         

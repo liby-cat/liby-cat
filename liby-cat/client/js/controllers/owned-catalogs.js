@@ -4,7 +4,7 @@ angular.module('app')
     'User', 'Catalog',
     function ($scope, $state, $stateParams,
               User, Catalog) {
-      Catalog.find(
+      Catalog.owned(
         function success(val) {
           console.log(val);
           $scope.ownedCatalogs = val;

@@ -1,8 +1,8 @@
 angular.module('app')
-  .controller('WireframeCtrl', [
+  .controller('SettingsCtrl', [
     '$scope', '$state', '$stateParams',
-    'User', 'Catalog',
+    'User',
     function ($scope, $state, $stateParams,
-              User, Catalog) {
+              User) {
     }
   ]);

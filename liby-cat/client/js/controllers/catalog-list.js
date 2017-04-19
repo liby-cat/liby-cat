@@ -1,11 +1,9 @@
 angular.module('app')
-  .controller('DashboardCtrl', [
-    '$scope', '$rootScope', '$state',
+  .controller('CatalogListCtrl', [
+    '$scope', '$state', '$stateParams',
     'User', 'Catalog',
-    '$mdToast',
-    function ($scope, $rootScope, $state,
-              User, Catalog,
-              $mdToast) {
+    function ($scope, $state, $stateParams,
+              User, Catalog) {
       Catalog.find(
         function success(val) {
           console.log(val);

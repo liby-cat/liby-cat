@@ -1090,6 +1090,42 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
               url: urlBase + "/catalog/change-stream",
               method: "POST",
             },
+            
+            /**
+             * @ngdoc method
+             * @name lbServices.Catalog#owned
+             * @methodOf lbServices.Catalog
+             *
+             * @description
+             *
+             * <em>
+             * (The remote method definition does not provide any description.)
+             * </em>
+             *
+             * @param {Object=} parameters Request parameters.
+             *
+             *  - `options` – `{object=}` -
+             *
+             * @param {function(Array.<Object>,Object)=} successCb
+             *   Success callback with two arguments: `value`, `responseHeaders`.
+             *
+             * @param {function(Object)=} errorCb Error callback with one argument:
+             *   `httpResponse`.
+             *
+             * @returns {Array.<Object>} An empty reference that will be
+             *   populated with the actual data once the response is returned
+             *   from the server.
+             *
+             * <em>
+             * (The remote method definition does not provide any description.
+             * This usually means the response is a `Catalog` object.)
+             * </em>
+             */
+            "owned": {
+              isArray: true,
+              url: urlBase + "/catalog/owned",
+              method: "GET",
+            },
           }
         );
         
@@ -2089,15 +2125,20 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
   
   module
     .factory('LoopBackAuth', function () {
-      var props = ['accessTokenId', 'currentUserId', 'rememberMe'];
+      var props = ['accessTokenId', 'currentUserId', 'rememberMe', 'currentUserData'];
       var propsPrefix = '$LoopBack$';
       
       function LoopBackAuth() {
         var self = this;
         props.forEach(function (name) {
-          self[name] = load(name);
+          let val = load(name);
+          try {
+            self[name] = JSON.parse(val);
+          } catch (e) {
+            self[name] = val;
+          }
         });
-        this.currentUserData = null;
+        //this.currentUserData = null;
       }
       
       LoopBackAuth.prototype.save = function () {
@@ -2134,7 +2175,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
       function save(storage, name, value) {
         try {
           var key = propsPrefix + name;
-          if (value == null) value = '';
+          value = value === null ? value  : JSON.stringify(value);
           storage[key] = value;
         } catch (err) {
           console.log('Cannot access local/session storage:', err);

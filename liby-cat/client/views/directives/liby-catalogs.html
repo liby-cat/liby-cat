@@ -2,7 +2,9 @@
   <md-card-title>
     <md-card-title-text>
       <span class="md-headline">
-        {{ cat.title }}<sup><md-icon ng-if="cat._meta.isOwned" md-svg-icon="crown-sharp" style="fill: goldenrod"></md-icon></sup>
+        {{ cat.title }}<sup><md-tooltip>You own this catalog
+          </md-tooltip><md-icon ng-if="cat._meta.isOwned" md-svg-icon="crown-sharp" style="fill: goldenrod"></md-icon>
+      </sup>
       </span>
       <span class="md-subhead">{{ cat.orgIdx}}/{{cat.catalogIdx}}</span>
     </md-card-title-text>

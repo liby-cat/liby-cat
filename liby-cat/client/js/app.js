@@ -3,9 +3,14 @@
  */
 var app = angular
   .module('app', [
+    // loopback
     'lbServices',
-    'ui.router',
-    'ngMaterial', 'ngAnimate', 'ngAria', 'ngMaterialSidemenu'
+    // standard angular libs
+    'ui.router', 'ngAnimate', 'ngAria',
+    // angular material
+    'ngMaterial',
+    // 3rd party libs
+    'ngMaterialSidemenu', 'mdDataTable'
   ])
   .config(['$stateProvider', '$urlRouterProvider', '$mdIconProvider',
     function ($stateProvider, $urlRouterProvider, $mdIconProvider) {

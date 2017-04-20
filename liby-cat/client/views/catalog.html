@@ -1,5 +1,20 @@
-<md-content ng-controller="CatalogCtrl">
-  <div ng-repeat="entry in entries">
-    {{entry.title}} - {{entry.author}}
+<liby-std-content ng-controller="CatalogCtrl" layout="column" flex>
+  <div layout-margin>
+    <mdt-table mdt-row="{
+                      data: entries,
+                      'column-keys': [
+                          'title',
+                          'author',
+                          'orgIdx',
+                          'catalogIdx'
+                      ]
+                      }">
+      <mdt-header-row>
+        <mdt-column >Title</mdt-column>
+        <mdt-column >Author</mdt-column>
+        <mdt-column >org</mdt-column>
+        <mdt-column >cat</mdt-column>
+      </mdt-header-row>
+    </mdt-table>
   </div>
-</md-content>
+</liby-std-content>

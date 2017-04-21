@@ -27,7 +27,8 @@
     <md-button type="submit" ng-click="addNewEntry()" class="md-icon-button"><md-icon>add circle outline</md-icon></md-button>
   </form>
   <div layout-margin>
-    <mdt-table mdt-row="{
+    <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,15]}"
+               mdt-row="{
                       data: entries,
                       'column-keys': [
                           'title',

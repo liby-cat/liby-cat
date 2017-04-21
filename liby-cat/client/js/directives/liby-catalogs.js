@@ -1,3 +1,5 @@
+'use strict';
+
 app.directive("libyCatalogs", function libyCatalogs() {
   return {
     transclude: true,

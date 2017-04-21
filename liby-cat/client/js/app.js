@@ -1,6 +1,5 @@
-/**
- * Created by nafSadh on 13 Apr 2017.
- */
+'use strict';
+
 var app = angular
   .module('app', [
     // loopback

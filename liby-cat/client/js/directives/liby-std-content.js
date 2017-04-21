@@ -1,3 +1,5 @@
+'use strict';
+
 app.directive("libyStdContent", function libyStdContent($state, User) {
   return {
     transclude: true,

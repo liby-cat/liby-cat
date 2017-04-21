@@ -1,19 +1,50 @@
 <liby-std-content ng-controller="CatalogCtrl" layout="column" flex>
+  <form layout="row" name="newEntryForm">
+    <md-input-container>
+      <label>Title</label>
+      <input name="title" ng-model="newEntry.title">
+    </md-input-container>
+    <md-input-container>
+      <label>Author</label>
+      <input name="author" ng-model="newEntry.author">
+    </md-input-container>
+    <md-input-container>
+      <label>Publisher</label>
+      <input name="publisher" ng-model="newEntry.publisher">
+    </md-input-container>
+    <md-input-container>
+      <label>Translator</label>
+      <input name="translator" ng-model="newEntry.translator">
+    </md-input-container>
+    <md-input-container>
+      <label>Editor</label>
+      <input name="editor" ng-model="newEntry.editor">
+    </md-input-container>
+    <md-input-container>
+      <label>SL#</label>
+      <input name="entryNum" ng-model="newEntry.entryNum" type="number">
+    </md-input-container>
+    <md-button type="submit" ng-click="addNewEntry()" class="md-icon-button"><md-icon>add circle outline</md-icon></md-button>
+  </form>
   <div layout-margin>
     <mdt-table mdt-row="{
                       data: entries,
                       'column-keys': [
                           'title',
                           'author',
-                          'orgIdx',
-                          'catalogIdx'
+                          'publisher',
+                          'translator',
+                          'editor',
+                          'entryNum'
                       ]
                       }">
       <mdt-header-row>
-        <mdt-column column-definition="title">Title</mdt-column>
-        <mdt-column >Author</mdt-column>
-        <mdt-column >org</mdt-column>
-        <mdt-column >cat</mdt-column>
+        <mdt-column>Title</mdt-column>
+        <mdt-column>Author</mdt-column>
+        <mdt-column>Publisher</mdt-column>
+        <mdt-column>Translator</mdt-column>
+        <mdt-column>Editor</mdt-column>
+        <mdt-column>SL#</mdt-column>
       </mdt-header-row>
     </mdt-table>
   </div>

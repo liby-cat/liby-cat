@@ -44,15 +44,20 @@ var app = angular
           templateUrl: 'views/orgs.html',
           controller: 'OrgsCtrl'
         })
+        .state('catalog-list', {
+          url: '/catalog-list',
+          templateUrl: 'views/catalog-list.html',
+          controller: 'CatalogListCtrl'
+        })
         .state('owned-catalogs', {
           url: '/owned-catalogs',
           templateUrl: 'views/owned-catalogs.html',
           controller: 'OwnedCatalogsCtrl'
         })
-        .state('catalog-list', {
-          url: '/catalog-list',
-          templateUrl: 'views/catalog-list.html',
-          controller: 'CatalogListCtrl'
+        .state('create-catalog', {
+          url: '/create-catalog',
+          templateUrl: 'views/create-catalog.html',
+          controller: 'CreateCatalogCtrl'
         })
         .state('catalog', {
           url: '/catalog/:id',

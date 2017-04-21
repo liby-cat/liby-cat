@@ -11,14 +11,8 @@ var app = angular
     // 3rd party libs
     'ngMaterialSidemenu', 'mdDataTable'
   ])
-  .config(['$stateProvider', '$urlRouterProvider', '$mdIconProvider',
-    function ($stateProvider, $urlRouterProvider, $mdIconProvider) {
-      $mdIconProvider
-        .icon('wiki_books', '../res/icons/Books.svg')
-        .icon('pile_books', '../res/icons/pile-books.svg')
-        .icon('crown-sharp', '../res/icons/crown-sharp.svg')
-        .icon('crown-solid', '../res/icons/crown-solid.svg')
-      ;
+  .config(['$stateProvider', '$urlRouterProvider',
+    function appStates($stateProvider, $urlRouterProvider) {
       $stateProvider
         .state('frontPage', {
           url: '/',

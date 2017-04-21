@@ -1,7 +1,7 @@
 'use strict';
 var extend = require('extend');
 var error = require('../util/error');
-var arrayToMap = require('../util/array-to-map');
+var arrToMap = require('arr-to-map');
 
 module.exports = function(Catalog) {
   Catalog.createOptionsFromRemotingContext = function(ctx) {
@@ -75,7 +75,7 @@ module.exports = function(Catalog) {
         fields: {id: true, username: true}
       }, function(err, obj) {
         if (obj) {
-          meta.userIdMap = arrayToMap(obj, 'id');
+          meta.userIdMap = arrToMap(obj, 'id');
         }
         next();
       });
@@ -87,8 +87,10 @@ module.exports = function(Catalog) {
     const token = ctx.options && ctx.options.accessToken;
     const loginId = token && token.userId;
     ctx.query = ctx.query ? ctx.query : {};
-    ctx.query.where = ctx.query.where ? ctx.query.where : {};
-    ctx.query.where.readerIds = loginId;
+    if(ctx.options && !ctx.options.onCreate) {
+      ctx.query.where = ctx.query.where ? ctx.query.where : {};
+      ctx.query.where.readerIds = loginId;
+    }
     next();
   });
 
@@ -120,8 +122,8 @@ module.exports = function(Catalog) {
   Catalog.beforeRemote('create', function onCatalogCreation(ctx, unused, next) {
     console.log('Catalog>beforeRemote>create:onCatalogCreation');
     if (ctx.args && ctx.args.data) {
-      var cat = ctx.args.data;
-      var orgId = cat.orgId;
+      let cat = ctx.args.data;
+      let orgId = cat.orgId;
       const token = ctx.args && ctx.args.options && ctx.args.options.accessToken;
       const loginId = token && token.userId;
       const Org = Catalog.app.models.Org;
@@ -130,15 +132,17 @@ module.exports = function(Catalog) {
           next(err);
         }
         if (orgs && orgs.length === 1) {
-          var org = orgs[0];
+          let org = orgs[0];
           console.log(org);
           cat.orgIdx = org.orgIdx;
+          ctx.args.options.onCreate = true;
           Catalog.find({where: {orgIdx: cat.orgIdx, catalogIdx: cat.catalogIdx}},
+            ctx.args.options,
             function(err, cats) {
               if (err) {
                 next(err);
               }
-              if (cats == null || cats === null || cats.length === 0) {
+              if (cats === null || cats.length === 0) {
                 cat.ownerIds = [loginId];
                 cat.readerIds = [loginId];
                 next();

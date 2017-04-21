@@ -15,7 +15,7 @@
         <form layout="column" name="newCatalogForm" flex>
           <md-input-container layout="row" flex>
             <label>Org</label>
-            <md-select name="orgId" ng-model="newCatalog.orgId">
+            <md-select name="orgId" ng-model="newCatalog.orgId" required>
               <md-option><em>None</em></md-option>
               <md-option ng-repeat="org in orgs" ng-value="org.id">
                 {{org.title}}

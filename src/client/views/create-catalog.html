@@ -1,38 +1,39 @@
-<liby-std-content ng-controller="CreateCatalogCtrl" layout="row"
-                  layout-align="space-around"
-                  layout-padding="layout-padding" flex>
-  
-  <md-card flex="flex" flex-gt-sm="50" flex-gt-md="33">
-    <md-toolbar>
-      <div class="md-toolbar-tools">
-        <h2 flex>Create new catalog</h2>
-        <md-button class="md-icon-button" ui-sref="owned-catalogs">
-          <md-icon>close</md-icon>
-        </md-button>
-      </div>
-    </md-toolbar>
-    <md-card-content>
-      <form layout="column" name="newCatalogForm" flex>
-        <md-input-container layout="row" flex>
-          <label>Org</label>
-          <md-select name="orgId" ng-model="newCatalog.orgId">
-            <md-option><em>None</em></md-option>
-            <md-option ng-repeat="org in orgs" ng-value="org.id">
-              {{org.title}}
-              <small md-colors="{color:'grey'}">@{{org.orgIdx}}</small>
-            </md-option>
-          </md-select>
-        </md-input-container>
-        <md-input-container flex>
-          <label>@id</label>
-          <input type="text" maxlength="24" name="catalogIdx" ng-model="newCatalog.catalogIdx" required/>
-        </md-input-container>
-        <md-input-container flex>
-          <label>Title</label>
-          <input type="text" name="title" ng-model="newCatalog.title" required/>
-        </md-input-container>
-        <md-button ng-click="createNewCatalog()">Submit</md-button>
-      </form>
-    </md-card-content>
-  </md-card>
+<liby-std-content ng-controller="CreateCatalogCtrl" layout="column" flex>
+  <div layout="row" flex
+       layout-align="space-around"
+       layout-padding="layout-padding">
+    <md-card flex="flex" flex-gt-sm="50" flex-gt-md="40">
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <h2 flex>Create new catalog</h2>
+          <md-button class="md-icon-button" ui-sref="owned-catalogs">
+            <md-icon>close</md-icon>
+          </md-button>
+        </div>
+      </md-toolbar>
+      <md-card-content>
+        <form layout="column" name="newCatalogForm" flex>
+          <md-input-container layout="row" flex>
+            <label>Org</label>
+            <md-select name="orgId" ng-model="newCatalog.orgId">
+              <md-option><em>None</em></md-option>
+              <md-option ng-repeat="org in orgs" ng-value="org.id">
+                {{org.title}}
+                <small md-colors="{color:'grey'}">@{{org.orgIdx}}</small>
+              </md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container flex>
+            <label>@id</label>
+            <input type="text" maxlength="24" name="catalogIdx" ng-model="newCatalog.catalogIdx" required/>
+          </md-input-container>
+          <md-input-container flex>
+            <label>Title</label>
+            <input type="text" name="title" ng-model="newCatalog.title" required/>
+          </md-input-container>
+          <md-button ng-click="createNewCatalog()">Submit</md-button>
+        </form>
+      </md-card-content>
+    </md-card>
+  </div>
 </liby-std-content>

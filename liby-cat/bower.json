@@ -27,7 +27,7 @@
     "lodash": "^4.17.4",
     "angular-material-icons": "^0.7.1",
     "angular-sanitize": "^1.6.4",
-    "md-data-table": "nafSadh/mdDataTable#8ee48a475ba52a57ad3222aa52f6aa37def96ebb"
+    "md-data-table": "nafSadh/mdDataTable#dd6381c638a07660b9090da39473231af46ad2ee"
   },
   "resolutions": {
     "angular": "^1.6.4",

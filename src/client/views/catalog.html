@@ -1,6 +1,7 @@
 <liby-std-content ng-controller="CatalogCtrl" layout="column" flex>
-  <form layout="row" name="newEntryForm">
-    <md-input-container>
+  <md-card>
+  <form layout="row" name="newEntryForm" flex layout-align="space-around" >
+    <md-input-container flex="25">
       <label>Title</label>
       <input name="title" ng-model="newEntry.title">
     </md-input-container>
@@ -24,8 +25,11 @@
       <label>SL#</label>
       <input name="entryNum" ng-model="newEntry.entryNum" type="number">
     </md-input-container>
-    <md-button type="submit" ng-click="addNewEntry()" class="md-icon-button"><md-icon>add circle outline</md-icon></md-button>
+    <md-button type="submit" ng-click="addNewEntry()" ng-disabled="!newEntry.title">
+      <md-icon>add circle outline</md-icon>
+    </md-button>
   </form>
+  </md-card>
   <div layout-margin>
     <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,15]}"
                mdt-row="{

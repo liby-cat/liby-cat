@@ -2,7 +2,7 @@
   <md-toolbar>
     <header layout="row" layout-align="space-between center">
       <section layout="row" layout-align="start" class="md-toolbar-tools">
-        <md-button>
+        <md-button ng-click="toggleSideNav()">
           <md-icon>menu</md-icon>
         </md-button>
       </section>
@@ -19,11 +19,10 @@
     </header>
   </md-toolbar>
   <div class="main-container" layout="row" flex>
-    <md-sidenav md-is-locked-open="true" md-whiteframe="4">
-      <md-button layout-align="start"><md-icon>person</md-icon>{{user.username}}</md-button>
-      <md-divider></md-divider>
+    <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" md-whiteframe="4" md-component-id="side-nav">
       <md-sidemenu>
         <md-sidemenu-group>
+          <md-subheader class="md-no-sticky"><md-icon>person</md-icon>{{user.username}}</md-subheader>
           <md-sidemenu-button ui-sref="dashboard"><md-icon>dashboard</md-icon> Dashboard</md-sidemenu-button>
           <md-sidemenu-button ui-sref="orgs"><md-icon>local_library</md-icon> Orgs</md-sidemenu-button>
           <md-sidemenu-button ui-sref="owned-catalogs"><md-icon md-svg-icon="lib-case"> </md-icon>My Catalogs</md-sidemenu-button>

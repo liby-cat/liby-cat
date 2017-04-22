@@ -33,6 +33,10 @@ body {
   padding-bottom: 10%;
 }
 
-.front-page-center-row {
-
+.new-entry md-input-container .md-errors-spacer {
+  display: none;
+}
+.new-entry form{
+  padding-left: 24px;
+  padding-top: 6px;
 }

@@ -3,26 +3,34 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="1100px" height="1100px" viewBox="0 0 1100 1100" enable-background="new 0 0 1100 1100" xml:space="preserve">
-<g id="book">
-	
+  <defs>
+    <filter id="dropshadow" height="130%">
+  <feGaussianBlur in="SourceAlpha" stdDeviation="6"/> <!-- stdDeviation is how much to blur -->
+  <feOffset dx="0" dy="0" result="offsetblur"/> <!-- how much to offset -->
+  <feMerge>
+    <feMergeNode/> <!-- this contains the offset blurred image -->
+    <feMergeNode in="SourceGraphic"/> <!-- this contains the element that the filter is applied to -->
+  </feMerge>
+</filter>
+  </defs>
+  <g id="book">
 		<linearGradient id="book-fly_1_" gradientUnits="userSpaceOnUse" x1="1189.1963" y1="1065.4463" x2="1189.1963" y2="1064.4463" gradientTransform="matrix(650 0 0 -700 -772427.5 745852.5)">
 		<stop  offset="0" style="stop-color:#5D4037"/>
 		<stop  offset="0.45" style="stop-color:#4E342E"/>
 		<stop  offset="0.95" style="stop-color:#4E342E"/>
 	</linearGradient>
-	<polygon id="book-fly" fill="url(#book-fly_1_)" stroke="#4E342E" stroke-width="16" points="550,240 875,40 830,540 550,740 
+	  <polygon id="book-fly" fill="url(#book-fly_1_)" stroke="#4E342E" stroke-width="16" points="550,240 875,40 830,540 550,740
 		270,540 225,40 	"/>
 	<polygon id="book-bind" fill="#4E342E" stroke="#4E342E" stroke-width="32" points="539,238 561,238 561,740 539,740 	"/>
-</g>
-<g id="cat-face">
-	
+  </g>
+  <g id="cat-face">
 		<linearGradient id="face-frame_1_" gradientUnits="userSpaceOnUse" x1="1189.9092" y1="1065.0781" x2="1189.9092" y2="1064.0781" gradientTransform="matrix(800 0 0 -800 -951377.5 852172.5)">
 		<stop  offset="0.05" style="stop-color:#757575"/>
 		<stop  offset="0.6" style="stop-color:#9E9E9E"/>
 		<stop  offset="0.95" style="stop-color:#9E9E9E"/>
 	</linearGradient>
-	<polygon id="face-frame" fill="url(#face-frame_1_)" stroke="#555555" stroke-width="24" points="550,310 950,110 900,710 550,910 
-		200,710 150,110 	"/>
+	<polygon id="face-frame" fill="url(#face-frame_1_)" stroke="#555555" stroke-width="24"
+           points="550,310 950,110 900,710 550,910 200,710 150,110" filter="url(#dropshadow)"/>
 	<g id="left-eye">
 		<path fill="#B2EBF2" d="M497.382,453.661c0,0-38.477,60.156-110.303,41.055c-71.807-19.121-74.844-90.322-74.844-90.322
 			s38.479-60.146,110.272-41.045C494.325,382.469,497.382,453.661,497.382,453.661z"/>

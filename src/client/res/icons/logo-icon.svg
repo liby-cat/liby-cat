@@ -4,12 +4,12 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="1200px" height="1200px" viewBox="0 0 1200 1200" enable-background="new 0 0 1200 1200" xml:space="preserve">
 <g id="book">
-	<polygon id="book-fly" fill="#795548" stroke="#6D4C41" stroke-width="24" points="600,258 925,58 880,558 600,758 320,558 275,58 
+	<polygon id="book-fly" fill="#795548" stroke="#6D4C41" stroke-width="48" points="600,258 925,58 880,558 600,758 320,558 275,58
 			"/>
 	<polygon id="book-bind" fill="#6D4C41" stroke="#6D4C41" stroke-width="48" points="589,256 611,256 611,758 589,758 	"/>
 </g>
 <g id="cat-face">
-	<polygon id="face-frame" fill="#BDBDBD" stroke="#888888" stroke-width="64" points="600,360 1000,160 950,760 600,960 250,760 
+	<polygon id="face-frame" fill="#e0e0e0" stroke="#aaa" stroke-width="80" points="600,360 1000,160 950,760 600,960 250,760
 		200,160 	"/>
 	<g id="left-eye">
 		<path fill="#B3E5FC" d="M547.382,503.661c0,0-38.477,60.156-110.303,41.055c-71.808-19.121-74.844-90.322-74.844-90.322
@@ -25,7 +25,7 @@
 			c-46.904,0-81.084-37.832-81.084-37.832S669.85,428.833,725.973,414.341z"/>
 		<path fill="#4C5359" d="M750.328,472.993c0,82.294-39.668,82.294-39.668,0C710.66,390.669,750.338,390.669,750.328,472.993z"/>
 	</g>
-	<path id="lips" fill="none" stroke="#888888" stroke-width="48" d="M761.421,866.698c-33.676,0-160.422-109.979-160.422-139.198
+	<path id="lips" fill="none" stroke="#aaa" stroke-width="64" d="M761.421,866.698c-33.676,0-160.422-109.979-160.422-139.198
 		c0,29.229-126.743,139.198-160.422,139.198"/>
 	<path id="nose" fill="#777777" d="M573.783,649.061c4.683-0.313,8.917,0.604,13.146,3.021c0.563,0.313,2.354,1.394,2.823,1.81
 		c0.563,0.521,4.457,3.578,5.218,4.577c0.395,0.479,4.104,4.979,4.104,4.979s3.54-3.771,4.166-4.41

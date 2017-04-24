@@ -48,3 +48,6 @@ body {
 .brand-text{
   font-family: 'Rancho';
 }
+mdt-table md-content {
+  background: white;
+}

@@ -51,6 +51,7 @@
       "remoting": {
         "sharedMethods": {
           "*": false,
+          "username2id": true,
           "create": true,
           "login": true,
           "logout": true

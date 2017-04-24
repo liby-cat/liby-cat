@@ -1,5 +1,5 @@
 <liby-std-content ng-controller="CatalogCtrl" layout="column" flex>
-  <md-toolbar>
+  <md-toolbar md-colors="{background:'grey-300'}">
     <div class="md-toolbar-tools">
       <div flex>
         <span class="md-headline">{{cat.title}}</span><br/>
@@ -9,7 +9,7 @@
                  aria-label="catalog settings"
                  ui-sref="catalog-settings({org:cat.orgIdx, catalog:cat.catalogIdx, id:catalogId})">
         <md-tooltip>Settings</md-tooltip>
-        <md-icon>settings</md-icon>
+        <md-icon md-colors="{color:'grey-700'}">settings</md-icon>
       </md-button>
     </div>
   </md-toolbar>

@@ -8,7 +8,9 @@
       <md-button class="md-icon-button"
                  aria-label="view catalog entries"
                  ui-sref="catalog({org:cat.orgIdx, catalog:cat.catalogIdx, id:catalogId})">
-        <md-tooltip><translate>Entries</translate></md-tooltip>
+        <md-tooltip>
+          <translate>Entries</translate>
+        </md-tooltip>
         <md-icon>view_list</md-icon>
       </md-button>
     </div>
@@ -22,7 +24,7 @@
         {{cat._meta.userIdMap[ownerId].username}}
       </md-list-item>
     </md-list>
-    <form>
+    <form ng-if="cat._meta.isOwned">
       <md-input-container flex="25">
         <label>Username</label>
         <input name="username" ng-model="newOwner.username">
@@ -41,7 +43,7 @@
         {{cat._meta.userIdMap[readerId].username}}
       </md-list-item>
     </md-list>
-    <form>
+    <form ng-if="cat._meta.isOwned">
       <md-input-container flex="25">
         <label>Username</label>
         <input name="username" ng-model="newReader.username">

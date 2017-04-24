@@ -14,7 +14,8 @@
     </div>
   </md-toolbar>
   <md-card class="new-entry">
-    <form layout="row" name="newEntryForm" flex layout-align="space-around">
+    <form ng-if="cat._meta.isOwned"
+          layout="row" name="newEntryForm" flex layout-align="space-around">
       <md-input-container flex="25">
         <label>Title</label>
         <input name="title" ng-model="newEntry.title">

@@ -60,9 +60,13 @@ var app = angular
           controller: 'CreateCatalogCtrl'
         })
         .state('catalog', {
-          url: '/catalog/:id',
+          url: '/catalog/:org/:catalog/:id',
           templateUrl: 'views/catalog.html',
           controller: 'CatalogCtrl'
+        }).state('catalog-settings', {
+          url: '/catalog/:org/:catalog/:id/settings',
+          templateUrl: 'views/catalog-settings.html',
+          controller: 'CatalogSettingsCtrl'
         })
         .state('todo', {
           url: '/todo',

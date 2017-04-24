@@ -1,0 +1,41 @@
+<liby-std-content ng-controller="CatalogSettingsCtrl" layout="column" flex>
+  <section>
+    <h2>Owners</h2>
+    <md-list>
+      <md-list-item ng-repeat="ownerId in cat.ownerIds">
+        {{cat._meta.userIdMap[ownerId].username}}
+      </md-list-item>
+    </md-list>
+    <form>
+      <md-input-container flex="25">
+        <label>Username</label>
+        <input name="username" ng-model="newOwner.username">
+      </md-input-container>
+      <md-button class="md-icon-button" type="submit" ng-click="addNewOwner()" ng-disabled="!newOwner.username">
+        <md-icon>add circle outline</md-icon>
+      </md-button>
+    </form>
+  </section>
+  <section>
+    <h2>Readers</h2>
+    <md-list>
+      <md-list-item ng-repeat="readerId in cat.readerIds">
+        {{cat._meta.userIdMap[readerId].username}}
+      </md-list-item>
+    </md-list>
+    <form>
+      <md-input-container flex="25">
+        <label>Username</label>
+        <input name="username" ng-model="newReader.username">
+      </md-input-container>
+      <md-button class="md-icon-button" type="submit" ng-click="addNewReader()" ng-disabled="!newReader.username">
+        <md-icon>add circle outline</md-icon>
+      </md-button>
+    </form>
+  </section>
+  <md-button class="md-fab md-raised md-fab-bottom-right"
+             aria-label="view catalog entries"
+             ui-sref="catalog({org:cat.orgIdx, catalog:cat.catalogIdx, id:catalogId})">
+    <md-icon>view_list</md-icon>
+  </md-button>
+</liby-std-content>

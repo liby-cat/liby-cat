@@ -34,7 +34,7 @@ module.exports = function(user) {
           if(users.length==1){
             cb(null, users[0])
           } else {
-            cb(error(401,'No user found with the username'))
+            cb(error(404,'No user found with the username'))
           }
         }
         

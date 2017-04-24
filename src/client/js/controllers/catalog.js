@@ -13,7 +13,15 @@ angular.module('app')
       console.log($scope.user);
       $scope.catalogId = $stateParams.id;
       $scope.newEntry = {};
-      
+  
+  
+      Catalog.findById({id: $scope.catalogId},
+        function success(val) {
+          console.log(val);
+          $scope.cat = val;
+        },
+        function error(er) {}
+      );
       
       Catalog.prototype$__get__entries({id: $scope.catalogId},
         function success(val) {

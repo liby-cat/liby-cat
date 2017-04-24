@@ -1,6 +1,22 @@
 <liby-std-content ng-controller="CatalogSettingsCtrl" layout="column" flex>
-  <section>
-    <h2>Owners</h2>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <div flex>
+        <span class="md-headline">{{cat.title}}</span><br/>
+        <span class="md-subhead">{{cat.orgIdx}}/{{cat.catalogIdx}}</span>
+      </div>
+      <md-button class="md-icon-button"
+                 aria-label="view catalog entries"
+                 ui-sref="catalog({org:cat.orgIdx, catalog:cat.catalogIdx, id:catalogId})">
+        <md-tooltip><translate>Entries</translate></md-tooltip>
+        <md-icon>view_list</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-card layout-padding>
+    <mdt-card-title>
+      <md-card-title-text class="md-headline">Owners</md-card-title-text>
+    </mdt-card-title>
     <md-list>
       <md-list-item ng-repeat="ownerId in cat.ownerIds">
         {{cat._meta.userIdMap[ownerId].username}}
@@ -15,9 +31,11 @@
         <md-icon>add circle outline</md-icon>
       </md-button>
     </form>
-  </section>
-  <section>
-    <h2>Readers</h2>
+  </md-card>
+  <md-card layout-padding>
+    <mdt-card-title>
+      <md-card-title-text class="md-headline">Readers</md-card-title-text>
+    </mdt-card-title>
     <md-list>
       <md-list-item ng-repeat="readerId in cat.readerIds">
         {{cat._meta.userIdMap[readerId].username}}
@@ -32,10 +50,5 @@
         <md-icon>add circle outline</md-icon>
       </md-button>
     </form>
-  </section>
-  <md-button class="md-fab md-raised md-fab-bottom-right"
-             aria-label="view catalog entries"
-             ui-sref="catalog({org:cat.orgIdx, catalog:cat.catalogIdx, id:catalogId})">
-    <md-icon>view_list</md-icon>
-  </md-button>
+  </md-card>
 </liby-std-content>

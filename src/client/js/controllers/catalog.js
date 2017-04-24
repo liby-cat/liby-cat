@@ -12,7 +12,8 @@ angular.module('app')
       $scope.user = User.getCachedCurrent();
       console.log($scope.user);
       $scope.catalogId = $stateParams.id;
-      $scope.newEntry = {}
+      $scope.newEntry = {};
+      
       
       Catalog.prototype$__get__entries({id: $scope.catalogId},
         function success(val) {
@@ -35,8 +36,6 @@ angular.module('app')
           }
         );
         $scope.newEntry = {};
-        $scope.newEntryForm.$setUntouched();
-        $scope.newEntryForm.$setPristine();
         $scope.newEntryForm.title.$touched = false;
       }
     }

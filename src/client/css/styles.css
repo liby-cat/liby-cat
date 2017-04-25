@@ -56,3 +56,14 @@ mdt-table md-content {
 .text-center{
   text-align: center;
 }
+md-toolbar.std-toolbar{
+  background: #E0E0E0; /*grey-300*/
+  color: #212121; /*grey-900*/
+}
+md-toolbar.std-toolbar .md-icon-button:hover md-icon {
+  color:#5D4037!important;
+  fill:#5D4037!important;
+}
+md-toolbar.std-toolbar md-icon {
+  color:#757575;  fill:#757575; /*grey-600*/
+}

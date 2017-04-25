@@ -1,6 +1,6 @@
 'use strict';
 
-app.directive("libyStdContent", function libyStdContent($state, $mdSidenav, User) {
+app.directive("libyStdContent", function libyStdContent($state, $mdSidenav, $mdMedia, User) {
   return {
     transclude: true,
     templateUrl: "../views/directives/liby-std-content.html",
@@ -13,18 +13,15 @@ app.directive("libyStdContent", function libyStdContent($state, $mdSidenav, User
         }, function err() {
           $state.go('frontPage');
         });
-      }
+      };
+      
+      $scope.showSideNav = true;
       
       $scope.toggleSideNav = function () {
-        let sideNav = $mdSidenav('side-nav')
-        if (sideNav.isLockedOpen()) {
-          if(sideNav.isOpen()){
-            console.log('trying to close');
-            sideNav.close();
-          } else {
-            console.log('trying to open');
-            sideNav.open();
-          }
+        let sideNav = $mdSidenav('side-nav');
+        let gtSm = $mdMedia('gt-sm');
+        if (gtSm) {
+          $scope.showSideNav = !$scope.showSideNav;
         } else {
           sideNav.toggle();
         }

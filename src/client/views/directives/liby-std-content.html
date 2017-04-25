@@ -19,7 +19,7 @@
     </header>
   </md-toolbar>
   <div class="main-container" layout="row" flex>
-    <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" md-whiteframe="4" md-component-id="side-nav">
+    <md-sidenav md-is-locked-open="$mdMedia('gt-sm') && showSideNav" md-whiteframe="4" md-component-id="side-nav">
       <md-sidemenu>
         <md-sidemenu-group>
           <md-subheader class="md-no-sticky"><md-icon>person</md-icon>{{user.username}}</md-subheader>

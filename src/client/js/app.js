@@ -82,3 +82,7 @@ var app = angular
       $urlRouterProvider
         .otherwise('/');
     }]);
+
+var _global = {
+  showSideNav : true
+};

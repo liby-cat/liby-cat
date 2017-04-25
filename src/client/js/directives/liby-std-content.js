@@ -14,14 +14,14 @@ app.directive("libyStdContent", function libyStdContent($state, $mdSidenav, $mdM
           $state.go('frontPage');
         });
       };
-      
-      $scope.showSideNav = true;
+  
+      $scope.showSideNav = _global.showSideNav;
       
       $scope.toggleSideNav = function () {
         let sideNav = $mdSidenav('side-nav');
         let gtSm = $mdMedia('gt-sm');
         if (gtSm) {
-          $scope.showSideNav = !$scope.showSideNav;
+          $scope.showSideNav = _global.showSideNav = !_global.showSideNav;
         } else {
           sideNav.toggle();
         }

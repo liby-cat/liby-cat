@@ -1,18 +1,12 @@
 <liby-std-content ng-controller="CatalogCtrl" layout="column" flex>
-  <md-toolbar class="std-toolbar" md-whiteframe="2">
-    <div class="md-toolbar-tools">
-      <div flex>
-        <span class="md-headline">{{cat.title}}</span><br/>
-        <span class="md-subhead">{{cat.orgIdx}}/{{cat.catalogIdx}}</span>
-      </div>
+  <liby-page-header headline="{{cat.title}}" subhead="{{cat.orgIdx}}/{{cat.catalogIdx}}">
       <md-button class="md-icon-button"
                  aria-label="catalog settings"
                  ui-sref="catalog-settings({org:cat.orgIdx, catalog:cat.catalogIdx, id:catalogId})">
         <md-tooltip>Settings</md-tooltip>
         <md-icon>settings</md-icon>
       </md-button>
-    </div>
-  </md-toolbar>
+  </liby-page-header>
   <md-card class="new-entry">
     <form ng-if="cat._meta.isOwned"
           layout="row" name="newEntryForm" flex layout-align="space-around">

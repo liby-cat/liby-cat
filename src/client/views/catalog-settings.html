@@ -1,10 +1,5 @@
 <liby-std-content ng-controller="CatalogSettingsCtrl" layout="column" flex>
-  <md-toolbar class="std-toolbar" md-whiteframe="2">
-    <div class="md-toolbar-tools">
-      <div flex>
-        <span class="md-headline">{{cat.title}}</span><br/>
-        <span class="md-subhead">{{cat.orgIdx}}/{{cat.catalogIdx}}</span>
-      </div>
+  <liby-page-header headline="{{cat.title}}" subhead="{{cat.orgIdx}}/{{cat.catalogIdx}}">
       <md-button class="md-icon-button"
                  aria-label="view catalog entries"
                  ui-sref="catalog({org:cat.orgIdx, catalog:cat.catalogIdx, id:catalogId})">
@@ -13,8 +8,7 @@
         </md-tooltip>
         <md-icon md-svg-icon="list"></md-icon>
       </md-button>
-    </div>
-  </md-toolbar>
+  </liby-page-header>
   <md-card layout-padding>
     <mdt-card-title>
       <md-card-title-text class="md-headline">Owners</md-card-title-text>

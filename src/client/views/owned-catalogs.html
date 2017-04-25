@@ -1,14 +1,15 @@
 <liby-std-content ng-controller="OwnedCatalogsCtrl" layout="column" flex>
-    <section>
-      <h2>Catalogs</h2>
-      <div flex-xs="" flex-gt-xs="50" layout="column">
-        <liby-catalogs cats=ownedCatalogs></liby-catalogs>
-      </div>
-    </section>
-  <md-button class="md-fab md-raised md-fab-bottom-right"
-             md-colors="{background:'red'}"
-             aria-label="create new catalog"
-             ui-sref="create-catalog">
-    <md-icon ng-style="{color:'white'}">add</md-icon>
-  </md-button>
+  <liby-page-header headline="My Catalogs">
+    <md-button class="md-icon-button"
+               aria-label="create new catalog"
+               ui-sref="create-catalog">
+      <md-tooltip>
+        <translate>Create new catalog</translate>
+      </md-tooltip>
+      <md-icon>add</md-icon>
+    </md-button>
+  </liby-page-header>
+  <div flex-xs="" flex-gt-xs="50" layout="column">
+    <liby-catalogs cats=ownedCatalogs></liby-catalogs>
+  </div>
 </liby-std-content>

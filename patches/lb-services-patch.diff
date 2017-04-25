@@ -1,37 +1,37 @@
-diff --git a/liby-cat/client/js/lb-services.js b/liby-cat/client/js/lb-services.js
-index a36098e..71e1d55 100644
---- a/liby-cat/client/js/lb-services.js
-+++ b/liby-cat/client/js/lb-services.js
-@@ -2924,15 +2924,20 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
-   
+diff --git a/src/client/js/lb-services.js b/src/client/js/lb-services.js
+index f907da5..fcd7eb3 100644
+--- a/src/client/js/lb-services.js
++++ b/src/client/js/lb-services.js
+@@ -2168,15 +2168,20 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
+ 
    module
-     .factory('LoopBackAuth', function () {
--      var props = ['accessTokenId', 'currentUserId', 'rememberMe'];
-+      var props = ['accessTokenId', 'currentUserId', 'rememberMe', 'currentUserData'];
-       var propsPrefix = '$LoopBack$';
-       
-       function LoopBackAuth() {
-         var self = this;
-         props.forEach(function (name) {
--          self[name] = load(name);
-+          let val = load(name);
-+          try {
-+            self[name] = JSON.parse(val);
-+          } catch (e) {
-+            self[name] = val;
-+          }
-         });
--        this.currentUserData = null;
-+        //this.currentUserData = null;
-       }
-       
-       LoopBackAuth.prototype.save = function () {
-@@ -2969,7 +2974,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
-       function save(storage, name, value) {
-         try {
-           var key = propsPrefix + name;
--          if (value == null) value = '';
-+          value = value === null ? value  : JSON.stringify(value);
-           storage[key] = value;
-         } catch (err) {
-           console.log('Cannot access local/session storage:', err);
+   .factory('LoopBackAuth', function() {
+-    var props = ['accessTokenId', 'currentUserId', 'rememberMe'];
++    var props = ['accessTokenId', 'currentUserId', 'rememberMe', 'currentUserData'];
+     var propsPrefix = '$LoopBack$';
+ 
+     function LoopBackAuth() {
+       var self = this;
+       props.forEach(function(name) {
+-        self[name] = load(name);
++        let val = load(name);
++        try {
++          self[name] = JSON.parse(val);
++        } catch (e) {
++          self[name] = val;
++        }
+       });
+-      this.currentUserData = null;
++      //this.currentUserData = null;
+     }
+ 
+     LoopBackAuth.prototype.save = function() {
+@@ -2213,7 +2218,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
+     function save(storage, name, value) {
+       try {
+         var key = propsPrefix + name;
+-        if (value == null) value = '';
++        value = value === null ? value  : JSON.stringify(value);
+         storage[key] = value;
+       } catch (err) {
+         console.log('Cannot access local/session storage:', err);

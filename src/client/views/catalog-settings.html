@@ -1,0 +1,56 @@
+<liby-std-content ng-controller="CatalogSettingsCtrl" layout="column" flex>
+  <md-toolbar md-colors="{background:'grey-300'}">
+    <div class="md-toolbar-tools">
+      <div flex>
+        <span class="md-headline">{{cat.title}}</span><br/>
+        <span class="md-subhead">{{cat.orgIdx}}/{{cat.catalogIdx}}</span>
+      </div>
+      <md-button class="md-icon-button"
+                 aria-label="view catalog entries"
+                 ui-sref="catalog({org:cat.orgIdx, catalog:cat.catalogIdx, id:catalogId})">
+        <md-tooltip>
+          <translate>Entries</translate>
+        </md-tooltip>
+        <md-icon md-colors="{color:'grey-700'}">view_list</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-card layout-padding>
+    <mdt-card-title>
+      <md-card-title-text class="md-headline">Owners</md-card-title-text>
+    </mdt-card-title>
+    <md-list>
+      <md-list-item ng-repeat="ownerId in cat.ownerIds">
+        {{cat._meta.userIdMap[ownerId].username}}
+      </md-list-item>
+    </md-list>
+    <form ng-if="cat._meta.isOwned">
+      <md-input-container flex="25">
+        <label>Username</label>
+        <input name="username" ng-model="newOwner.username">
+      </md-input-container>
+      <md-button class="md-icon-button" type="submit" ng-click="addNewOwner()" ng-disabled="!newOwner.username">
+        <md-icon>add circle outline</md-icon>
+      </md-button>
+    </form>
+  </md-card>
+  <md-card layout-padding>
+    <mdt-card-title>
+      <md-card-title-text class="md-headline">Readers</md-card-title-text>
+    </mdt-card-title>
+    <md-list>
+      <md-list-item ng-repeat="readerId in cat.readerIds">
+        {{cat._meta.userIdMap[readerId].username}}
+      </md-list-item>
+    </md-list>
+    <form ng-if="cat._meta.isOwned">
+      <md-input-container flex="25">
+        <label>Username</label>
+        <input name="username" ng-model="newReader.username">
+      </md-input-container>
+      <md-button class="md-icon-button" type="submit" ng-click="addNewReader()" ng-disabled="!newReader.username">
+        <md-icon>add circle outline</md-icon>
+      </md-button>
+    </form>
+  </md-card>
+</liby-std-content>

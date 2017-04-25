@@ -8,6 +8,21 @@
   "properties": {},
   "validations": [],
   "relations": {},
-  "acls": [],
-  "methods": {}
+  "acls": [
+    {
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "username2id"
+    }
+  ],
+  "methods": {
+    "username2id": {
+      "accepts": [
+        {"arg": "username", "type": "string", "required":true},
+        {"arg": "options", "type": "object", "http": "optionsFromRequest"}
+      ],
+      "http": {"verb": "GET", "path": "/username2id/:username"},
+      "returns": {"type": "object", "root": true}
+    }}
 }

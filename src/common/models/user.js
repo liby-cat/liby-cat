@@ -1,4 +1,5 @@
 'use strict';
+var error = require('../util/error');
 
 module.exports = function(user) {
   user.validatesUniquenessOf('username');
@@ -16,4 +17,28 @@ module.exports = function(user) {
         next();
       });
   });
+  
+  user.username2id = function (username, options, cb) {
+    const token = options && options.accessToken;
+    const loginId = token && token.userId;
+    user.find(
+      {
+        fields: {id: true, username: true},
+        where: {username: username}
+      },
+      options,
+      function (err, users) {
+        if(err){
+          cb(err)
+        } else{
+          if(users.length==1){
+            cb(null, users[0])
+          } else {
+            cb(error(404,'No user found with the username'))
+          }
+        }
+        
+      }
+    );
+  }
 };

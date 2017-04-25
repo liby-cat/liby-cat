@@ -23,14 +23,23 @@
       <md-sidemenu>
         <md-sidemenu-group>
           <md-subheader class="md-no-sticky"><md-icon>person</md-icon>{{user.username}}</md-subheader>
-          <md-sidemenu-button ui-sref="dashboard"><md-icon>dashboard</md-icon> Dashboard</md-sidemenu-button>
-          <md-sidemenu-button ui-sref="orgs"><md-icon>local_library</md-icon> Orgs</md-sidemenu-button>
-          <md-sidemenu-button ui-sref="owned-catalogs"><md-icon md-svg-icon="lib-case"> </md-icon>My Catalogs</md-sidemenu-button>
-          <md-sidemenu-button ui-sref="settings"><md-icon>settings</md-icon> Setting</md-sidemenu-button>
+          <md-sidemenu-button ui-sref="dashboard">
+            <md-icon>dashboard</md-icon> <translate>Dashboard</translate>
+          </md-sidemenu-button>
+          <md-sidemenu-button ui-sref="orgs">
+            <md-icon>local_library</md-icon> <translate>Orgs</translate>
+          </md-sidemenu-button>
+          <md-sidemenu-button ui-sref="owned-catalogs">
+            <md-icon md-svg-icon="lib-case"></md-icon> <translate>My Catalogs</translate>
+          </md-sidemenu-button>
+          <md-sidemenu-button ui-sref="settings">
+            <md-icon>settings</md-icon> <translate>Settings</translate></md-sidemenu-button>
           </md-sidemenu-content>
         </md-sidemenu-group>
         <md-divider></md-divider>
-        <md-sidemenu-button ui-sref="catalog-list"><md-icon md-svg-icon="pile_books"></md-icon> Catalogs</md-sidemenu-button>
+        <md-sidemenu-button ui-sref="catalog-list">
+          <md-icon md-svg-icon="pile_books"></md-icon> <translate>Catalogs</translate>
+        </md-sidemenu-button>
       </md-sidemenu>
     </md-sidenav>
     <md-content flex>

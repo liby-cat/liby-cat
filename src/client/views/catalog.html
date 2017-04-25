@@ -1,38 +1,53 @@
 <liby-std-content ng-controller="CatalogCtrl" layout="column" flex>
+  <md-toolbar md-colors="{background:'grey-300'}">
+    <div class="md-toolbar-tools">
+      <div flex>
+        <span class="md-headline">{{cat.title}}</span><br/>
+        <span class="md-subhead">{{cat.orgIdx}}/{{cat.catalogIdx}}</span>
+      </div>
+      <md-button class="md-icon-button"
+                 aria-label="catalog settings"
+                 ui-sref="catalog-settings({org:cat.orgIdx, catalog:cat.catalogIdx, id:catalogId})">
+        <md-tooltip>Settings</md-tooltip>
+        <md-icon md-colors="{color:'grey-700'}">settings</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
   <md-card class="new-entry">
-  <form layout="row" name="newEntryForm" flex layout-align="space-around">
-    <md-input-container flex="25">
-      <label>Title</label>
-      <input name="title" ng-model="newEntry.title">
-    </md-input-container>
-    <md-input-container>
-      <label>Author</label>
-      <input name="author" ng-model="newEntry.author">
-    </md-input-container>
-    <md-input-container>
-      <label>Publisher</label>
-      <input name="publisher" ng-model="newEntry.publisher">
-    </md-input-container>
-    <md-input-container>
-      <label>Translator</label>
-      <input name="translator" ng-model="newEntry.translator">
-    </md-input-container>
-    <md-input-container>
-      <label>Editor</label>
-      <input name="editor" ng-model="newEntry.editor">
-    </md-input-container>
-    <md-input-container>
-      <label>SL#</label>
-      <input name="entryNum" ng-model="newEntry.entryNum" type="number">
-    </md-input-container>
-    <md-button type="submit" ng-click="addNewEntry()" ng-disabled="!newEntry.title">
-      <md-icon>add circle outline</md-icon>
-    </md-button>
-  </form>
+    <form ng-if="cat._meta.isOwned"
+          layout="row" name="newEntryForm" flex layout-align="space-around">
+      <md-input-container flex="25">
+        <label>Title</label>
+        <input name="title" ng-model="newEntry.title">
+      </md-input-container>
+      <md-input-container>
+        <label>Author</label>
+        <input name="author" ng-model="newEntry.author">
+      </md-input-container>
+      <md-input-container>
+        <label>Publisher</label>
+        <input name="publisher" ng-model="newEntry.publisher">
+      </md-input-container>
+      <md-input-container>
+        <label>Translator</label>
+        <input name="translator" ng-model="newEntry.translator">
+      </md-input-container>
+      <md-input-container>
+        <label>Editor</label>
+        <input name="editor" ng-model="newEntry.editor">
+      </md-input-container>
+      <md-input-container>
+        <label>SL#</label>
+        <input name="entryNum" ng-model="newEntry.entryNum" type="number">
+      </md-input-container>
+      <md-button type="submit" ng-click="addNewEntry()" ng-disabled="!newEntry.title">
+        <md-icon>add circle outline</md-icon>
+      </md-button>
+    </form>
   </md-card>
-  <div layout-margin>
-    <mdt-table paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,15]}"
-               mdt-row="{
+  <mdt-table layout-margin
+             paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,15]}"
+             mdt-row="{
                       data: entries,
                       'column-keys': [
                           'title',
@@ -43,14 +58,13 @@
                           'entryNum'
                       ]
                       }">
-      <mdt-header-row>
-        <mdt-column>Title</mdt-column>
-        <mdt-column>Author</mdt-column>
-        <mdt-column>Publisher</mdt-column>
-        <mdt-column>Translator</mdt-column>
-        <mdt-column>Editor</mdt-column>
-        <mdt-column>SL#</mdt-column>
-      </mdt-header-row>
-    </mdt-table>
-  </div>
+    <mdt-header-row>
+      <mdt-column>Title</mdt-column>
+      <mdt-column>Author</mdt-column>
+      <mdt-column>Publisher</mdt-column>
+      <mdt-column>Translator</mdt-column>
+      <mdt-column>Editor</mdt-column>
+      <mdt-column>SL#</mdt-column>
+    </mdt-header-row>
+  </mdt-table>
 </liby-std-content>

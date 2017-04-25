@@ -4,8 +4,8 @@
     "connector": "memory"
   },
   "mongol": {
-    "host": "127.0.0.1",
-    "port": 27017,
+    "host": "ds117821.mlab.com",
+    "port": 17821,
     "database": "liby",
     "username": "cat",
     "password": "password",

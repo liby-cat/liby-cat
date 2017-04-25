@@ -9,5 +9,6 @@ app.config(['$mdIconProvider', function appIcons($mdIconProvider) {
     .icon('crown-sharp', '../res/icons/crown-sharp.svg')
     .icon('crown-solid', '../res/icons/crown-solid.svg')
     .icon('lib-case', '../res/icons/lib-case.svg')
+    .icon('list', '../res/icons/list.svg')
   ;
 }]);

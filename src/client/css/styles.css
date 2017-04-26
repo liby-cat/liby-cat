@@ -66,3 +66,8 @@ md-toolbar.std-toolbar md-icon {
 md-toolbar.std-toolbar .md-icon-button:hover md-icon {
   color:#5D4037; fill:#5D4037;
 }
+
+.pad-0{
+  padding:0;
+}
+

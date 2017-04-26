@@ -9,7 +9,7 @@ var app = angular
     // angular material
     'ngMaterial',
     // 3rd party libs
-    'ngMaterialSidemenu', 'mdDataTable'
+    'ngMaterialSidemenu', 'mdDataTable', 'xeditable'
   ])
   .config(['$stateProvider', '$urlRouterProvider',
     function appStates($stateProvider, $urlRouterProvider) {

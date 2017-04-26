@@ -30,7 +30,8 @@
     "md-data-table": "nafSadh/mdDataTable#dd6381c638a07660b9090da39473231af46ad2ee",
     "angular-translate": "^2.15.1",
     "angular-translate-loader-static-files": "^2.15.1",
-    "angular-xeditable": "^0.7.1"
+    "angular-xeditable": "^0.7.1",
+    "components-font-awesome": "^4.7.0"
   },
   "resolutions": {
     "angular": "^1.6.4",

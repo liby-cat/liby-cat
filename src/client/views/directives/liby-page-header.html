@@ -1,7 +1,11 @@
 <md-toolbar class="std-toolbar" md-whiteframe="2">
   <div class="md-toolbar-tools">
     <div flex>
-      <span class="md-headline">{{headline}}</span><br/>
+      <span ng-if="hlEditor" onaftersave="editHeadline()" class="md-headline" editable-text="editObj.headline">
+        {{hlEditor.headline}}
+      </span>
+      <span ng-if="!hlEditor" class="md-headline">{{headline}}</span>
+      <br/>
       <span class="md-subhead">{{subhead}}</span>
     </div>
     <main ng-transclude></main>

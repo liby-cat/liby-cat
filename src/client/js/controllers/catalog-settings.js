@@ -14,11 +14,18 @@ angular.module('app')
       $scope.catalogId = $stateParams.id;
       $scope.newOwner = {};
       $scope.newReader = {};
-  
+      
+      $scope.titleEditor = {
+        updateFn: function updateTitle(newTitle) {
+          console.log('Updating...' + newTitle);
+        }
+      };
+      
       Catalog.findById({id: $scope.catalogId},
         function success(val) {
           console.log(val);
           $scope.cat = val;
+          $scope.titleEditor.headline = $scope.cat.title;
         },
         function error(er) { }
       );

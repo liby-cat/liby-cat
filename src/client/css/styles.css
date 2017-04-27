@@ -56,6 +56,7 @@ mdt-table md-content {
 .text-center{
   text-align: center;
 }
+
 md-toolbar.page-header{
   background: #E0E0E0; /*grey-300*/
   color: #212121; /*grey-900*/
@@ -65,6 +66,17 @@ md-toolbar.page-header md-icon {
 }
 md-toolbar.page-header .md-icon-button:hover md-icon {
   color:#5D4037; fill:#5D4037;
+}
+
+md-toolbar.form-header{
+  background: #5D4037; /*brown-700*/
+  color: #EFEBE9; /*brown-50*/
+}
+md-toolbar.form-header md-icon {
+  color:#BCAAA4;  fill:#BCAAA4; /*grey-600*/
+}
+md-toolbar.form-header .md-icon-button:hover md-icon {
+  color:#fff; fill:#fff;
 }
 
 .pad-0{

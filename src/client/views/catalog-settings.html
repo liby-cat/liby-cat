@@ -1,5 +1,5 @@
 <liby-std-content ng-controller="CatalogSettingsCtrl" layout="column" flex>
-  <liby-page-header subhead="{{cat.orgIdx}}/{{cat.catalogIdx}}" hl-editor="titleEditor">
+  <liby-page-header headline="{{cat.title}}" subhead="{{cat.orgIdx}}/{{cat.catalogIdx}}">
       <md-button class="md-icon-button"
                  aria-label="view catalog entries"
                  ui-sref="catalog({org:cat.orgIdx, catalog:cat.catalogIdx, id:catalogId})">

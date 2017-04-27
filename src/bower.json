@@ -31,7 +31,7 @@
     "angular-translate-loader-static-files": "^2.15.1",
     "angular-xeditable": "^0.7.1",
     "components-font-awesome": "^4.7.0",
-    "md-data-table": "https://github.com/nafSadh/mdDataTable.git#v2.2.1"
+    "md-data-table": "https://github.com/nafSadh/mdDataTable.git#2.2.2"
   },
   "resolutions": {
     "angular": "^1.6.4",

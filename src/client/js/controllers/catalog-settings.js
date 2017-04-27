@@ -23,7 +23,6 @@ angular.module('app')
       
       Catalog.findById({id: $scope.catalogId},
         function success(val) {
-          console.log(val);
           $scope.cat = val;
           $scope.titleEditor.headline = $scope.cat.title;
         },
@@ -37,14 +36,12 @@ angular.module('app')
             let user = val ? val : {};
             Catalog.prototype$__link__owners({id:$scope.catalogId, fk:user.id},
               function success(val) {
-                console.log(val);
                 $scope.cat.ownerIds.push(user.id);
                 $scope.cat._meta.userIdMap[user.id] = val;
                 $mdToast.showSimple('Added '+username+' as an owner of '+$scope.cat.orgIdx+'/'+$scope.cat.catalogIdx);
               }
             );
           }, function error(er) {
-            console.log(er);
             $mdToast.showSimple(er.data.error.message)
           });
         $scope.newOwner = {};
@@ -57,7 +54,6 @@ angular.module('app')
             let user = val ? val : {};
             Catalog.prototype$__link__readers({id:$scope.catalogId, fk:user.id},
               function success(val) {
-                console.log(val);
                 $scope.cat.readerIds.push(user.id);
                 $scope.cat._meta.userIdMap[user.id] = val;
                 $mdToast.showSimple('Added '+username+' as a reader of '+$scope.cat.orgIdx+'/'+$scope.cat.catalogIdx);

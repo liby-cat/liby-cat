@@ -1,7 +1,7 @@
 'use strict';
-var extend = require('extend');
-var error = require('../util/error');
-var arrToMap = require('arr-to-map');
+const extend = require('extend');
+const error = require('../util/error');
+const arrToMap = require('arr-to-map');
 
 module.exports = function(Catalog) {
   Catalog.createOptionsFromRemotingContext = function(ctx) {
@@ -13,7 +13,7 @@ module.exports = function(Catalog) {
   };
 
   // region HIDE UNSUPPORTED API ENDPOINTS
-  (function hideUnsupportedAPIEndpoint() {
+  let hideUnsupportedAPIEndpoint = (function() {
     Catalog.disableRemoteMethodByName('patchOrCreate');// PATH /catalog
     Catalog.disableRemoteMethodByName('replaceOrCreate');// PUT /catalog
     Catalog.disableRemoteMethodByName('deleteById');// DELETE /catalog{id}
@@ -44,7 +44,7 @@ module.exports = function(Catalog) {
     // temporarily hide  buggy
     Catalog.disableRemoteMethodByName('prototype.__exists__owners');// HEAD /catalog/{id}/owners/rel/{fk}
     Catalog.disableRemoteMethodByName('prototype.__exists__readers');// HEAD /catalog/{id}/readers/rel/{fk}
-  })();
+  }());
   // endregion
   // #region INSTANCE METHODS
 
@@ -66,7 +66,9 @@ module.exports = function(Catalog) {
       if (loginId) {
         meta.isOwned = false;
         for (let i in cat.ownerIds) {
-          meta.isOwned = meta.isOwned || '' + loginId === '' + cat.ownerIds[i];
+          if ({}.hasOwnProperty.call(cat, 'ownerIds')) {
+            meta.isOwned = meta.isOwned || '' + loginId === '' + cat.ownerIds[i];
+          }
         }
         meta.loginId = loginId;
       }
@@ -75,10 +77,11 @@ module.exports = function(Catalog) {
         where: {id: {inq: cat.readerIds}},
         fields: {id: true, username: true}
       }, function(err, obj) {
+        if (err) next(err);
         if (obj) {
           meta.userIdMap = arrToMap(obj, 'id');
         }
-        next();
+        return next();
       });
     }
   });
@@ -92,14 +95,14 @@ module.exports = function(Catalog) {
       ctx.query.where = ctx.query.where ? ctx.query.where : {};
       ctx.query.where.readerIds = loginId;
     }
-    next();
+    return next();
   });
 
   // endregion
   // region REMOTE HOOKS
   Catalog.beforeRemote('**', function(ctx, unused, next) {
     console.log('in Catalog method:' + ctx.methodString);
-    next();
+    return next();
   });
 
   function hasWriteAccess(ctx, cat, next, applyFn) {
@@ -108,15 +111,15 @@ module.exports = function(Catalog) {
     if (ctx.instance) {
       ctx.instance.owners.exists(loginId, function(err, isOwner) {
         if (err) {
-          next(err);
+          return next(err);
         } else if (isOwner) {
           applyFn(ctx, cat, next, loginId);
         } else {
-          next(error(403, 'Permission Denied'));
+          return next(error(403, 'Permission Denied'));
         }
       });
     } else {
-      next(error(404, 'instance not found'));
+      return next(error(404, 'instance not found'));
     }
   }
 
@@ -141,23 +144,23 @@ module.exports = function(Catalog) {
             ctx.args.options,
             function(err, cats) {
               if (err) {
-                next(err);
+                return next(err);
               }
               if (cats === null || cats.length === 0) {
                 cat.ownerIds = [loginId];
                 cat.readerIds = [loginId];
-                next();
+                return next();
               } else {
-                next(error('Catalog with same catalogIdx within this org already exists'));
+                return next(error('Catalog with same catalogIdx within this org already exists'));
               }
             });
         } else {
-          next(error(404, 'org not found/user not permitted'));
+          return next(error(404, 'org not found/user not permitted'));
         }
       });
     } else {
       console.log('no data');
-      next();
+      return next();
     }
   });
 
@@ -165,37 +168,38 @@ module.exports = function(Catalog) {
   // region REMOTE HOOKS: OWNERS & READERS
   Catalog.beforeRemote('prototype.__link__owners', function(ctx, cat, next) {
     hasWriteAccess(ctx, cat, next, function(ctx, cat, next, loginId) {
-      var uid = ctx.args.fk;
+      const uid = ctx.args.fk;
       ctx.instance.readers.exists(uid, function(err, res) {
+        if (err) return next(err);
         if (!res) {
           // also grant read access to owner
           ctx.instance.readers.add(uid);
         }
       });
-      next();
+      return next();
     });
   });
 
   Catalog.beforeRemote('prototype.__unlink__owners', function(ctx, cat, next) {
     hasWriteAccess(ctx, cat, next, function(ctx, cat, next, loginId) {
-      next();
+      return next();
     });
   });
 
   Catalog.beforeRemote('prototype.__link__readers', function(ctx, cat, next) {
     hasWriteAccess(ctx, cat, next, function(ctx, cat, next, loginId) {
-      next();
+      return next();
     });
   });
 
   Catalog.beforeRemote('prototype.__unlink__readers', function(ctx, cat, next) {
     hasWriteAccess(ctx, cat, next, function(ctx, cat, next, loginId) {
-      var uid = ctx.args.fk;
+      const uid = ctx.args.fk;
       ctx.instance.owners.exists(uid, function(err, res) {
         if (res) {
-          next(error('Cannot remove read access from an owner'));
+          return next(error('Cannot remove read access from an owner'));
         } else {
-          next();
+          return next();
         }
       });
     });
@@ -214,18 +218,17 @@ module.exports = function(Catalog) {
 
   function onEntryUpsert(ctx, unused, next, loginId) {
     if (ctx.instance) {
-      var cat = ctx.instance;
-      var entryData = ctx.args.data;
+      let cat = ctx.instance;
+      let entryData = ctx.args.data;
       if (entryData === {} || !entryData.title) {
-        next(error('No data provided or title empty.'));
-        return;
+        return next(error('No data provided or title empty.'));
       }
       console.log('WRITE catalog entry to' + cat.orgIdx + '/' + cat.catalogIdx);
       entryData.orgIdx = cat.orgIdx;
       entryData.catalogIdx = cat.catalogIdx;
-      next();
+      return next();
     } else {
-      next(error(404, 'instance not found'));
+      return next(error(404, 'instance not found'));
     }
   }
 
@@ -235,6 +238,7 @@ module.exports = function(Catalog) {
     const token =  options && options.accessToken;
     const loginId = token && token.userId;
     Catalog.find({where: {ownerIds: loginId}}, options, function(err, res) {
+      if (err) cb(err);
       cb(null, res);
     });
   };

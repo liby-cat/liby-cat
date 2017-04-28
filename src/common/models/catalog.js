@@ -11,39 +11,40 @@ module.exports = function(Catalog) {
       currentUserId: base.accessToken && base.accessToken.userId
     });
   };
-
+  
   //region HIDE UNSUPPORTED API ENDPOINTS
-  Catalog.disableRemoteMethodByName('patchOrCreate');//PATH /catalog
-  Catalog.disableRemoteMethodByName('replaceOrCreate');//PUT /catalog
-  Catalog.disableRemoteMethodByName('deleteById');//DELETE /catalog{id}
-  Catalog.disableRemoteMethodByName('replaceById');//PUT /catalog/{id}, POST /catalog/{id}/replace
-  Catalog.disableRemoteMethodByName('updateAll');//POST /catalog/update
-  Catalog.disableRemoteMethodByName('upsertWithWhere');//POST /catalog/upsertWithWhere
-  Catalog.disableRemoteMethodByName('prototype.patchAttributes');//PATCH
-  Catalog.disableRemoteMethodByName('findOne');//GET /catalog/findOne
-
-  Catalog.disableRemoteMethodByName('prototype.__create__owners');
-  Catalog.disableRemoteMethodByName('prototype.__delete__owners');
-  Catalog.disableRemoteMethodByName('prototype.__findById__owners');//GET /catalog/{id}/owners/{fk}
-  Catalog.disableRemoteMethodByName('prototype.__updateById__owners');
-  Catalog.disableRemoteMethodByName('prototype.__destroyById__owners');
-
-  Catalog.disableRemoteMethodByName('prototype.__create__readers');
-  Catalog.disableRemoteMethodByName('prototype.__delete__readers');
-  Catalog.disableRemoteMethodByName('prototype.__findById__readers');
-  Catalog.disableRemoteMethodByName('prototype.__updateById__readers');
-  Catalog.disableRemoteMethodByName('prototype.__destroyById__readers');
-
-  Catalog.disableRemoteMethodByName('prototype.__delete__entries');//DELETE /catalog/{id}/entries
-
-  // hide endpoints that are semantically wrong
-  Catalog.disableRemoteMethodByName('prototype.__count__owners');//GET /catalog/{id}/owners/count
-  Catalog.disableRemoteMethodByName('prototype.__count__readers');//GET /catalog/{id}/readers/count
-
-  // temporarily hide  buggy
-  Catalog.disableRemoteMethodByName('prototype.__exists__owners');//HEAD /catalog/{id}/owners/rel/{fk}
-  Catalog.disableRemoteMethodByName('prototype.__exists__readers');//HEAD /catalog/{id}/readers/rel/{fk}
-
+  (function hideUnsupportedAPIEndpoint() {
+    Catalog.disableRemoteMethodByName('patchOrCreate');//PATH /catalog
+    Catalog.disableRemoteMethodByName('replaceOrCreate');//PUT /catalog
+    Catalog.disableRemoteMethodByName('deleteById');//DELETE /catalog{id}
+    Catalog.disableRemoteMethodByName('replaceById');//PUT /catalog/{id}, POST /catalog/{id}/replace
+    Catalog.disableRemoteMethodByName('updateAll');//POST /catalog/update
+    Catalog.disableRemoteMethodByName('upsertWithWhere');//POST /catalog/upsertWithWhere
+    Catalog.disableRemoteMethodByName('prototype.patchAttributes');//PATCH
+    Catalog.disableRemoteMethodByName('findOne');//GET /catalog/findOne
+  
+    Catalog.disableRemoteMethodByName('prototype.__create__owners');
+    Catalog.disableRemoteMethodByName('prototype.__delete__owners');
+    Catalog.disableRemoteMethodByName('prototype.__findById__owners');//GET /catalog/{id}/owners/{fk}
+    Catalog.disableRemoteMethodByName('prototype.__updateById__owners');
+    Catalog.disableRemoteMethodByName('prototype.__destroyById__owners');
+  
+    Catalog.disableRemoteMethodByName('prototype.__create__readers');
+    Catalog.disableRemoteMethodByName('prototype.__delete__readers');
+    Catalog.disableRemoteMethodByName('prototype.__findById__readers');
+    Catalog.disableRemoteMethodByName('prototype.__updateById__readers');
+    Catalog.disableRemoteMethodByName('prototype.__destroyById__readers');
+  
+    Catalog.disableRemoteMethodByName('prototype.__delete__entries');//DELETE /catalog/{id}/entries
+  
+    // hide endpoints that are semantically wrong
+    Catalog.disableRemoteMethodByName('prototype.__count__owners');//GET /catalog/{id}/owners/count
+    Catalog.disableRemoteMethodByName('prototype.__count__readers');//GET /catalog/{id}/readers/count
+  
+    // temporarily hide  buggy
+    Catalog.disableRemoteMethodByName('prototype.__exists__owners');//HEAD /catalog/{id}/owners/rel/{fk}
+    Catalog.disableRemoteMethodByName('prototype.__exists__readers');//HEAD /catalog/{id}/readers/rel/{fk}
+  })();
   //endregion
   //#region INSTANCE METHODS
 

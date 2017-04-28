@@ -21,4 +21,4 @@ exclude_paths:
 - "**/vendor/**/*"
 - "**/node_modules/**/*"
 - "**/bower_components/**/*"
-- src/client/js/lb-services.js
+- src/client/lb/**

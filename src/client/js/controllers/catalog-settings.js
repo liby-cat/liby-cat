@@ -38,7 +38,8 @@ angular.module('app')
               function success(val) {
                 $scope.cat.ownerIds.push(user.id);
                 $scope.cat._meta.userIdMap[user.id] = val;
-                $mdToast.showSimple('Added ' + username + ' as an owner of ' + $scope.cat.orgIdx + '/' + $scope.cat.catalogIdx);
+                $mdToast.showSimple(
+                  `Added ${username} as an owner of ${$scope.cat.orgIdx}/${$scope.cat.catalogIdx}`);
               }
             );
           }, function error(er) {
@@ -56,7 +57,8 @@ angular.module('app')
               function success(val) {
                 $scope.cat.readerIds.push(user.id);
                 $scope.cat._meta.userIdMap[user.id] = val;
-                $mdToast.showSimple('Added ' + username + ' as a reader of ' + $scope.cat.orgIdx + '/' + $scope.cat.catalogIdx);
+                $mdToast.showSimple(
+                  `Added ${username} as a reader of ${$scope.cat.orgIdx}/${$scope.cat.catalogIdx}`);
               }
             );
           }, function error(er) {

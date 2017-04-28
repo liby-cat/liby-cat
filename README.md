@@ -4,6 +4,7 @@
 
 liby-cat
 ========
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5fe93241821546cbb1cbeb1158ded381)](https://www.codacy.com/app/liby-cat/liby-cat?utm_source=github.com&utm_medium=referral&utm_content=liby-cat/liby-cat&utm_campaign=badger)
 [![Build Status](https://travis-ci.org/liby-cat/liby-cat.svg?branch=master)](https://travis-ci.org/liby-cat/liby-cat)
 [![GitHub issues](https://img.shields.io/github/issues-raw/liby-cat/liby-cat.svg)](https://github.com/liby-cat/liby-cat/issues)
 [![Website](https://img.shields.io/website-up-down-green-red/https/liby-cat.herokuapp.com.svg)](https://liby-cat.herokuapp.com/)

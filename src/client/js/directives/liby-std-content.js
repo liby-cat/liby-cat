@@ -25,7 +25,14 @@ app.directive("libyStdContent", function libyStdContent($state, $mdSidenav, $mdM
         } else {
           sideNav.toggle();
         }
-      }
+      };
+      
+      $scope.openSideNav = function () {
+        $mdSidenav('side-nav').open();
+      };
+      $scope.closeSideNav = function () {
+        $mdSidenav('side-nav').close();
+      };
     }
   };
 });

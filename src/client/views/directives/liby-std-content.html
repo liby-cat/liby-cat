@@ -1,4 +1,4 @@
-<div ng-if="loggedIn" layout="column" flex>
+<div ng-if="loggedIn" layout="column" flex ng-swipe-right="openSideNav()" ng-swipe-left="closeSideNav()">
   <md-toolbar class="app-bar" md-colors="{background:'brown-900'}" >
     <div class="md-toolbar-tools pad-0" layout-align="space-between center">
       <div layout="row" flex layout-align="start" class="md-toolbar-tools">

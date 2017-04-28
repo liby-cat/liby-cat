@@ -5,7 +5,7 @@ var app = angular
     // loopback
     'lbServices',
     // standard angular libs
-    'ui.router', 'ngAnimate', 'ngAria', 'pascalprecht.translate',
+    'ui.router', 'ngAnimate', 'ngAria', 'ngTouch', 'pascalprecht.translate',
     // angular material
     'ngMaterial',
     // 3rd party libs

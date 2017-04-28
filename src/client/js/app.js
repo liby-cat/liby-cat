@@ -78,11 +78,11 @@ var app = angular
           templateUrl: 'views/wireframe.html',
           controller: 'WireframeCtrl'
         });
-      
+
       $urlRouterProvider
         .otherwise('/');
     }]);
 
 var _global = {
-  showSideNav : true
+  showSideNav: true
 };

@@ -1,9 +1,11 @@
+'use strict';
+
 angular.module('app')
   .controller('DashboardCtrl', [
     '$scope', '$rootScope', '$state',
     'User', 'Catalog',
     '$mdToast',
-    function ($scope, $rootScope, $state,
+    function($scope, $rootScope, $state,
               User, Catalog,
               $mdToast) {
       Catalog.find(
@@ -11,8 +13,6 @@ angular.module('app')
           console.log(val);
           $scope.readableCatalogs = val;
         },
-        function error(er) {
-        
-        });
+        function error(er) {  });
     }
   ]);

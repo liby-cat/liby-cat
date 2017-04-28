@@ -8,11 +8,12 @@
     "node": true
   },
   "rules": {
+    "no-undef": 0,
     "no-const-assign": 2,
     "max-len": [
       "error",
       {
-        "code": 100,
+        "code": 120,
         "tabWidth": 2,
         "ignoreComments":true
       }

@@ -5,7 +5,7 @@ angular.module('app')
     '$scope', '$state', '$stateParams',
     'User', 'Catalog',
     '$mdToast',
-    function ($scope, $state, $stateParams,
+    function($scope, $state, $stateParams,
               User, Catalog,
               $mdToast) {
       $scope.loggedIn = User.isAuthenticated();
@@ -13,8 +13,7 @@ angular.module('app')
       console.log($scope.user);
       $scope.catalogId = $stateParams.id;
       $scope.newEntry = {};
-  
-  
+
       Catalog.findById({id: $scope.catalogId},
         function success(val) {
           console.log(val);
@@ -22,17 +21,17 @@ angular.module('app')
         },
         function error(er) {}
       );
-      
+
       Catalog.prototype$__get__entries({id: $scope.catalogId},
         function success(val) {
           console.log(val);
           $scope.entries = val;
         },
         function error(er) {
-        
+
         }
       );
-      
+
       $scope.addNewEntry = function addNewEntry() {
         console.log($scope.newEntry);
         Catalog.prototype$__create__entries({id: $scope.catalogId}, $scope.newEntry,
@@ -45,6 +44,6 @@ angular.module('app')
         );
         $scope.newEntry = {};
         $scope.newEntryForm.title.$touched = false;
-      }
+      };
     }
   ]);

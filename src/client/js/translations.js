@@ -1,5 +1,7 @@
+'use strict';
+
 app.config(['$translateProvider',
-  function ($translateProvider) {
+  function($translateProvider) {
     $translateProvider.useStaticFilesLoader({
       files: [{
         prefix: '../i18n/locale-',

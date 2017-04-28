@@ -1,14 +1,14 @@
 'use strict';
 
-app.directive("libyPageHeader", function libyPageHeader() {
+app.directive('libyPageHeader', function libyPageHeader() {
   return {
     transclude: true,
-    templateUrl: "../views/directives/liby-page-header.html",
-    scope: {headline: "@", subhead: "@", hlEditor:"="},
+    templateUrl: '../views/directives/liby-page-header.html',
+    scope: {headline: '@', subhead: '@', hlEditor: '='},
     link: function link($scope, element, attrs, controller, transcludeFn) {
-      $scope.editHeadline = function () {
+      $scope.editHeadline = function() {
         $scope.hlEditor.updateFn($scope.hlEditor.headline);
-      }
+      };
     }
   };
 });

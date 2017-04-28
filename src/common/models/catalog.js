@@ -5,26 +5,26 @@ var arrToMap = require('arr-to-map');
 
 module.exports = function(Catalog) {
   Catalog.createOptionsFromRemotingContext = function(ctx) {
-    //console.log('Catalog.createOptionsFromRemotingContext')
+    // console.log('Catalog.createOptionsFromRemotingContext')
     let base = this.base.createOptionsFromRemotingContext(ctx);
     return extend(base, {
       currentUserId: base.accessToken && base.accessToken.userId
     });
   };
 
-  //region HIDE UNSUPPORTED API ENDPOINTS
-  Catalog.disableRemoteMethodByName('patchOrCreate');//PATH /catalog
-  Catalog.disableRemoteMethodByName('replaceOrCreate');//PUT /catalog
-  Catalog.disableRemoteMethodByName('deleteById');//DELETE /catalog{id}
-  Catalog.disableRemoteMethodByName('replaceById');//PUT /catalog/{id}, POST /catalog/{id}/replace
-  Catalog.disableRemoteMethodByName('updateAll');//POST /catalog/update
-  Catalog.disableRemoteMethodByName('upsertWithWhere');//POST /catalog/upsertWithWhere
-  Catalog.disableRemoteMethodByName('prototype.patchAttributes');//PATCH
-  Catalog.disableRemoteMethodByName('findOne');//GET /catalog/findOne
+  // region HIDE UNSUPPORTED API ENDPOINTS
+  Catalog.disableRemoteMethodByName('patchOrCreate');// PATH /catalog
+  Catalog.disableRemoteMethodByName('replaceOrCreate');// PUT /catalog
+  Catalog.disableRemoteMethodByName('deleteById');// DELETE /catalog{id}
+  Catalog.disableRemoteMethodByName('replaceById');// PUT /catalog/{id}, POST /catalog/{id}/replace
+  Catalog.disableRemoteMethodByName('updateAll');// POST /catalog/update
+  Catalog.disableRemoteMethodByName('upsertWithWhere');// POST /catalog/upsertWithWhere
+  Catalog.disableRemoteMethodByName('prototype.patchAttributes');// PATCH
+  Catalog.disableRemoteMethodByName('findOne');// GET /catalog/findOne
 
   Catalog.disableRemoteMethodByName('prototype.__create__owners');
   Catalog.disableRemoteMethodByName('prototype.__delete__owners');
-  Catalog.disableRemoteMethodByName('prototype.__findById__owners');//GET /catalog/{id}/owners/{fk}
+  Catalog.disableRemoteMethodByName('prototype.__findById__owners');// GET /catalog/{id}/owners/{fk}
   Catalog.disableRemoteMethodByName('prototype.__updateById__owners');
   Catalog.disableRemoteMethodByName('prototype.__destroyById__owners');
 
@@ -34,26 +34,26 @@ module.exports = function(Catalog) {
   Catalog.disableRemoteMethodByName('prototype.__updateById__readers');
   Catalog.disableRemoteMethodByName('prototype.__destroyById__readers');
 
-  Catalog.disableRemoteMethodByName('prototype.__delete__entries');//DELETE /catalog/{id}/entries
+  Catalog.disableRemoteMethodByName('prototype.__delete__entries');// DELETE /catalog/{id}/entries
 
   // hide endpoints that are semantically wrong
-  Catalog.disableRemoteMethodByName('prototype.__count__owners');//GET /catalog/{id}/owners/count
-  Catalog.disableRemoteMethodByName('prototype.__count__readers');//GET /catalog/{id}/readers/count
+  Catalog.disableRemoteMethodByName('prototype.__count__owners');// GET /catalog/{id}/owners/count
+  Catalog.disableRemoteMethodByName('prototype.__count__readers');// GET /catalog/{id}/readers/count
 
   // temporarily hide  buggy
-  Catalog.disableRemoteMethodByName('prototype.__exists__owners');//HEAD /catalog/{id}/owners/rel/{fk}
-  Catalog.disableRemoteMethodByName('prototype.__exists__readers');//HEAD /catalog/{id}/readers/rel/{fk}
+  Catalog.disableRemoteMethodByName('prototype.__exists__owners');// HEAD /catalog/{id}/owners/rel/{fk}
+  Catalog.disableRemoteMethodByName('prototype.__exists__readers');// HEAD /catalog/{id}/readers/rel/{fk}
 
-  //endregion
-  //#region INSTANCE METHODS
+  // endregion
+  // #region INSTANCE METHODS
 
   Catalog.prototype.userCanRead = function userCanRead(uid) {
     console.log(this);
     return this.ownerIds && this.ownerIds[uid] === 1;
   };
 
-  //endregion
-  //region OBSERVERS
+  // endregion
+  // region OBSERVERS
 
   Catalog.observe('loaded', function onLoad(ctx, next) {
     const token = ctx.options && ctx.options.accessToken;
@@ -87,15 +87,15 @@ module.exports = function(Catalog) {
     const token = ctx.options && ctx.options.accessToken;
     const loginId = token && token.userId;
     ctx.query = ctx.query ? ctx.query : {};
-    if(ctx.options && !ctx.options.onCreate) {
+    if (ctx.options && !ctx.options.onCreate) {
       ctx.query.where = ctx.query.where ? ctx.query.where : {};
       ctx.query.where.readerIds = loginId;
     }
     next();
   });
 
-  //endregion
-  //region REMOTE HOOKS
+  // endregion
+  // region REMOTE HOOKS
   Catalog.beforeRemote('**', function(ctx, unused, next) {
     console.log('in Catalog method:' + ctx.methodString);
     next();
@@ -160,14 +160,14 @@ module.exports = function(Catalog) {
     }
   });
 
-  //endregion
-  //region REMOTE HOOKS: OWNERS & READERS
+  // endregion
+  // region REMOTE HOOKS: OWNERS & READERS
   Catalog.beforeRemote('prototype.__link__owners', function(ctx, cat, next) {
     hasWriteAccess(ctx, cat, next, function(ctx, cat, next, loginId) {
       var uid = ctx.args.fk;
       ctx.instance.readers.exists(uid, function(err, res) {
         if (!res) {
-          //also grant read access to owner
+          // also grant read access to owner
           ctx.instance.readers.add(uid);
         }
       });
@@ -200,8 +200,8 @@ module.exports = function(Catalog) {
     });
   });
 
-  //endregion
-  //region REMOTE HOOKS: ENTRIES
+  // endregion
+  // region REMOTE HOOKS: ENTRIES
 
   Catalog.beforeRemote('prototype.__create__entries', function(ctx, inst, next) {
     hasWriteAccess(ctx, inst, next, onEntryUpsert);
@@ -228,8 +228,8 @@ module.exports = function(Catalog) {
     }
   }
 
-  //endregion
-  //region CUSTOM ENDPOINTS (REMOTES)
+  // endregion
+  // region CUSTOM ENDPOINTS (REMOTES)
   Catalog.owned = function owned(options, cb) {
     const token =  options && options.accessToken;
     const loginId = token && token.userId;
@@ -237,5 +237,5 @@ module.exports = function(Catalog) {
       cb(null, res);
     });
   };
-  //endregion
+  // endregion
 };

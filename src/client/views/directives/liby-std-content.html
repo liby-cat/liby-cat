@@ -1,4 +1,4 @@
-<div ng-if="loggedIn" layout="column" flex>
+<div ng-if="loggedIn" layout="column" flex ng-swipe-right="openSideNav()" ng-swipe-left="closeSideNav()">
   <md-toolbar class="app-bar" md-colors="{background:'brown-900'}" >
     <div class="md-toolbar-tools pad-0" layout-align="space-between center">
       <div layout="row" flex layout-align="start" class="md-toolbar-tools">
@@ -15,7 +15,7 @@
           <md-icon>person</md-icon>
           {{user.username}}
         </md-button>
-        <md-button class="btn-no-trans" ng-click="log_out()">
+        <md-button class="btn-no-trans" ng-click="logOut()">
           <i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Log out
         </md-button>
       </div>
@@ -23,7 +23,7 @@
         <md-button class="md-icon-button">
           <md-icon>person</md-icon>
         </md-button>
-        <md-button class="md-icon-button" ng-click="log_out()">
+        <md-button class="md-icon-button" ng-click="logOut()">
           <i class="fa fa-sign-out" aria-hidden="true"></i>
         </md-button>
       </div>

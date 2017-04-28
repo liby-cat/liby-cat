@@ -1,10 +1,12 @@
+'use strict';
+
 angular.module('app')
   .controller('SignUpCtrl', [
-    '$scope', '$rootScope','$state', 'User', '$mdToast',
-    function ($scope, $rootScope, $state, User, $mdToast) {
+    '$scope', '$rootScope', '$state', 'User', '$mdToast',
+    function($scope, $rootScope, $state, User, $mdToast) {
       $scope.vm = {
         formData: {},
-        submit: function () {
+        submit: function() {
           let cred = {password: $scope.vm.formData.password};
           cred.email = $scope.vm.formData.email;
           cred.username = $scope.vm.formData.username;

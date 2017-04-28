@@ -1,25 +1,23 @@
-/**
- * Created by nafSadh on 13 Apr 2017.
- */
+'use strict';
 
 angular
   .module('app')
   .controller('TodoCtrl', [
     '$scope', '$state', 'Todo',
     function($scope, $state, Todo) {
-    $scope.todos = [];
-    function getTodos() {
-      Todo
+      $scope.todos = [];
+      function getTodos() {
+        Todo
         .find()
         .$promise
         .then(function(results) {
           $scope.todos = results;
         });
-    }
-    getTodos();
-    
-    $scope.addTodo = function() {
-      Todo
+      }
+      getTodos();
+
+      $scope.addTodo = function() {
+        Todo
         .create($scope.newTodo)
         .$promise
         .then(function(todo) {
@@ -28,14 +26,14 @@ angular
           $('.focus').focus();
           getTodos();
         });
-    };
-    
-    $scope.removeTodo = function(item) {
-      Todo
+      };
+
+      $scope.removeTodo = function(item) {
+        Todo
         .deleteById(item)
         .$promise
         .then(function() {
           getTodos();
         });
-    };
-  }]);
+      };
+    }]);

@@ -1,8 +1,9 @@
+'use strict';
 angular.module('app')
   .controller('SettingsCtrl', [
     '$scope', '$state', '$stateParams',
     'User',
-    function ($scope, $state, $stateParams,
+    function($scope, $state, $stateParams,
               User) {
     }
   ]);

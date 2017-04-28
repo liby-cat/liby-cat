@@ -6,3 +6,4 @@ PHP: false
 exclude_paths:
 - test/**/*
 - vendor/**/*
+- src/client/js/lb-services.js

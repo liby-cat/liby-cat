@@ -11,8 +11,6 @@ engines:
           mass_threshold: 99
   fixme:
     enabled: true
-  nodesecurity:
-    enabled: true
 ratings:
   paths:
   - src/client/**

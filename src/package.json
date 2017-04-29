@@ -22,6 +22,7 @@
     "strong-error-handler": "^2.1.0"
   },
   "devDependencies": {
+    "bithound": "^1.7.0",
     "eslint": ">3.8.0",
     "eslint-config-loopback": "^8.0.0",
     "nsp": "^2.1.0"
@@ -30,6 +31,6 @@
     "type": "",
     "url": ""
   },
-  "license": "None",
+  "license": "CC-BY-NC-ND-4.0",
   "description": "liby.cat"
 }

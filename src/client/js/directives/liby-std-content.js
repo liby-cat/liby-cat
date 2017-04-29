@@ -13,6 +13,10 @@ app.directive('libyStdContent', function libyStdContent($state, $mdSidenav, $mdM
         });
       };
 
+      $scope.goToProfile = function () {
+        $state.go('settings');
+      };
+      
       $scope.showSideNav = _global.showSideNav;
 
       $scope.toggleSideNav = function() {

@@ -1,6 +1,5 @@
-'use strict';
-var extend = require('extend');
-var error = require('../util/error');
+const extend = require('extend');
+const error = require('../util/error');
 
 module.exports = function(Org) {
   Org.validatesUniquenessOf('orgIdx');

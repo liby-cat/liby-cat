@@ -1,4 +1,3 @@
-'use strict';
 var error = require('../util/error');
 
 module.exports = function(user) {

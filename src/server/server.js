@@ -1,5 +1,3 @@
-'use strict';
-
 const loopback = require('loopback');
 const boot = require('loopback-boot');
 const lcStrongErrorHandler = require('strong-error-handler');

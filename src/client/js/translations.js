@@ -1,5 +1,3 @@
-'use strict';
-
 app.config(['$translateProvider',
   function($translateProvider) {
     $translateProvider.useStaticFilesLoader({

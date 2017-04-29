@@ -1,4 +1,3 @@
-'use strict';
 const extend = require('extend');
 const error = require('../util/error');
 const arrToMap = require('arr-to-map');

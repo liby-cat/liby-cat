@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('app')
   .controller('CreateCatalogCtrl', [
     '$scope', '$state', '$stateParams', '$mdToast',

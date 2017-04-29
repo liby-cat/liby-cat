@@ -1,5 +1,3 @@
-'use strict';
-
 app.directive('libyCatalogs', function libyCatalogs() {
   return {
     templateUrl: '../views/directives/liby-catalogs.html',

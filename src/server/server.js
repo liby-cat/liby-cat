@@ -1,7 +1,14 @@
 'use strict';
 
-var loopback = require('loopback');
-var boot = require('loopback-boot');
+const loopback = require('loopback');
+const boot = require('loopback-boot');
+const lcStrongErrorHandler = require('strong-error-handler');
+const lcServeFavicon = require('serve-favicon');
+const lcLoopbackConnectorMongodb = require('loopback-connector-mongodb');
+const lcLoopbackComponentExplorer = require('loopback-component-explorer');
+const helmet = require('helmet');
+const cors = require('cors');
+const compression = require('compression');
 
 var app = module.exports = loopback();
 

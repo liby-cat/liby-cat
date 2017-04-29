@@ -6,7 +6,7 @@
     "lint": "eslint .",
     "start": "node .",
     "posttest": "npm run lint && nsp check",
-    "postinstall": "bower install"
+    "postinstall": "cd ../ && bower install"
   },
   "dependencies": {
     "arr-to-map": "^1.0.1",

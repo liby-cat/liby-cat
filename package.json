@@ -2,5 +2,9 @@
   "scripts": {
     "postinstall": "cd src && npm install",
     "start": "cd src && npm start"
+  },
+  "dependencies": {
+    "bower": "^1.8.0",
+    "eslint": "^3.19.0"
   }
 }

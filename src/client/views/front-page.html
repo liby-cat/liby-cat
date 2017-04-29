@@ -2,8 +2,11 @@
   <md-content ng-controller="FrontPageCtrl">
     <div class="front-page-center-row">
       <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-        <img src="../res/logo.svg" width="365px"/>
-        <h1 class="md-display-4 brand-text">Liby.cat</h1>
+        <img src="../res/logo.svg" width="365px" hide-xs/>
+        <h1 class="md-display-4 brand-text">
+          <img src="../res/logo.svg" width="190px" hide-gt-xs/>
+          Liby.cat
+        </h1>
       </section>
       <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
         <h2 class="md-display-1">catalog, <i>for your library</i></h2>

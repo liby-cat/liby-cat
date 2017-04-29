@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('app')
   .controller('LoginCtrl', [
     '$scope', '$rootScope', '$state', 'User', '$mdToast',

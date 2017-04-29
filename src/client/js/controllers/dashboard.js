@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('app')
   .controller('DashboardCtrl', [
     '$scope', '$rootScope', '$state',

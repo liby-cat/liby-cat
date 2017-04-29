@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('app')
   .controller('SignUpCtrl', [
     '$scope', '$rootScope', '$state', 'User', '$mdToast',

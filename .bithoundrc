@@ -1,0 +1,12 @@
+{
+  "ignore": [
+    "**/deps/**",
+    "**/node_modules/**",
+    "**/bower_components/**",
+    "src/client/lb/**"
+  ],
+  "critics": {
+    "wc": { "limit": 15000 }
+  },
+  "packageJsonLocation": "src/package.json"
+}

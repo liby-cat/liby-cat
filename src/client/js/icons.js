@@ -1,4 +1,3 @@
-'use strict';
 app.config(['$mdIconProvider', function appIcons($mdIconProvider) {
   $mdIconProvider
     .icon('logo', '../res/logo.svg')

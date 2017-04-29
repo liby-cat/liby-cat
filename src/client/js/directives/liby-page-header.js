@@ -1,5 +1,3 @@
-'use strict';
-
 app.directive('libyPageHeader', function libyPageHeader() {
   return {
     transclude: true,

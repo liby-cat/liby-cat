@@ -1,4 +1,3 @@
-'use strict';
 var error = require('../util/error');
 
 module.exports = function(user) {
@@ -17,8 +16,8 @@ module.exports = function(user) {
         next();
       });
   });
-  
-  user.username2id = function (username, options, cb) {
+
+  user.username2id = function(username, options, cb) {
     const token = options && options.accessToken;
     const loginId = token && token.userId;
     user.find(
@@ -27,18 +26,17 @@ module.exports = function(user) {
         where: {username: username}
       },
       options,
-      function (err, users) {
-        if(err){
-          cb(err)
-        } else{
-          if(users.length==1){
-            cb(null, users[0])
+      function(err, users) {
+        if (err) {
+          cb(err);
+        } else {
+          if (users.length == 1) {
+            cb(null, users[0]);
           } else {
-            cb(error(404,'No user found with the username'))
+            cb(error(404, 'No user found with the username'));
           }
         }
-        
       }
     );
-  }
+  };
 };

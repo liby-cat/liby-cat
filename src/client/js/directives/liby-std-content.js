@@ -1,5 +1,3 @@
-'use strict';
-
 app.directive('libyStdContent', function libyStdContent($state, $mdSidenav, $mdMedia, User) {
   return {
     transclude: true,

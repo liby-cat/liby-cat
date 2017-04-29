@@ -1,4 +1,3 @@
-'use strict';
 angular.module('app')
   .controller('SettingsCtrl', [
     '$scope', '$state', '$stateParams',

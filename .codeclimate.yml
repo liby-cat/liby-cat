@@ -6,9 +6,9 @@ engines:
         enabled: false
   csslint:
     enabled: true
-      checks:
-        important:
-          enabled: false
+    checks:
+      important:
+        enabled: false
   duplication:
     enabled: true
     config:

@@ -44,7 +44,9 @@ app.controller('CatalogSettingsCtrl', [
             function success(val) {
               $scope.cat[catUserListKey].push(user.id);
               if (cat2ryListKey) {
-                $scope.cat[cat2ryListKey].push(user.id);
+                if($.inArray(user.id, $scope.cat[cat2ryListKey]) === -1) {
+                  $scope.cat[cat2ryListKey].push(user.id);
+                }
               }
               $scope.cat._meta.userIdMap[user.id] = val;
               $mdToast.showSimple(

@@ -1,16 +1,10 @@
 angular.module('app')
   .controller('DashboardCtrl', [
     '$scope', '$rootScope', '$state',
-    'User', 'Catalog',
+    'User', 'CatalogSvc',
     '$mdToast',
-    function($scope, $rootScope, $state,
-              User, Catalog,
-              $mdToast) {
-      Catalog.find(
-        function success(val) {
-          console.log(val);
-          $scope.readableCatalogs = val;
-        },
-        function error(er) {  });
+    function ($scope, $rootScope, $state,
+              User, CatalogSvc) {
+      CatalogSvc.getReadable($scope, 'readableCatalogs');
     }
   ]);

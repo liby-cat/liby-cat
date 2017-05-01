@@ -121,6 +121,10 @@ module.exports = function(Catalog) {
       return next(error(404, 'instance not found'));
     }
   }
+  
+  function onHasWriteAccess(ctx, cat, next, loginId) {
+    return next();
+  }
 
   Catalog.beforeRemote('create', function onCatalogCreation(ctx, unused, next) {
     console.log('Catalog>beforeRemote>create:onCatalogCreation');
@@ -180,15 +184,11 @@ module.exports = function(Catalog) {
   });
 
   Catalog.beforeRemote('prototype.__unlink__owners', function(ctx, cat, next) {
-    hasWriteAccess(ctx, cat, next, function(ctx, cat, next, loginId) {
-      return next();
-    });
+    hasWriteAccess(ctx, cat, next, onHasWriteAccess);
   });
 
   Catalog.beforeRemote('prototype.__link__readers', function(ctx, cat, next) {
-    hasWriteAccess(ctx, cat, next, function(ctx, cat, next, loginId) {
-      return next();
-    });
+    hasWriteAccess(ctx, cat, next, onHasWriteAccess);
   });
 
   Catalog.beforeRemote('prototype.__unlink__readers', function(ctx, cat, next) {

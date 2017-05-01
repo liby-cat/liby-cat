@@ -14,10 +14,6 @@ body {
   background-color: blue;
 }
 
-.md-button {
-  /*text-transform: none;*/
-}
-
 .btn-no-trans{
   text-transform: none!important;
 }
@@ -28,8 +24,6 @@ body {
 
 .md-sidemenu-button md-icon{
   margin: 0;
-}
-.front-page {
 }
 
 .new-entry md-input-container .md-errors-spacer {

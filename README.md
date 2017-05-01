@@ -13,8 +13,7 @@ liby-cat
 [![bitHound Code](https://www.bithound.io/github/liby-cat/liby-cat/badges/code.svg)](https://www.bithound.io/github/liby-cat/liby-cat)
 [![GitHub issues](https://img.shields.io/github/issues-raw/liby-cat/liby-cat.svg)](https://github.com/liby-cat/liby-cat/issues)
 [![Closed issues](https://img.shields.io/github/issues-closed-raw/liby-cat/liby-cat.svg)](https://github.com/liby-cat/liby-cat/issues?q=is%3Aissue+is%3Aclosed)
-[![Website](https://img.shields.io/website-up-down-green-red/https/liby-cat.herokuapp.com.svg)](https://liby-cat.herokuapp.com/)
-
+[![Website](https://img.shields.io/website-up-down-green-red/http/dev.liby.cat.svg)](http://dev.liby.cat/)
 
 
 Liby the cat, lives in your library, keeps a catalog

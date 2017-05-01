@@ -1,5 +1,4 @@
-angular.module('app')
-  .controller('SignUpCtrl', [
+app.controller('SignUpCtrl', [
     '$scope', '$rootScope', '$state', 'User', '$mdToast',
     function($scope, $rootScope, $state, User, $mdToast) {
       $scope.vm = {

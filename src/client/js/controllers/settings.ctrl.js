@@ -1,5 +1,4 @@
-angular.module('app')
-  .controller('SettingsCtrl', [
+app.controller('SettingsCtrl', [
     '$scope', '$state', '$stateParams',
     'User',
     function($scope, $state, $stateParams,

@@ -1,5 +1,4 @@
-angular.module('app')
-  .controller('OwnedCatalogsCtrl', [
+app.controller('OwnedCatalogsCtrl', [
     '$scope', '$state', '$stateParams',
     'User', 'Org', 'Catalog',
     function($scope, $state, $stateParams,

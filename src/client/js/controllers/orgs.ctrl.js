@@ -1,5 +1,4 @@
-angular.module('app')
-  .controller('OrgsCtrl', [
+app.controller('OrgsCtrl', [
     '$scope', '$state', '$stateParams',
     'User', 'Org',
     function($scope, $state, $stateParams,

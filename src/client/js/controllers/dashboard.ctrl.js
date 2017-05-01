@@ -1,5 +1,4 @@
-angular.module('app')
-  .controller('DashboardCtrl', [
+app.controller('DashboardCtrl', [
     '$scope', '$rootScope', '$state',
     'User', 'CatalogSvc',
     '$mdToast',

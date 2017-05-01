@@ -11,7 +11,7 @@ var app = angular
   ])
   .config(['$locationProvider','$stateProvider', '$urlRouterProvider',
     function appStates($locationProvider,$stateProvider, $urlRouterProvider) {
-      $locationProvider.html5Mode({enabled:true});
+      $locationProvider.html5Mode(true);
       $stateProvider
         .state('frontPage', {
           url: '/',

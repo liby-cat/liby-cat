@@ -9,8 +9,9 @@ var app = angular
     // 3rd party libs
     'ngMaterialSidemenu', 'mdDataTable', 'xeditable'
   ])
-  .config(['$stateProvider', '$urlRouterProvider',
-    function appStates($stateProvider, $urlRouterProvider) {
+  .config(['$locationProvider','$stateProvider', '$urlRouterProvider',
+    function appStates($locationProvider,$stateProvider, $urlRouterProvider) {
+      $locationProvider.html5Mode({enabled:true});
       $stateProvider
         .state('frontPage', {
           url: '/',

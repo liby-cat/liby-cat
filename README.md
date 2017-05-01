@@ -28,4 +28,11 @@ Developement
 `node start`
 
 
-(C) Copyright 2017 nafSadh; All rights reserved.
+Sites
+-----
+- http://liby.cat - website upcoming 
+- http://dev.liby.cat - continuously integrated dev (master) branch deployed on heroku
+
+(C) Copyright 2017 
+[Sfaar](http://sfaar.net), [liby-cat](https://github.com/liby-cat) & [nafSadh](http://nafSadh.com); 
+All rights reserved.

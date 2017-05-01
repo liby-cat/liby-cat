@@ -23,8 +23,8 @@ Liby the cat, lives in your library, keeps a catalog
 
 Sites
 -----
-- [http://liby.cat] - website upcoming 
-- [http://dev.liby.cat] - continuously integrated dev (master) branch deployed on heroku
+- [liby.cat](http://liby.cat) - website upcoming 
+- [dev.liby.cat](http://dev.liby.cat) - continuously integrated dev (master) branch deployed on heroku
 
 (C) Copyright 2017 
 [Sfaar](http://sfaar.net), [liby-cat](https://github.com/liby-cat) & [nafSadh](http://nafSadh.com); 

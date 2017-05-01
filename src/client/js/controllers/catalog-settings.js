@@ -28,42 +28,34 @@ angular.module('app')
       );
 
       $scope.addNewOwner = function() {
-        let username = $scope.newOwner.username;
-        User.username2id({username: username},
-          function success(val) {
-            let user = val ? val : {};
-            Catalog.prototype$__link__owners({id: $scope.catalogId, fk: user.id},
-              function success(val) {
-                $scope.cat.ownerIds.push(user.id);
-                $scope.cat._meta.userIdMap[user.id] = val;
-                $mdToast.showSimple(
-                  `Added ${username} as an owner of ${$scope.cat.orgIdx}/${$scope.cat.catalogIdx}`);
-              }
-            );
-          }, function error(er) {
-            $mdToast.showSimple(er.data.error.message);
-          });
-        $scope.newOwner = {};
+        addMember('as owner', 'newOwner', Catalog.prototype$__link__owners, 'ownerIds', 'readerIds');
       };
 
-      $scope.addNewReader = function() {
-        let username = $scope.newReader.username;
+      $scope.addNewReader =  function(){
+        addMember('a reader', 'newReader', Catalog.prototype$__link__readers, 'readerIds');
+      };
+      
+      function addMember(label, formObjKey, linkUserFn, catUserListKey, cat2ryListKey) {
+        let username = $scope[formObjKey].username;
         User.username2id({username: username},
           function success(val) {
             let user = val ? val : {};
-            Catalog.prototype$__link__readers({id: $scope.catalogId, fk: user.id},
+            linkUserFn({id: $scope.catalogId, fk: user.id},
               function success(val) {
-                $scope.cat.readerIds.push(user.id);
+                $scope.cat[catUserListKey].push(user.id);
+                if(cat2ryListKey){
+                  $scope.cat[cat2ryListKey].push(user.id);
+                }
                 $scope.cat._meta.userIdMap[user.id] = val;
                 $mdToast.showSimple(
-                  `Added ${username} as a reader of ${$scope.cat.orgIdx}/${$scope.cat.catalogIdx}`);
+                  `Added ${username} as ${label} of ${$scope.cat.orgIdx}/${$scope.cat.catalogIdx}`);
               }
             );
           }, function error(er) {
             console.log(er);
             $mdToast.showSimple(er.data.error.message);
           });
-        $scope.newReader = {};
-      };
+        $scope[formObjKey] = {};
+      }
     }
   ]);

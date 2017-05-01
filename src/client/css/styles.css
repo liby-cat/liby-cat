@@ -83,3 +83,6 @@ md-toolbar.form-header .md-icon-button:hover md-icon {
   padding:0;
 }
 
+.hidden{
+  display: none;
+}

@@ -43,5 +43,10 @@ angular.module('app')
         $scope.newEntry = {};
         $scope.newEntryForm.title.$touched = false;
       };
+      
+      $scope.updateEntry = function updateEntry(row) {
+        console.log(row);
+      }
+      
     }
   ]);

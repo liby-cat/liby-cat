@@ -39,7 +39,29 @@
       </md-button>
     </form>
   </md-card>
-  <mdt-table layout-margin
+  <mdt-table ng-if="cat._meta.isOwned" layout-margin
+             paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,15]}"
+             save-row-callback="updateEntry(row)">
+    <mdt-header-row>
+      <mdt-column>Title</mdt-column>
+      <mdt-column>Author</mdt-column>
+      <mdt-column>Publisher</mdt-column>
+      <mdt-column>Translator</mdt-column>
+      <mdt-column>Editor</mdt-column>
+      <mdt-column>SL#</mdt-column>
+      <mdt-column>id</mdt-column>
+    </mdt-header-row>
+    <mdt-row ng-repeat="entry in entries" table-row-id-key="id"	>
+      <mdt-cell editable-field="smallEditDialog">{{entry.title}}</mdt-cell>
+      <mdt-cell editable-field="smallEditDialog">{{entry.author}}</mdt-cell>
+      <mdt-cell editable-field="smallEditDialog">{{entry.publisher}}</mdt-cell>
+      <mdt-cell editable-field="smallEditDialog">{{entry.translator}}</mdt-cell>
+      <mdt-cell editable-field="smallEditDialog">{{entry.editor}}</mdt-cell>
+      <mdt-cell editable-field="smallEditDialog">{{entry.entryNum}}</mdt-cell>
+      <mdt-cell html-content="true"><span class="hidden">{{entry.id}}</span></mdt-cell>
+    </mdt-row>
+  </mdt-table>
+  <mdt-table ng-if="!cat._meta.isOwned" layout-margin
              paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,15]}"
              mdt-row="{
                       data: entries,

@@ -64,7 +64,7 @@
       <mdt-column>SL#</mdt-column>
     </mdt-header-row>
     <mdt-custom-cell column-key="id">
-      <span ng-click="clientScope.doSomething(rowId)">
+      <span ng-click="clientScope.showEdit($event, rowId)">
         <button class="md-button md-icon-button edit-icon"><md-icon>edit</md-icon></button>
       </span>
     </mdt-custom-cell>

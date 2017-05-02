@@ -80,3 +80,7 @@ md-toolbar.form-header .md-icon-button:hover md-icon {
 .hidden{
   display: none;
 }
+
+.edit-icon md-icon:hover{
+  color:#0077CC; fill:#07C;
+}

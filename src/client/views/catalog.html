@@ -41,25 +41,33 @@
   </md-card>
   <mdt-table ng-if="cat._meta.isOwned" layout-margin
              paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,15]}"
-             save-row-callback="updateEntry(row)">
+             mdt-row="{
+                      'data': entries,
+                      'table-row-id-key': 'id',
+                      'column-keys': [
+                          'id',
+                          'title',
+                          'author',
+                          'publisher',
+                          'translator',
+                          'editor',
+                          'entryNum'
+                      ]
+                      }">
     <mdt-header-row>
+      <mdt-column>Edit</mdt-column>
       <mdt-column>Title</mdt-column>
       <mdt-column>Author</mdt-column>
       <mdt-column>Publisher</mdt-column>
       <mdt-column>Translator</mdt-column>
       <mdt-column>Editor</mdt-column>
       <mdt-column>SL#</mdt-column>
-      <mdt-column>id</mdt-column>
     </mdt-header-row>
-    <mdt-row ng-repeat="entry in entries" table-row-id-key="id"	>
-      <mdt-cell editable-field="smallEditDialog">{{entry.title}}</mdt-cell>
-      <mdt-cell editable-field="smallEditDialog">{{entry.author}}</mdt-cell>
-      <mdt-cell editable-field="smallEditDialog">{{entry.publisher}}</mdt-cell>
-      <mdt-cell editable-field="smallEditDialog">{{entry.translator}}</mdt-cell>
-      <mdt-cell editable-field="smallEditDialog">{{entry.editor}}</mdt-cell>
-      <mdt-cell editable-field="smallEditDialog">{{entry.entryNum}}</mdt-cell>
-      <mdt-cell html-content="true"><span class="hidden">{{entry.id}}</span></mdt-cell>
-    </mdt-row>
+    <mdt-custom-cell column-key="id">
+      <span ng-click="clientScope.doSomething(rowId)">
+        <button class="md-button md-icon-button edit-icon"><md-icon>edit</md-icon></button>
+      </span>
+    </mdt-custom-cell>
   </mdt-table>
   <mdt-table ng-if="!cat._meta.isOwned" layout-margin
              paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,15]}"

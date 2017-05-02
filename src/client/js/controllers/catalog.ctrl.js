@@ -48,5 +48,9 @@ app.controller('CatalogCtrl', [
       console.log(row);
     }
     
+    $scope.doSomething = function (rowId) {
+      console.log('something'+rowId);
+    }
+    
   }
 ]);

@@ -2,17 +2,17 @@ const extend = require('extend');
 const error = require('../util/error');
 const arrToMap = require('arr-to-map');
 
-module.exports = function(Catalog) {
-  Catalog.createOptionsFromRemotingContext = function(ctx) {
+module.exports = function (Catalog) {
+  Catalog.createOptionsFromRemotingContext = function (ctx) {
     // console.log('Catalog.createOptionsFromRemotingContext')
     let base = this.base.createOptionsFromRemotingContext(ctx);
     return extend(base, {
       currentUserId: base.accessToken && base.accessToken.userId
     });
   };
-
+  
   // region HIDE UNSUPPORTED API ENDPOINTS
-  let hideUnsupportedAPIEndpoint = (function() {
+  let hideUnsupportedAPIEndpoint = (function () {
     Catalog.disableRemoteMethodByName('patchOrCreate');// PATH /catalog
     Catalog.disableRemoteMethodByName('replaceOrCreate');// PUT /catalog
     Catalog.disableRemoteMethodByName('deleteById');// DELETE /catalog{id}
@@ -21,40 +21,40 @@ module.exports = function(Catalog) {
     Catalog.disableRemoteMethodByName('upsertWithWhere');// POST /catalog/upsertWithWhere
     Catalog.disableRemoteMethodByName('prototype.patchAttributes');// PATCH
     Catalog.disableRemoteMethodByName('findOne');// GET /catalog/findOne
-
+    
     Catalog.disableRemoteMethodByName('prototype.__create__owners');
     Catalog.disableRemoteMethodByName('prototype.__delete__owners');
     Catalog.disableRemoteMethodByName('prototype.__findById__owners');// GET /catalog/{id}/owners/{fk}
     Catalog.disableRemoteMethodByName('prototype.__updateById__owners');
     Catalog.disableRemoteMethodByName('prototype.__destroyById__owners');
-
+    
     Catalog.disableRemoteMethodByName('prototype.__create__readers');
     Catalog.disableRemoteMethodByName('prototype.__delete__readers');
     Catalog.disableRemoteMethodByName('prototype.__findById__readers');
     Catalog.disableRemoteMethodByName('prototype.__updateById__readers');
     Catalog.disableRemoteMethodByName('prototype.__destroyById__readers');
-
+    
     Catalog.disableRemoteMethodByName('prototype.__delete__entries');// DELETE /catalog/{id}/entries
-
+    
     // hide endpoints that are semantically wrong
     Catalog.disableRemoteMethodByName('prototype.__count__owners');// GET /catalog/{id}/owners/count
     Catalog.disableRemoteMethodByName('prototype.__count__readers');// GET /catalog/{id}/readers/count
-
+    
     // temporarily hide  buggy
     Catalog.disableRemoteMethodByName('prototype.__exists__owners');// HEAD /catalog/{id}/owners/rel/{fk}
     Catalog.disableRemoteMethodByName('prototype.__exists__readers');// HEAD /catalog/{id}/readers/rel/{fk}
   }());
   // endregion
   // #region INSTANCE METHODS
-
+  
   Catalog.prototype.userCanRead = function userCanRead(uid) {
     console.log(this);
     return this.ownerIds && this.ownerIds[uid] === 1;
   };
-
+  
   // endregion
   // region OBSERVERS
-
+  
   Catalog.observe('loaded', function onLoad(ctx, next) {
     const token = ctx.options && ctx.options.accessToken;
     const loginId = token && token.userId;
@@ -64,8 +64,8 @@ module.exports = function(Catalog) {
       let meta = cat._meta;
       if (loginId) {
         meta.isOwned = false;
-        for (let i in cat.ownerIds) {
-          if ({}.hasOwnProperty.call(cat, 'ownerIds')) {
+        if ({}.hasOwnProperty.call(cat, 'ownerIds')) {
+          for (let i = 0; i < cat.ownerIds.length && !meta.isOwned; i++) {
             meta.isOwned = meta.isOwned || '' + loginId === '' + cat.ownerIds[i];
           }
         }
@@ -75,8 +75,8 @@ module.exports = function(Catalog) {
       user.find({
         where: {id: {inq: cat.readerIds}},
         fields: {id: true, username: true}
-      }, function(err, obj) {
-        if (err) next(err);
+      }, function (err, obj) {
+        if (err) return next(err);
         if (obj) {
           meta.userIdMap = arrToMap(obj, 'id');
         }
@@ -84,7 +84,7 @@ module.exports = function(Catalog) {
       });
     }
   });
-
+  
   Catalog.observe('access', function enforceUserReadAccess(ctx, next) {
     console.log('Catalog>observe>access:enforceUserReadAccess');
     const token = ctx.options && ctx.options.accessToken;
@@ -96,19 +96,19 @@ module.exports = function(Catalog) {
     }
     return next();
   });
-
+  
   // endregion
   // region REMOTE HOOKS
-  Catalog.beforeRemote('**', function(ctx, unused, next) {
+  Catalog.beforeRemote('**', function (ctx, unused, next) {
     console.log('in Catalog method:' + ctx.methodString);
     return next();
   });
-
+  
   function hasWriteAccess(ctx, cat, next, applyFn) {
     const token = ctx.args && ctx.args.options && ctx.args.options.accessToken;
     const loginId = token && token.userId;
     if (ctx.instance) {
-      ctx.instance.owners.exists(loginId, function(err, isOwner) {
+      ctx.instance.owners.exists(loginId, function (err, isOwner) {
         if (err) {
           return next(err);
         } else if (isOwner) {
@@ -125,7 +125,7 @@ module.exports = function(Catalog) {
   function onHasWriteAccess(ctx, cat, next, loginId) {
     return next();
   }
-
+  
   Catalog.beforeRemote('create', function onCatalogCreation(ctx, unused, next) {
     console.log('Catalog>beforeRemote>create:onCatalogCreation');
     if (ctx.args && ctx.args.data) {
@@ -134,7 +134,7 @@ module.exports = function(Catalog) {
       const token = ctx.args && ctx.args.options && ctx.args.options.accessToken;
       const loginId = token && token.userId;
       const Org = Catalog.app.models.Org;
-      Org.find({where: {id: orgId, adminIds: loginId}}, function(err, orgs) {
+      Org.find({where: {id: orgId, adminIds: loginId}}, function (err, orgs) {
         if (err) {
           next(err);
         }
@@ -145,7 +145,7 @@ module.exports = function(Catalog) {
           ctx.args.options.onCreate = true;
           Catalog.find({where: {orgIdx: cat.orgIdx, catalogIdx: cat.catalogIdx}},
             ctx.args.options,
-            function(err, cats) {
+            function (err, cats) {
               if (err) {
                 return next(err);
               }
@@ -166,13 +166,13 @@ module.exports = function(Catalog) {
       return next();
     }
   });
-
+  
   // endregion
   // region REMOTE HOOKS: OWNERS & READERS
-  Catalog.beforeRemote('prototype.__link__owners', function(ctx, cat, next) {
-    hasWriteAccess(ctx, cat, next, function(ctx, cat, next, loginId) {
+  Catalog.beforeRemote('prototype.__link__owners', function (ctx, cat, next) {
+    hasWriteAccess(ctx, cat, next, function (ctx, cat, next, loginId) {
       const uid = ctx.args.fk;
-      ctx.instance.readers.exists(uid, function(err, res) {
+      ctx.instance.readers.exists(uid, function (err, res) {
         if (err) return next(err);
         if (!res) {
           // also grant read access to owner
@@ -182,19 +182,19 @@ module.exports = function(Catalog) {
       return next();
     });
   });
-
-  Catalog.beforeRemote('prototype.__unlink__owners', function(ctx, cat, next) {
+  
+  Catalog.beforeRemote('prototype.__unlink__owners', function (ctx, cat, next) {
     hasWriteAccess(ctx, cat, next, onHasWriteAccess);
   });
-
-  Catalog.beforeRemote('prototype.__link__readers', function(ctx, cat, next) {
+  
+  Catalog.beforeRemote('prototype.__link__readers', function (ctx, cat, next) {
     hasWriteAccess(ctx, cat, next, onHasWriteAccess);
   });
-
-  Catalog.beforeRemote('prototype.__unlink__readers', function(ctx, cat, next) {
-    hasWriteAccess(ctx, cat, next, function(ctx, cat, next, loginId) {
+  
+  Catalog.beforeRemote('prototype.__unlink__readers', function (ctx, cat, next) {
+    hasWriteAccess(ctx, cat, next, function (ctx, cat, next, loginId) {
       const uid = ctx.args.fk;
-      ctx.instance.owners.exists(uid, function(err, res) {
+      ctx.instance.owners.exists(uid, function (err, res) {
         if (res) {
           return next(error('Cannot remove read access from an owner'));
         } else {
@@ -203,18 +203,18 @@ module.exports = function(Catalog) {
       });
     });
   });
-
+  
   // endregion
   // region REMOTE HOOKS: ENTRIES
-
-  Catalog.beforeRemote('prototype.__create__entries', function(ctx, inst, next) {
+  
+  Catalog.beforeRemote('prototype.__create__entries', function (ctx, inst, next) {
     hasWriteAccess(ctx, inst, next, onEntryUpsert);
   });
-
-  Catalog.beforeRemote('prototype.__updateById__entries', function(ctx, inst, next) {
+  
+  Catalog.beforeRemote('prototype.__updateById__entries', function (ctx, inst, next) {
     hasWriteAccess(ctx, inst, next, onEntryUpsert);
   });
-
+  
   function onEntryUpsert(ctx, unused, next, loginId) {
     if (ctx.instance) {
       let cat = ctx.instance;
@@ -230,13 +230,13 @@ module.exports = function(Catalog) {
       return next(error(404, 'instance not found'));
     }
   }
-
+  
   // endregion
   // region CUSTOM ENDPOINTS (REMOTES)
   Catalog.owned = function owned(options, cb) {
-    const token =  options && options.accessToken;
+    const token = options && options.accessToken;
     const loginId = token && token.userId;
-    Catalog.find({where: {ownerIds: loginId}}, options, function(err, res) {
+    Catalog.find({where: {ownerIds: loginId}}, options, function (err, res) {
       if (err) cb(err);
       cb(null, res);
     });

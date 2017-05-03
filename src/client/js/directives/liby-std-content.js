@@ -1,4 +1,4 @@
-app.directive('libyStdContent', function libyStdContent($state, $mdSidenav, $mdMedia, User) {
+app.directive('libyStdContent', function libyStdContent($state, $mdSidenav, $cookies, $mdMedia, User) {
   return {
     transclude: true,
     templateUrl: '../views/directives/liby-std-content.html',
@@ -16,14 +16,17 @@ app.directive('libyStdContent', function libyStdContent($state, $mdSidenav, $mdM
       $scope.goToProfile = function () {
         $state.go('settings');
       };
-      
-      $scope.showSideNav = _global.showSideNav;
-
+  
+      $scope.showSideNav = 'hide' !== $cookies.get(COOKIE_PREFIX + 'showSideNav');
+      console.log($scope.showSideNav);
+  
       $scope.toggleSideNav = function() {
         let sideNav = $mdSidenav('side-nav');
         let gtSm = $mdMedia('gt-sm');
         if (gtSm) {
-          $scope.showSideNav = _global.showSideNav = !_global.showSideNav;
+          $scope.showSideNav = !$scope.showSideNav;
+          console.log($scope.showSideNav);
+          $cookies.put(COOKIE_PREFIX + 'showSideNav', $scope.showSideNav ? 'show' : 'hide');
         } else {
           sideNav.toggle();
         }

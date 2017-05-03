@@ -32,7 +32,8 @@
     "angular-xeditable": "^0.7.1",
     "components-font-awesome": "^4.7.0",
     "md-data-table": "https://github.com/nafSadh/mdDataTable.git#2.2.2",
-    "angular-touch": "^1.6.4"
+    "angular-touch": "^1.6.4",
+    "angular-cookies": "^1.6.4"
   },
   "resolutions": {
     "angular": "^1.6.4",

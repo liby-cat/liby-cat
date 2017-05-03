@@ -1,16 +1,18 @@
+const COOKIE_PREFIX = 'LIBY_CAT';
+
 var app = angular
   .module('app', [
     // loopback
     'lbServices',
     // standard angular libs
-    'ui.router', 'ngAnimate', 'ngAria', 'ngTouch', 'pascalprecht.translate',
+    'ui.router', 'ngAnimate', 'ngAria', 'ngCookies', 'ngTouch', 'pascalprecht.translate',
     // angular material
     'ngMaterial',
     // 3rd party libs
     'ngMaterialSidemenu', 'mdDataTable', 'xeditable'
   ])
   .config(['$locationProvider','$stateProvider', '$urlRouterProvider',
-    function appStates($locationProvider,$stateProvider, $urlRouterProvider) {
+    function init($locationProvider, $stateProvider, $urlRouterProvider) {
       $locationProvider.html5Mode(true);
       $stateProvider
         .state('frontPage', {
@@ -81,7 +83,3 @@ var app = angular
       $urlRouterProvider
         .otherwise('/');
     }]);
-
-var _global = {
-  showSideNav: true
-};

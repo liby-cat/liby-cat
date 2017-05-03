@@ -4,7 +4,6 @@ const arrToMap = require('arr-to-map');
 
 module.exports = function (Catalog) {
   Catalog.createOptionsFromRemotingContext = function (ctx) {
-    // console.log('Catalog.createOptionsFromRemotingContext')
     let base = this.base.createOptionsFromRemotingContext(ctx);
     return extend(base, {
       currentUserId: base.accessToken && base.accessToken.userId
@@ -46,12 +45,6 @@ module.exports = function (Catalog) {
   }());
   // endregion
   // #region INSTANCE METHODS
-  
-  Catalog.prototype.userCanRead = function userCanRead(uid) {
-    console.log(this);
-    return this.ownerIds && this.ownerIds[uid] === 1;
-  };
-  
   // endregion
   // region OBSERVERS
   
@@ -86,7 +79,6 @@ module.exports = function (Catalog) {
   });
   
   Catalog.observe('access', function enforceUserReadAccess(ctx, next) {
-    console.log('Catalog>observe>access:enforceUserReadAccess');
     const token = ctx.options && ctx.options.accessToken;
     const loginId = token && token.userId;
     ctx.query = ctx.query ? ctx.query : {};
@@ -140,7 +132,6 @@ module.exports = function (Catalog) {
         }
         if (orgs && orgs.length === 1) {
           let org = orgs[0];
-          console.log(org);
           cat.orgIdx = org.orgIdx;
           ctx.args.options.onCreate = true;
           Catalog.find({where: {orgIdx: cat.orgIdx, catalogIdx: cat.catalogIdx}},

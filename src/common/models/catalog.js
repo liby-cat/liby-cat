@@ -64,6 +64,10 @@ module.exports = function (Catalog) {
             meta.isOwned = meta.isOwned || '' + loginId === '' + cat.ownerIds[i];
           }
         }
+        meta.isCreator = false;
+        if ({}.hasOwnProperty.call(cat, 'creatorId')) {
+          meta.isCreator = '' + loginId === '' + cat.creatorId;
+        }
         meta.loginId = loginId;
       }
       const user = Catalog.app.models.user;

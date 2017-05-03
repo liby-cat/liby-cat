@@ -1,3 +1,4 @@
+/* eslint-disable */
 // CommonJS package manager support
 if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
   module.exports === exports) {
@@ -2168,15 +2169,20 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
 
   module
   .factory('LoopBackAuth', function() {
-    var props = ['accessTokenId', 'currentUserId', 'rememberMe'];
-    var propsPrefix = '$LoopBack$';
+    var props = ['accessTokenId', 'currentUserId', 'rememberMe', 'currentUserData'];
+    var propsPrefix = '$LibyCat$';
 
     function LoopBackAuth() {
       var self = this;
       props.forEach(function(name) {
-        self[name] = load(name);
+        let val = load(name);
+        try {
+          self[name] = JSON.parse(val);
+        } catch (e) {
+          self[name] = val;
+        }
       });
-      this.currentUserData = null;
+      //this.currentUserData = null;
     }
 
     LoopBackAuth.prototype.save = function() {
@@ -2213,7 +2219,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
     function save(storage, name, value) {
       try {
         var key = propsPrefix + name;
-        if (value == null) value = '';
+        value = value === null ? value : JSON.stringify(value);
         storage[key] = value;
       } catch (err) {
         console.log('Cannot access local/session storage:', err);

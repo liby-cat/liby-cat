@@ -34,15 +34,14 @@ boot(app, __dirname, function(err) {
 
 // PRETTY URL
 // https://www.theodo.fr/blog/2017/01/pretty-url-in-angularjs-and-loopback-drop-the/
-// http://www.theodo.fr/blog/2017/01/pretty-url-in-angularjs-and-loopback-drop-the/
 const path = require('path');
 
 //List here the paths you do not want to be redirected to the angular application (scripts, stylesheets, templates, loopback REST API, ...)
-const ignoredPaths = ['/css', '/js','/lb', '/vendor', '/views', '/api','/res'];
+const wildcard = ['/api', '/css', '/js', '/lb', '/res', '/vendor', '/views'];
 
 app.all('/*', function(req, res, next) {
   //Redirecting to index only the requests that do not start with ignored paths
-  if(!startsWith(req.url, ignoredPaths))
+  if (!startsWith(req.url, wildcard))
     res.sendFile('index.html', { root: path.resolve(__dirname, '..', 'client') });
   else
     next();

@@ -56,7 +56,7 @@ app.controller('CatalogCtrl', [
         parent: angular.element(document.body),
         targetEvent: $event,
         template: `
-        <md-dialog aria-label="List dialog" flex="100" flex-gt-sm="50">
+        <md-dialog aria-label="List dialog" flex="100" flex-gt-sm="60">
           <md-dialog-content>
             <div layout="column">
               <md-toolbar class="form-header">

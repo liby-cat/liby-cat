@@ -45,6 +45,8 @@ module.exports = function (Catalog) {
   }());
   // endregion
   // #region INSTANCE METHODS
+  
+  
   // endregion
   // region OBSERVERS
   
@@ -114,10 +116,6 @@ module.exports = function (Catalog) {
     }
   }
   
-  function onHasWriteAccess(ctx, cat, next, loginId) {
-    return next();
-  }
-  
   Catalog.beforeRemote('create', function onCatalogCreation(ctx, unused, next) {
     console.log('Catalog>beforeRemote>create:onCatalogCreation');
     if (ctx.args && ctx.args.data) {
@@ -176,11 +174,20 @@ module.exports = function (Catalog) {
   });
   
   Catalog.beforeRemote('prototype.__unlink__owners', function (ctx, cat, next) {
-    hasWriteAccess(ctx, cat, next, onHasWriteAccess);
+    hasWriteAccess(ctx, cat, next, function (ctx, cat, next, loginId) {
+      const uid = ctx.args.fk;
+      if(ctx.instance.creatorId+'' === ''+uid){
+        return next(error(403, 'Cannot revoke ownership from creator'));
+      } else {
+        return next();
+      }
+    });
   });
   
   Catalog.beforeRemote('prototype.__link__readers', function (ctx, cat, next) {
-    hasWriteAccess(ctx, cat, next, onHasWriteAccess);
+    hasWriteAccess(ctx, cat, next, function(ctx, cat, next, loginId) {
+      return next();
+    });
   });
   
   Catalog.beforeRemote('prototype.__unlink__readers', function (ctx, cat, next) {
@@ -188,7 +195,7 @@ module.exports = function (Catalog) {
       const uid = ctx.args.fk;
       ctx.instance.owners.exists(uid, function (err, res) {
         if (res) {
-          return next(error('Cannot remove read access from an owner'));
+          return next(error(403, 'Cannot remove read access from an owner'));
         } else {
           return next();
         }

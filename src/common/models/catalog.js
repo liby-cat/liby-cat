@@ -150,6 +150,7 @@ module.exports = function (Catalog) {
                 return next(err);
               }
               if (cats === null || cats.length === 0) {
+                cat.creatorId = loginId;
                 cat.ownerIds = [loginId];
                 cat.readerIds = [loginId];
                 return next();

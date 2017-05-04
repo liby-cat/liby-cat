@@ -8,8 +8,8 @@ app.controller('CatalogSettingsCtrl', [
     $scope.loggedIn = User.isAuthenticated();
     $scope.user = User.getCachedCurrent();
     $scope.catalogId = $stateParams.id;
-    $scope.newOwner = {};
-    $scope.newReader = {};
+    $scope.owners = [];
+    $scope.readers = [];
     
     $scope.titleEditor = {
       updateFn: function updateTitle(newTitle) {

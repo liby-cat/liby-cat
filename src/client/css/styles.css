@@ -59,7 +59,7 @@ md-toolbar.page-header md-icon {
   color:#757575;  fill:#757575; /*grey-600*/
 }
 md-toolbar.page-header .md-icon-button:hover md-icon {
-  color:#5D4037; fill:#5D4037;
+  color:#07C; fill:#07C;
 }
 
 md-toolbar.form-header{
@@ -81,6 +81,6 @@ md-toolbar.form-header .md-icon-button:hover md-icon {
   display: none;
 }
 
-.edit-icon md-icon:hover{
-  color:#0077CC; fill:#07C;
+.hover-blu md-icon:hover{
+  color:#07C; fill:#07C;
 }

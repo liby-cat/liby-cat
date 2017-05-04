@@ -19,11 +19,11 @@
     </md-card-title-media>
   </md-card-title>
   <md-card-actions layout="row" layout-align="end center">
-    <md-button ng-if="cat._meta.isOwned" class="btn-no-trans md-icon-button"
+    <md-button ng-if="cat._meta.isOwned" class="btn-no-trans md-icon-button hover-blu"
                ui-sref="catalog-settings({org:cat.orgIdx, catalog:cat.catalogIdx, id: cat.id})">
       <md-icon>settings</md-icon>
     </md-button>
-    <md-button class="btn-no-trans md-icon-button"
+    <md-button class="btn-no-trans md-icon-button hover-blu"
                ui-sref="catalog({org:cat.orgIdx, catalog:cat.catalogIdx, id: cat.id})">
       <md-icon md-svg-icon="list"></md-icon>
     </md-button>

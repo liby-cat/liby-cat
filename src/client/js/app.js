@@ -11,7 +11,7 @@ var app = angular
     // 3rd party libs
     'ngMaterialSidemenu', 'mdDataTable', 'xeditable'
   ])
-  .config(['$locationProvider','$stateProvider', '$urlRouterProvider',
+  .config(['$locationProvider', '$stateProvider', '$urlRouterProvider',
     function init($locationProvider, $stateProvider, $urlRouterProvider) {
       $locationProvider.html5Mode(true);
       setStates($stateProvider);
@@ -69,9 +69,16 @@ function setStates($stateProvider) {
       url: '/catalog/:org/:catalog/:id',
       templateUrl: 'views/catalog.html',
       controller: 'CatalogCtrl'
-    }).state('catalog-settings', {
-    url: '/catalog/:org/:catalog/:id/settings',
-    templateUrl: 'views/catalog-settings.html',
-    controller: 'CatalogSettingsCtrl'
-  });
+    })
+    .state('catalog-settings', {
+      url: '/catalog/:org/:catalog/:id/settings',
+      templateUrl: 'views/catalog-settings.html',
+      controller: 'CatalogSettingsCtrl'
+    })
+    .state('catalog-info', {
+      url: '/catalog/:org/:catalog/:id/info',
+      templateUrl: 'views/catalog-settings.html',
+      controller: 'CatalogSettingsCtrl'
+    })
+  ;
 }

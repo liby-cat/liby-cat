@@ -25,6 +25,8 @@ Developement
 `npm install`
 ### run
 `node start`
+### build and run
+`npm rin-script .`
 
 
 Sites

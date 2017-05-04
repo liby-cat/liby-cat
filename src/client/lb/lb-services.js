@@ -2170,7 +2170,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
   module
   .factory('LoopBackAuth', function() {
     var props = ['accessTokenId', 'currentUserId', 'rememberMe', 'currentUserData'];
-    var propsPrefix = '$LoopBack$';
+    var propsPrefix = '$LibyCat$';
 
     function LoopBackAuth() {
       var self = this;
@@ -2219,7 +2219,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
     function save(storage, name, value) {
       try {
         var key = propsPrefix + name;
-        value = value === null ? value  : JSON.stringify(value);
+        value = value === null ? value : JSON.stringify(value);
         storage[key] = value;
       } catch (err) {
         console.log('Cannot access local/session storage:', err);

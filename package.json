@@ -1,5 +1,16 @@
 {
+  "name": "liby-cat",
+  "version": "0.4.0",
+  "license": "UNLICENSED",
+  "contributors":[
+    "nafSadh khan (http://nafSadh.com)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liby-cat/liby-cat.git"
+  },
   "scripts": {
+    ".": "npm install && npm start",
     "postinstall": "cd src && npm install",
     "start": "cd src && npm start"
   },

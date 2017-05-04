@@ -1,14 +1,20 @@
-diff --git a/src/client/js/lb-services.js b/src/client/js/lb-services.js
-index f907da5..fcd7eb3 100644
---- a/src/client/js/lb-services.js
-+++ b/src/client/js/lb-services.js
-@@ -2168,15 +2168,20 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
+diff --git a/src/client/lb/lb-services.js b/src/client/lb/lb-services.js
+index f907da5..cc46799 100644
+--- a/src/client/lb/lb-services.js
++++ b/src/client/lb/lb-services.js
+@@ -1,3 +1,4 @@
++/* eslint-disable */
+ // CommonJS package manager support
+ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
+   module.exports === exports) {
+@@ -2168,15 +2169,20 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
  
    module
    .factory('LoopBackAuth', function() {
 -    var props = ['accessTokenId', 'currentUserId', 'rememberMe'];
+-    var propsPrefix = '$LoopBack$';
 +    var props = ['accessTokenId', 'currentUserId', 'rememberMe', 'currentUserData'];
-     var propsPrefix = '$LoopBack$';
++    var propsPrefix = '$LibyCat$';
  
      function LoopBackAuth() {
        var self = this;
@@ -26,12 +32,12 @@ index f907da5..fcd7eb3 100644
      }
  
      LoopBackAuth.prototype.save = function() {
-@@ -2213,7 +2218,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
+@@ -2213,7 +2219,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
      function save(storage, name, value) {
        try {
          var key = propsPrefix + name;
 -        if (value == null) value = '';
-+        value = value === null ? value  : JSON.stringify(value);
++        value = value === null ? value : JSON.stringify(value);
          storage[key] = value;
        } catch (err) {
          console.log('Cannot access local/session storage:', err);

@@ -32,6 +32,9 @@
       "type": "string",
       "required": true,
       "default": "books"
+    },
+    "creatorId":{
+      "type": "string"
     }
   },
   "validations": [],

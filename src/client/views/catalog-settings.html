@@ -14,7 +14,7 @@
       <md-card-title-text class="md-headline">Owners</md-card-title-text>
     </mdt-card-title>
     <md-chips ng-model="cat.ownerIds" readonly="!cat._meta.isOwned"
-              md-transform-chip="addAnOwner($chip)"
+              md-transform-chip="addOwner($chip)"
               md-on-remove="removeOwner($chip)" >
       <md-chip-template>
         {{cat._meta.userIdMap[$chip].username}}
@@ -25,19 +25,12 @@
     <mdt-card-title>
       <md-card-title-text class="md-headline">Readers</md-card-title-text>
     </mdt-card-title>
-    <md-list>
-      <md-list-item ng-repeat="readerId in cat.readerIds">
-        {{cat._meta.userIdMap[readerId].username}}
-      </md-list-item>
-    </md-list>
-    <form ng-if="cat._meta.isOwned">
-      <md-input-container flex="25">
-        <label>Username</label>
-        <input name="username" ng-model="newReader.username">
-      </md-input-container>
-      <md-button class="md-icon-button" type="submit" ng-click="addNewReader()" ng-disabled="!newReader.username">
-        <md-icon>person_add</md-icon>
-      </md-button>
-    </form>
+    <md-chips ng-model="cat.readerIds" readonly="!cat._meta.isOwned"
+              md-transform-chip="addReader($chip)"
+              md-on-remove="removeReader($chip)" >
+      <md-chip-template>
+        {{cat._meta.userIdMap[$chip].username}}
+      </md-chip-template>
+    </md-chips>
   </md-card>
 </liby-std-content>

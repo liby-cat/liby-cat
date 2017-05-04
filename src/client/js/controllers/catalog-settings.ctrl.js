@@ -26,21 +26,18 @@ app.controller('CatalogSettingsCtrl', [
       }
     );
     
-    $scope.addAnOwner = function (chip) {
+    function addUserHandler(chip, relationKey, label, addHandler) {
       let username = chip;
       let user;
       User.username2id({username: username},
         function success(val) {
           user = val ? val : {};
-          Catalog.owners.link({id: $scope.catalogId, fk: user.id},
+          Catalog[relationKey].link({id: $scope.catalogId, fk: user.id},
             function success(val) {
-              $scope.cat.ownerIds.push(user.id);
-              if ($.inArray(user.id, $scope.cat.readerIds) === -1) {
-                $scope.cat.readerIds.push(user.id);
-              }
+              addHandler(user.id);
               $scope.cat._meta.userIdMap[user.id] = val;
               $mdToast.showSimple(
-                `Added ${username} as as owner of ${$scope.cat.orgIdx}/${$scope.cat.catalogIdx}`);
+                `Added ${username} as as ${label} of ${$scope.cat.orgIdx}/${$scope.cat.catalogIdx}`);
             }, function e(er) {
               $mdToast.showSimple(er.data.error.message);
             }
@@ -49,47 +46,44 @@ app.controller('CatalogSettingsCtrl', [
           $mdToast.showSimple(er.data.error.message);
         });
       return null;
-    };
+    }
     
-    $scope.removeOwner = function (userId) {
-      console.log(userId);
-      Catalog.owners.unlink({id: $scope.catalogId, fk: userId}, function s(val) {
-        let user = $scope.cat._meta.userIdMap[userId];
-        $mdToast.showSimple(
-          `Removed ${user.username} from being an owner of ${$scope.cat.orgIdx}/${$scope.cat.catalogIdx}`);
-      }, function e(err) {
-        $mdToast.showSimple(err.data.error.message);
+    $scope.addOwner = function (chip) {
+      return addUserHandler(chip, 'owners', 'owner', function (userId) {
         $scope.cat.ownerIds.push(userId);
+        if ($.inArray(userId, $scope.cat.readerIds) === -1) {
+          $scope.cat.readerIds.push(userId);
+        }
       });
     };
     
-    $scope.addNewReader = function () {
-      addMember('a reader', 'newReader', Catalog.prototype$__link__readers, 'readerIds');
+    $scope.addReader = function (chip) {
+      return addUserHandler(chip, 'readers', 'reader', function (userId) {
+        $scope.cat.readerIds.push(userId);
+      });
     };
     
-    function addMember(label, formObjKey, linkUserFn, catUserListKey, cat2ryListKey) {
-      let username = $scope[formObjKey].username;
-      User.username2id({username: username},
-        function success(val) {
-          let user = val ? val : {};
-          linkUserFn({id: $scope.catalogId, fk: user.id},
-            function success(val) {
-              $scope.cat[catUserListKey].push(user.id);
-              if (cat2ryListKey) {
-                if ($.inArray(user.id, $scope.cat[cat2ryListKey]) === -1) {
-                  $scope.cat[cat2ryListKey].push(user.id);
-                }
-              }
-              $scope.cat._meta.userIdMap[user.id] = val;
-              $mdToast.showSimple(
-                `Added ${username} as ${label} of ${$scope.cat.orgIdx}/${$scope.cat.catalogIdx}`);
-            }
-          );
-        }, function error(er) {
-          console.log(er);
-          $mdToast.showSimple(er.data.error.message);
-        });
-      $scope[formObjKey] = {};
+    function removeUserHandler(userId, relationKey, label, rejectHandler) {
+      Catalog[relationKey].unlink({id: $scope.catalogId, fk: userId}, function s(val) {
+        let user = $scope.cat._meta.userIdMap[userId];
+        $mdToast.showSimple(
+          `Removed ${user.username} from being ${label} of ${$scope.cat.orgIdx}/${$scope.cat.catalogIdx}`);
+      }, function e(err) {
+        $mdToast.showSimple(err.data.error.message);
+        rejectHandler(userId);
+      });
     }
+    
+    $scope.removeOwner = function (userId) {
+      return removeUserHandler(userId, 'owners', 'an owner', function (userId) {
+        $scope.cat.ownerIds.push(userId);
+      })
+    };
+    
+    $scope.removeReader= function (userId) {
+      return removeUserHandler(userId, 'readers', 'a reader', function (userId) {
+        $scope.cat.readerIds.push(userId);
+      })
+    };
   }
 ]);

@@ -13,20 +13,11 @@
     <mdt-card-title>
       <md-card-title-text class="md-headline">Owners</md-card-title-text>
     </mdt-card-title>
-    <md-list>
-      <md-list-item ng-repeat="ownerId in cat.ownerIds">
-        {{cat._meta.userIdMap[ownerId].username}}
-      </md-list-item>
-    </md-list>
-    <form ng-if="cat._meta.isOwned">
-      <md-input-container flex="25">
-        <label>Username</label>
-        <input name="username" ng-model="newOwner.username">
-      </md-input-container>
-      <md-button class="md-icon-button" type="submit" ng-click="addNewOwner()" ng-disabled="!newOwner.username">
-        <md-icon>person_add</md-icon>
-      </md-button>
-    </form>
+    <md-chips ng-model="cat.ownerIds" md-transform-chip="addAnOwner($chip)" readonly="!cat._meta.isOwned">
+      <md-chip-template>
+        {{cat._meta.userIdMap[$chip].username}}
+      </md-chip-template>
+    </md-chips>
   </md-card>
   <md-card layout-padding>
     <mdt-card-title>

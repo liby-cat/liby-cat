@@ -148,7 +148,7 @@ module.exports = function (Catalog) {
                 cat.readerIds = [loginId];
                 return next();
               } else {
-                return next(error('Catalog with same catalogIdx within this org already exists'));
+                return next(error(403, 'Catalog with same catalogIdx within this org already exists'));
               }
             });
         } else {

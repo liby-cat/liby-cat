@@ -27,8 +27,29 @@ app.controller('CatalogSettingsCtrl', [
       }
     );
     
-    $scope.addNewOwner = function () {
-      addMember('as owner', 'newOwner', Catalog.prototype$__link__owners, 'ownerIds', 'readerIds');
+    $scope.addAnOwner = function ($chip) {
+      let username = $chip;
+      let user;
+      User.username2id({username: username},
+        function success(val) {
+          user = val ? val : {};
+          Catalog.prototype$__link__owners({id: $scope.catalogId, fk: user.id},
+            function success(val) {
+              $scope.cat.ownerIds.push(user.id);
+              if ($.inArray(user.id, $scope.cat.readerIds) === -1) {
+                $scope.cat.readerIds.push(user.id);
+              }
+              $scope.cat._meta.userIdMap[user.id] = val;
+              $mdToast.showSimple(
+                `Added ${username} as as owner of ${$scope.cat.orgIdx}/${$scope.cat.catalogIdx}`);
+            }, function e(err) {
+              $mdToast.showSimple(er.data.error.message);
+            }
+          );
+        }, function error(er) {
+          $mdToast.showSimple(er.data.error.message);
+        });
+      return null;
     };
     
     $scope.addNewReader = function () {
@@ -44,7 +65,7 @@ app.controller('CatalogSettingsCtrl', [
             function success(val) {
               $scope.cat[catUserListKey].push(user.id);
               if (cat2ryListKey) {
-                if($.inArray(user.id, $scope.cat[cat2ryListKey]) === -1) {
+                if ($.inArray(user.id, $scope.cat[cat2ryListKey]) === -1) {
                   $scope.cat[cat2ryListKey].push(user.id);
                 }
               }

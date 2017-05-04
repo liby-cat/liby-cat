@@ -7,7 +7,6 @@ app.controller('CatalogSettingsCtrl', [
             $mdToast) {
     $scope.loggedIn = User.isAuthenticated();
     $scope.user = User.getCachedCurrent();
-    console.log($scope.user);
     $scope.catalogId = $stateParams.id;
     $scope.newOwner = {};
     $scope.newReader = {};
@@ -27,13 +26,13 @@ app.controller('CatalogSettingsCtrl', [
       }
     );
     
-    $scope.addAnOwner = function ($chip) {
-      let username = $chip;
+    $scope.addAnOwner = function (chip) {
+      let username = chip;
       let user;
       User.username2id({username: username},
         function success(val) {
           user = val ? val : {};
-          Catalog.prototype$__link__owners({id: $scope.catalogId, fk: user.id},
+          Catalog.owners.link({id: $scope.catalogId, fk: user.id},
             function success(val) {
               $scope.cat.ownerIds.push(user.id);
               if ($.inArray(user.id, $scope.cat.readerIds) === -1) {
@@ -42,7 +41,7 @@ app.controller('CatalogSettingsCtrl', [
               $scope.cat._meta.userIdMap[user.id] = val;
               $mdToast.showSimple(
                 `Added ${username} as as owner of ${$scope.cat.orgIdx}/${$scope.cat.catalogIdx}`);
-            }, function e(err) {
+            }, function e(er) {
               $mdToast.showSimple(er.data.error.message);
             }
           );
@@ -50,6 +49,18 @@ app.controller('CatalogSettingsCtrl', [
           $mdToast.showSimple(er.data.error.message);
         });
       return null;
+    };
+    
+    $scope.removeOwner = function (userId) {
+      console.log(userId);
+      Catalog.owners.unlink({id: $scope.catalogId, fk: userId}, function s(val) {
+        let user = $scope.cat._meta.userIdMap[userId];
+        $mdToast.showSimple(
+          `Removed ${user.username} from being an owner of ${$scope.cat.orgIdx}/${$scope.cat.catalogIdx}`);
+      }, function e(err) {
+        $mdToast.showSimple(err.data.error.message);
+        $scope.cat.ownerIds.push(userId);
+      });
     };
     
     $scope.addNewReader = function () {

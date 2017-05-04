@@ -13,7 +13,9 @@
     <mdt-card-title>
       <md-card-title-text class="md-headline">Owners</md-card-title-text>
     </mdt-card-title>
-    <md-chips ng-model="cat.ownerIds" md-transform-chip="addAnOwner($chip)" readonly="!cat._meta.isOwned">
+    <md-chips ng-model="cat.ownerIds" readonly="!cat._meta.isOwned"
+              md-transform-chip="addAnOwner($chip)"
+              md-on-remove="removeOwner($chip)" >
       <md-chip-template>
         {{cat._meta.userIdMap[$chip].username}}
       </md-chip-template>

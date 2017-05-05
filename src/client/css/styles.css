@@ -53,7 +53,14 @@ mdt-table md-content {
 
 md-toolbar.page-header{
   background: #E0E0E0; /*grey-300*/
-  color: #212121; /*grey-900*/
+  background: linear-gradient(to right top, #e8e8e8 41%, #E0E0E0 42%);
+  color: #4E342E; /*brown-800*/
+}
+md-toolbar.page-header .md-subhead{
+  color: #757575; /*grey-600*/
+}
+md-toolbar.page-header .md-toolbar-tools{
+  background: linear-gradient(to right , #fff 5%, transparent 20%);
 }
 md-toolbar.page-header md-icon {
   color:#757575;  fill:#757575; /*grey-600*/
@@ -84,3 +91,4 @@ md-toolbar.form-header .md-icon-button:hover md-icon {
 .hover-blu md-icon:hover{
   color:#07C; fill:#07C;
 }
+

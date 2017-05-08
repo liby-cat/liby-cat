@@ -16,18 +16,25 @@
         <form name="Form">
           <md-input-container class="md-block">
             <label>Pick an username</label>
-            <input type="text" name="username" ng-model="vm.formData.username" placeholder="username" required=""
+            <input type="text" name="username" ng-model="vm.formData.username" placeholder="username"
+                   required minlength="5"
+                   pattern="^[a-z]{3}[a-z0-9]{2,}$"
                    maxlength="64"/>
-            <div ng-messages="Form.username.$error" role="alert" multiple="">
+            <div ng-messages="Form.username.$error" role="alert">
               <div ng-message="required" class="my-message">Please enter an username that you want to use</div>
+              <div ng-message="minlength" class="my-message">Please enter at least 5 characters</div>
+              <div ng-message="pattern" class="my-message">
+                Please use only lowercase letters and numbers. <br/>First 3 characters should be lowercase letters.
+              </div>
             </div>
           </md-input-container>
           <md-input-container class="md-block">
             <label>Email</label>
             <input type="email" name="email" ng-model="vm.formData.email" placeholder="email" required=""
                    maxlength="64"/>
-            <div ng-messages="Form.email.$error" role="alert" multiple="">
-              <div ng-message="required" class="my-message">Please enter a valid email address.</div>
+            <div ng-messages="Form.email.$error" multiple>
+              <div ng-message="required">Please enter an email address.</div>
+              <div ng-message="email">Please enter a valid email address.</div>
             </div>
           </md-input-container>
           <md-input-container class="md-block">

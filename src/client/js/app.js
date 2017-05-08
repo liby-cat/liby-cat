@@ -5,18 +5,22 @@ var app = angular
     // loopback
     'lbServices',
     // standard angular libs
-    'ui.router', 'ngAnimate', 'ngAria', 'ngCookies', 'ngTouch', 'pascalprecht.translate',
+    'ngAnimate', 'ngAria', 'ngCookies', 'ngMessages', 'ui.router', 'ngTouch', 'pascalprecht.translate',
     // angular material
     'ngMaterial',
     // 3rd party libs
     'ngMaterialSidemenu', 'mdDataTable', 'xeditable'
   ])
+  .constant('SLUG_REGEX','^[a-z0-9]+(-[a-z0-9]+)*$')
   .config(['$locationProvider', '$stateProvider', '$urlRouterProvider',
     function init($locationProvider, $stateProvider, $urlRouterProvider) {
       $locationProvider.html5Mode(true);
       setStates($stateProvider);
       $urlRouterProvider.otherwise('/');
-    }]);
+    }])
+  .run(function ($rootScope, SLUG_REGEX) {
+    $rootScope.SLUG_REGEX = SLUG_REGEX;
+  });
 
 function setStates($stateProvider) {
   $stateProvider

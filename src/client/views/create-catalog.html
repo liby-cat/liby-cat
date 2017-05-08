@@ -24,8 +24,11 @@
           </md-input-container>
           <md-input-container flex>
             <label>@id</label>
-            <input type="text" maxlength="24" name="catalogIdx" ng-model="newCatalog.catalogIdx"
+            <input type="text" maxlength="24" name="catalogIdx" ng-model="newCatalog.catalogIdx" ng-pattern="SLUG_REGEX"
                    required/>
+            <div ng-messages="newCatalogForm.catalogIdx.$error" multiple md-auto-hide="false">
+              <div ng-message="pattern">use lowercase letters and single dash (-) between letters</div>
+            </div>
           </md-input-container>
           <md-input-container flex>
             <label>Title</label>

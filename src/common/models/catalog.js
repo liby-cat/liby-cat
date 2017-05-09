@@ -1,5 +1,6 @@
 const extend = require('extend');
 const error = require('../util/error');
+const util = require('../util/util');
 const arrToMap = require('arr-to-map');
 
 module.exports = function (Catalog) {
@@ -125,6 +126,11 @@ module.exports = function (Catalog) {
     if (ctx.args && ctx.args.data) {
       let cat = ctx.args.data;
       let orgId = cat.orgId;
+  
+      if (!util.validIdx(cat.catalogIdx)) {
+        return next(error(400, 'Malformed catalogIdx: use lowercase letters and single dash (-) between letters'));
+      }
+      
       const token = ctx.args && ctx.args.options && ctx.args.options.accessToken;
       const loginId = token && token.userId;
       const Org = Catalog.app.models.Org;

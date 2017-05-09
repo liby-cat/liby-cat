@@ -6,7 +6,7 @@ liby-cat
 ========
 [![Gitter](https://img.shields.io/gitter/room/liby-cat/liby-cat.svg)](https://gitter.im/liby-cat/liby-cat?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/liby-cat/liby-cat.svg?branch=master)](https://travis-ci.org/liby-cat/liby-cat)
-[![Dependency Status](https://www.versioneye.com/user/projects/591205b69e070f0038ec76e9/badge.svg?style=flat)](https://www.versioneye.com/user/projects/590169566ac17142da9c8a9f)
+[![Dependency Status](https://www.versioneye.com/user/projects/591205b69e070f0038ec76e9/badge.svg?style=flat)](https://www.versioneye.com/user/projects/591205b69e070f0038ec76e9)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/5fe93241821546cbb1cbeb1158ded381)](https://www.codacy.com/app/liby-cat/liby-cat?utm_source=github.com&utm_medium=referral&utm_content=liby-cat/liby-cat&utm_campaign=badger)
 [![Code Climate](https://img.shields.io/codeclimate/github/liby-cat/liby-cat.svg)](https://codeclimate.com/github/liby-cat/liby-cat)
 [![bitHound Overall Score](https://www.bithound.io/github/liby-cat/liby-cat/badges/score.svg)](https://www.bithound.io/github/liby-cat/liby-cat)

@@ -11,20 +11,26 @@ app.directive('usernameAvailable', function ($q, $timeout, $http, User) {
      */
     link: function (scope, element, attrs, ctrl) {
       /* Used to perform asynchronous validation on the username directive. */
+      let userNameCache = {};
       
       ctrl.$asyncValidators.usernameAvailable = function (newUserName) {
         if (ctrl.$isEmpty(newUserName)) {
           return $q.when();
         }
         let defer = $q.defer();
-        console.log("dirty: " + ctrl.$dirty+ " touched:   "+ctrl.$touched);
+        console.log(userNameCache);
         defer.notify('Looking up username');
-        User.usernameAvailable({username: newUserName},
-          function s(val) {
-            val.available ? defer.resolve() : defer.reject();
-          }, function e(er) {
-            defer.reject();
-          });
+        if (userNameCache.hasOwnProperty(newUserName)) {
+          userNameCache[newUserName] ? defer.resolve() : defer.reject();
+        } else {
+          User.usernameAvailable({username: newUserName},
+            function s(val) {
+              userNameCache[newUserName] = val.available;
+              val.available ? defer.resolve() : defer.reject();
+            }, function e(er) {
+              defer.reject();
+            });
+        }
         return defer.promise;
       };
     }

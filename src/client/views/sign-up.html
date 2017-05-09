@@ -6,7 +6,7 @@
     <md-card flex="flex" flex-gt-sm="50" flex-gt-md="33">
       <md-toolbar class="form-header">
         <div class="md-toolbar-tools">
-          <h2 flex >Register an account with us</h2>
+          <h2 flex><t>Sign up with us</t></h2>
           <md-button class="md-icon-button" ui-sref="frontPage">
             <md-icon>close</md-icon>
           </md-button>
@@ -17,9 +17,8 @@
           <md-input-container class="md-block">
             <label>Pick an username</label>
             <input type="text" name="username" ng-model="vm.formData.username" placeholder="username"
-                   required minlength="5"
-                   pattern="^[a-z]{3}[a-z0-9]{2,}$"
-                   maxlength="64"/>
+                   required minlength="5" maxlength="24"
+                   ng-pattern="USERNAME_REGEX"/>
             <div ng-messages="Form.username.$error" role="alert">
               <div ng-message="required" class="my-message">Please enter an username that you want to use</div>
               <div ng-message="minlength" class="my-message">Please enter at least 5 characters</div>

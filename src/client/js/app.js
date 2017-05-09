@@ -11,15 +11,17 @@ var app = angular
     // 3rd party libs
     'ngMaterialSidemenu', 'mdDataTable', 'xeditable'
   ])
-  .constant('SLUG_REGEX','^[a-z0-9]+(-[a-z0-9]+)*$')
   .config(['$locationProvider', '$stateProvider', '$urlRouterProvider',
     function init($locationProvider, $stateProvider, $urlRouterProvider) {
       $locationProvider.html5Mode(true);
       setStates($stateProvider);
       $urlRouterProvider.otherwise('/');
     }])
-  .run(function ($rootScope, SLUG_REGEX) {
+  .constant('SLUG_REGEX','^[a-z0-9]+(-[a-z0-9]+)*$')
+  .constant('USERNAME_REGEX','^[a-z]{3}[a-z0-9]{2,}$')
+  .run(function ($rootScope, SLUG_REGEX, USERNAME_REGEX) {
     $rootScope.SLUG_REGEX = SLUG_REGEX;
+    $rootScope.USERNAME_REGEX = USERNAME_REGEX;
   });
 
 function setStates($stateProvider) {

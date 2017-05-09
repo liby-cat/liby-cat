@@ -6,7 +6,9 @@
     <md-card flex="flex" flex-gt-sm="50" flex-gt-md="33">
       <md-toolbar class="form-header">
         <div class="md-toolbar-tools">
-          <h2 flex><t>Sign up with us</t></h2>
+          <h2 flex>
+            <t>Sign up with us</t>
+          </h2>
           <md-button class="md-icon-button" ui-sref="frontPage">
             <md-icon>close</md-icon>
           </md-button>
@@ -27,9 +29,15 @@
               </div>
               <div ng-message="usernameAvailable">This username is already taken. Try another!</div>
             </div>
-            <div class="info">
-              <div ng-show="Form.username.$pending.usernameAvailable"><em>Checking...</em></div>
-              <div ng-show="Form.username.$valid"><md-icon>check</md-icon>Available</div>
+            <div class="hint" ng-show="Form.username.$pending.usernameAvailable">
+              <div>
+                <md-progress-circular md-mode="indeterminate" md-diameter="18px">Checking...</md-progress-circular>
+              </div>
+            </div>
+            <div class="hint" ng-show="Form.username.$valid">
+              <div>
+                <md-icon md-colors="{'color':'green'}">check</md-icon> Available
+              </div>
             </div>
           </md-input-container>
           <md-input-container class="md-block">

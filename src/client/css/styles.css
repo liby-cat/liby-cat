@@ -14,22 +14,23 @@ body {
   background-color: blue;
 }
 
-.md-button{
-  text-transform: none!important;
+.md-button {
+  text-transform: none !important;
 }
 
 .full-height {
   height: 100%;
 }
 
-.md-sidemenu-button md-icon{
+.md-sidemenu-button md-icon {
   margin: 0;
 }
 
 .new-entry md-input-container .md-errors-spacer {
   display: none;
 }
-.new-entry form{
+
+.new-entry form {
   padding-left: 24px;
   padding-top: 6px;
 }
@@ -38,57 +39,99 @@ body {
   width: 48px;
   height: 48px;
 }
-.brand-text{
+
+.brand-text {
   font-family: 'Rancho';
 }
+
 mdt-table md-content {
   background: white;
 }
-.top-brand{
+
+.top-brand {
   font-size: 29px;
 }
-.text-center{
+
+.text-center {
   text-align: center;
 }
 
-md-toolbar.page-header{
+md-toolbar.page-header {
   background: #E0E0E0; /*grey-300*/
   background: linear-gradient(to right top, #e8e8e8 41%, #E0E0E0 42%);
   color: #4E342E; /*brown-800*/
 }
-md-toolbar.page-header .md-subhead{
+
+md-toolbar.page-header .md-subhead {
   color: #757575; /*grey-600*/
 }
-md-toolbar.page-header .md-toolbar-tools{
-  background: linear-gradient(to right , #e8e8e8 5%, transparent 20%);
-}
-md-toolbar.page-header md-icon {
-  color:#757575;  fill:#757575; /*grey-600*/
-}
-md-toolbar.page-header .md-icon-button:hover md-icon {
-  color:#07C; fill:#07C;
+
+md-toolbar.page-header .md-toolbar-tools {
+  background: linear-gradient(to right, #e8e8e8 5%, transparent 20%);
 }
 
-md-toolbar.form-header{
+md-toolbar.page-header md-icon {
+  color: #757575;
+  fill: #757575; /*grey-600*/
+}
+
+md-toolbar.page-header .md-icon-button:hover md-icon {
+  color: #07C;
+  fill: #07C;
+}
+
+md-toolbar.form-header {
   background: #5D4037; /*brown-700*/
   color: #EFEBE9; /*brown-50*/
 }
+
 md-toolbar.form-header md-icon {
-  color:#BCAAA4;  fill:#BCAAA4; /*grey-600*/
+  color: #BCAAA4;
+  fill: #BCAAA4; /*grey-600*/
 }
+
 md-toolbar.form-header .md-icon-button:hover md-icon {
-  color:#fff; fill:#fff;
+  color: #fff;
+  fill: #fff;
 }
 
-.pad-0{
-  padding:0;
+.pad-0 {
+  padding: 0;
 }
 
-.hidden{
+.hidden {
   display: none;
 }
 
-.hover-blu md-icon:hover{
-  color:#07C; fill:#07C;
+.hover-blu md-icon:hover {
+  color: #07C;
+  fill: #07C;
 }
 
+.hint {
+  /* Position the hint */
+  position: absolute;
+  left: 2px;
+  right: auto;
+  bottom: 7px;
+  /* Copy styles from ng-messages */
+  font-size: 12px;
+  line-height: 16px;
+  transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+  color: grey;
+}
+.hint div{
+  position: relative;
+  top: 4px;
+}
+.hint.ng-hide,
+.hint.ng-enter,
+.hint.ng-leave.ng-leave-active {
+  bottom: 26px;
+  opacity: 0;
+}
+.hint.ng-leave,
+.hint.ng-enter.ng-enter-active {
+  bottom: 7px;
+  opacity: 1;
+}

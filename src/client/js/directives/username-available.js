@@ -1,4 +1,5 @@
 // based on https://codepen.io/brandonmichaelhunter/post/check-username-avaliablity-using-angularjs
+// and http://www.angularjs4u.com/directives/angularjs-username-directive/
 app.directive('usernameAvailable', function ($q, $timeout, $http, User) {
   return {
     require: 'ngModel',
@@ -10,13 +11,13 @@ app.directive('usernameAvailable', function ($q, $timeout, $http, User) {
      */
     link: function (scope, element, attrs, ctrl) {
       /* Used to perform asynchronous validation on the username directive. */
+      
       ctrl.$asyncValidators.usernameAvailable = function (newUserName) {
-        
         if (ctrl.$isEmpty(newUserName)) {
-          // consider empty model value
           return $q.when();
         }
         let defer = $q.defer();
+        console.log("dirty: " + ctrl.$dirty+ " touched:   "+ctrl.$touched);
         defer.notify('Looking up username');
         User.usernameAvailable({username: newUserName},
           function s(val) {

@@ -27,6 +27,10 @@
               </div>
               <div ng-message="usernameAvailable">This username is already taken. Try another!</div>
             </div>
+            <div class="info">
+              <div ng-show="Form.username.$pending.usernameAvailable"><em>Checking...</em></div>
+              <div ng-show="Form.username.$valid"><md-icon>check</md-icon>Available</div>
+            </div>
           </md-input-container>
           <md-input-container class="md-block">
             <label>Email</label>

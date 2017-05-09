@@ -11,18 +11,33 @@
   "acls": [
     {
       "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "usernameAvailable"
+    },
+    {
+      "principalType": "ROLE",
       "principalId": "$authenticated",
       "permission": "ALLOW",
       "property": "username2id"
     }
   ],
   "methods": {
+    "usernameAvailable": {
+      "accepts": [
+        {"arg": "username", "type": "string", "required": true},
+        {"arg": "options", "type": "object", "http": "optionsFromRequest"}
+      ],
+      "http": {"verb": "GET", "path": "/available/:username"},
+      "returns": {"type": "Boolean", "root": true}
+    },
     "username2id": {
       "accepts": [
-        {"arg": "username", "type": "string", "required":true},
+        {"arg": "username", "type": "string", "required": true},
         {"arg": "options", "type": "object", "http": "optionsFromRequest"}
       ],
       "http": {"verb": "GET", "path": "/username2id/:username"},
       "returns": {"type": "object", "root": true}
-    }}
+    }
+  }
 }

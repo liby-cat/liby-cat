@@ -17,9 +17,29 @@ module.exports = function(user) {
       });
   });
 
+  user.usernameAvailable = function(username, options, cb) {
+    user.find(
+      {
+        fields: {username: true},
+        where: {username: username}
+      },
+      options,
+      function(err, users) {
+        if (err) {
+          cb(err);
+        } else {
+          if (!users || users.length === 0) {
+            cb(null, true);
+          } else {
+            cb(null, false);
+          }
+        }
+      }
+    );
+  };
+
   user.username2id = function(username, options, cb) {
     const token = options && options.accessToken;
-    const loginId = token && token.userId;
     user.find(
       {
         fields: {id: true, username: true},
@@ -30,7 +50,7 @@ module.exports = function(user) {
         if (err) {
           cb(err);
         } else {
-          if (users.length == 1) {
+          if (users.length === 1) {
             cb(null, users[0]);
           } else {
             cb(error(404, 'No user found with the username: '+username));

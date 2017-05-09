@@ -29,7 +29,7 @@
         {"arg": "options", "type": "object", "http": "optionsFromRequest"}
       ],
       "http": {"verb": "GET", "path": "/available/:username"},
-      "returns": {"type": "Boolean", "root": true}
+      "returns": {"arg":"available", "type": "Boolean"}
     },
     "username2id": {
       "accepts": [

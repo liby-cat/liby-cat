@@ -12,7 +12,7 @@
     "compression": "^1.6.2",
     "cors": "^2.8.3",
     "helmet": "^3.5.0",
-    "loopback": "^3.7.0",
+    "loopback": "^3.8.0",
     "loopback-boot": "^2.24.0",
     "loopback-component-explorer": "^4.2.0",
     "loopback-connector-mongodb": "^3.1.0",
@@ -24,7 +24,7 @@
     "bithound": "^1.7.0",
     "eslint": "^3.19.0",
     "eslint-config-loopback": "^8.0.0",
-    "nsp": "^2.1.0"
+    "nsp": "^2.6.3"
   },
-  "description": "liby.cat"
+  "description": "liby-cat"
 }

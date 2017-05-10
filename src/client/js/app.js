@@ -17,7 +17,7 @@ var app = angular
       setStates($stateProvider);
       $urlRouterProvider.otherwise('/');
     }])
-  .constant('SLUG_REGEX','^[a-z0-9]+(-[a-z0-9]+)*$')
+  .constant('SLUG_REGEX','^[a-z]+[a-z0-9]+(-[a-z0-9]+)*$')
   .constant('USERNAME_REGEX','^[a-z]{3}[a-z0-9]{2,}$')
   .run(function ($rootScope, SLUG_REGEX, USERNAME_REGEX) {
     $rootScope.SLUG_REGEX = SLUG_REGEX;

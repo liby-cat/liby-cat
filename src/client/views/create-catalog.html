@@ -27,7 +27,10 @@
             <input type="text" maxlength="24" name="catalogIdx" ng-model="newCatalog.catalogIdx" ng-pattern="SLUG_REGEX"
                    required/>
             <div ng-messages="newCatalogForm.catalogIdx.$error" multiple md-auto-hide="false">
-              <div ng-message="pattern">use lowercase letters and single dash (-) between letters</div>
+              <div ng-message="pattern">
+                Please use lowercase letters, numbers and single dash (-) between letters<br/>
+                Should start with a letter
+              </div>
             </div>
           </md-input-container>
           <md-input-container flex>

@@ -24,9 +24,9 @@
                    is-available-fn="isUsernameAvailable(val)"
                    ng-pattern="USERNAME_REGEX"/>
             <div ng-messages="Form.username.$error" role="alert">
-              <div ng-message="required" class="my-message">Please enter an username that you want to use</div>
-              <div ng-message="minlength" class="my-message">Username is too short</div>
-              <div ng-message="pattern" class="my-message">
+              <div ng-message="required">Please enter an username that you want to use</div>
+              <div ng-message="minlength">Username is too short</div>
+              <div ng-message="pattern">
                 Please use only lowercase letters and numbers. <br/>First 3 characters should be lowercase letters.
               </div>
               <div ng-message="isAvailable">This username is already taken. Try another!</div>
@@ -38,13 +38,14 @@
             </div>
             <div class="hint" ng-show="Form.username.$valid">
               <div>
-                <md-icon md-colors="{'color':'green'}">check</md-icon> Available
+                <md-icon md-colors="{'color':'green'}">check</md-icon>
+                Available
               </div>
             </div>
           </md-input-container>
           <md-input-container class="md-block">
             <label>Email</label>
-            <input type="email" name="email" ng-model="vm.formData.email" placeholder="email" required=""
+            <input type="email" name="email" ng-model="vm.formData.email" placeholder="email" required
                    maxlength="64"/>
             <div ng-messages="Form.email.$error" multiple>
               <div ng-message="required">Please enter an email address.</div>
@@ -53,9 +54,19 @@
           </md-input-container>
           <md-input-container class="md-block">
             <label>Password</label>
-            <input type="password" name="password" ng-model="vm.formData.password" placeholder="password" required=""/>
+            <input type="password" name="password" ng-model="vm.formData.password" placeholder="password" required/>
+            <ng-password-meter password="vm.formData.password"></ng-password-meter>
             <div ng-messages="Form.password.$error" role="alert">
-              <div ng-message="required" class="my-message">Type in a password.</div>
+              <div ng-message="required">Type in a password.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Confirm password</label>
+            <input type="password" name="passwordMatch" ng-model="vm.formData.passwordMatch" placeholder="password"
+                   required match="vm.formData.password"/>
+            <div ng-messages="Form.passwordMatch.$error" role="alert">
+              <div ng-message="required">Retype password here to confirm</div>
+              <div ng-message="match">Password and Confirm password should match</div>
             </div>
           </md-input-container>
           <section layout="row" layout-align="space-between center">

@@ -135,3 +135,7 @@ md-toolbar.form-header .md-icon-button:hover md-icon {
   bottom: 7px;
   opacity: 1;
 }
+
+.pass-meter-col{
+  width: 20%;
+}

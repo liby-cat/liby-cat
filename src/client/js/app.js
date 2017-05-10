@@ -9,7 +9,7 @@ var app = angular
     // angular material
     'ngMaterial',
     // 3rd party libs
-    'ngMaterialSidemenu', 'mdDataTable', 'xeditable'
+    'ngMaterialSidemenu', 'mdDataTable', 'xeditable', 'validation.match', 'ngPasswordMeter'
   ])
   .config(['$locationProvider', '$stateProvider', '$urlRouterProvider',
     function init($locationProvider, $stateProvider, $urlRouterProvider) {

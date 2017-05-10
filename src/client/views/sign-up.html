@@ -15,7 +15,7 @@
         </div>
       </md-toolbar>
       <md-card-content>
-        <form name="Form">
+        <form name="SignUpForm" ng-submit="vm.submit()">
           <md-input-container class="md-block">
             <label>Pick an username</label>
             <input type="text" name="username" ng-model="vm.formData.username" placeholder="username"
@@ -23,7 +23,7 @@
                    is-available
                    is-available-fn="isUsernameAvailable(val)"
                    ng-pattern="USERNAME_REGEX"/>
-            <div ng-messages="Form.username.$error" role="alert">
+            <div ng-messages="SignUpForm.username.$error" role="alert">
               <div ng-message="required">Please enter an username that you want to use</div>
               <div ng-message="minlength">Username is too short</div>
               <div ng-message="pattern">
@@ -31,12 +31,12 @@
               </div>
               <div ng-message="isAvailable">This username is already taken. Try another!</div>
             </div>
-            <div class="hint" ng-show="Form.username.$pending.isAvailable">
+            <div class="hint" ng-show="SignUpForm.username.$pending.isAvailable">
               <div>
                 <md-progress-circular md-mode="indeterminate" md-diameter="18px">Checking...</md-progress-circular>
               </div>
             </div>
-            <div class="hint" ng-show="Form.username.$valid">
+            <div class="hint" ng-show="SignUpForm.username.$valid">
               <div>
                 <md-icon md-colors="{'color':'green'}">check</md-icon>
                 Available
@@ -47,7 +47,7 @@
             <label>Email</label>
             <input type="email" name="email" ng-model="vm.formData.email" placeholder="email" required
                    maxlength="64"/>
-            <div ng-messages="Form.email.$error" multiple>
+            <div ng-messages="SignUpForm.email.$error" multiple>
               <div ng-message="required">Please enter an email address.</div>
               <div ng-message="email">Please enter a valid email address.</div>
             </div>
@@ -56,7 +56,7 @@
             <label>Password</label>
             <input type="password" name="password" ng-model="vm.formData.password" placeholder="password" required/>
             <ng-password-meter password="vm.formData.password"></ng-password-meter>
-            <div ng-messages="Form.password.$error" role="alert">
+            <div ng-messages="SignUpForm.password.$error" role="alert">
               <div ng-message="required">Type in a password.</div>
             </div>
           </md-input-container>
@@ -64,13 +64,13 @@
             <label>Confirm password</label>
             <input type="password" name="passwordMatch" ng-model="vm.formData.passwordMatch" placeholder="password"
                    required match="vm.formData.password"/>
-            <div ng-messages="Form.passwordMatch.$error" role="alert">
+            <div ng-messages="SignUpForm.passwordMatch.$error" role="alert">
               <div ng-message="required">Retype password here to confirm</div>
               <div ng-message="match">Password and Confirm password should match</div>
             </div>
           </md-input-container>
           <section layout="row" layout-align="space-between center">
-            <md-button ng-click="vm.submit()" class="md-raised md-primary">
+            <md-button type="submit" class="md-raised md-primary">
               <i class="fa fa-sign-up" aria-hidden="true"></i> Register
             </md-button>
             <md-button class="push-right" ui-sref="login">

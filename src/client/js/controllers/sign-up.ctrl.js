@@ -1,6 +1,6 @@
 app.controller('SignUpCtrl', [
-    '$scope', '$rootScope', '$state', 'User', '$mdToast',
-    function($scope, $rootScope, $state, User, $mdToast) {
+  '$scope', '$rootScope', '$state', 'User', '$mdToast', '$q',
+  function ($scope, $rootScope, $state, User, $mdToast, $q) {
       $scope.vm = {
         formData: {},
         submit: function() {
@@ -20,4 +20,17 @@ app.controller('SignUpCtrl', [
             });
         }
       };
+    
+    $scope.isUsernameAvailable = function (newUserName) {
+      let defer = $q.defer();
+      console.log(newUserName);
+      User.usernameAvailable({username: newUserName},
+        function s(val) {
+          val.available ? defer.resolve() : defer.reject();
+        }, function e() {
+          defer.reject();
+        });
+      return defer.promise;
+    }
+    
     }]);

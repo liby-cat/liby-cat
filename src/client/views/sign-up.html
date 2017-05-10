@@ -15,10 +15,10 @@
         </div>
       </md-toolbar>
       <md-card-content>
-        <form name="SignUpForm" ng-submit="vm.submit()">
+        <form name="SignUpForm" ng-submit="submit()">
           <md-input-container class="md-block">
             <label>Pick an username</label>
-            <input type="text" name="username" ng-model="vm.formData.username" placeholder="username"
+            <input type="text" name="username" ng-model="newUser.username" placeholder="username"
                    required minlength="5" maxlength="24"
                    is-available
                    is-available-fn="isUsernameAvailable(val)"
@@ -45,7 +45,7 @@
           </md-input-container>
           <md-input-container class="md-block">
             <label>Email</label>
-            <input type="email" name="email" ng-model="vm.formData.email" placeholder="email" required
+            <input type="email" name="email" ng-model="newUser.email" placeholder="email" required
                    maxlength="64"/>
             <div ng-messages="SignUpForm.email.$error" multiple>
               <div ng-message="required">Please enter an email address.</div>
@@ -54,16 +54,16 @@
           </md-input-container>
           <md-input-container class="md-block">
             <label>Password</label>
-            <input type="password" name="password" ng-model="vm.formData.password" placeholder="password" required/>
-            <ng-password-meter password="vm.formData.password"></ng-password-meter>
+            <input type="password" name="password" ng-model="newUser.password" placeholder="password" required/>
+            <ng-password-meter password="newUser.password"></ng-password-meter>
             <div ng-messages="SignUpForm.password.$error" role="alert">
               <div ng-message="required">Type in a password.</div>
             </div>
           </md-input-container>
           <md-input-container class="md-block">
             <label>Confirm password</label>
-            <input type="password" name="passwordMatch" ng-model="vm.formData.passwordMatch" placeholder="password"
-                   required match="vm.formData.password"/>
+            <input type="password" name="passwordMatch" ng-model="newUser.passwordMatch" placeholder="password"
+                   required match="newUser.password"/>
             <div ng-messages="SignUpForm.passwordMatch.$error" role="alert">
               <div ng-message="required">Retype password here to confirm</div>
               <div ng-message="match">Password and Confirm password should match</div>

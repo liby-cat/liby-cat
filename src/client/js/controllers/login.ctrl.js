@@ -2,13 +2,13 @@ app.controller('LoginCtrl', [
     '$scope', '$rootScope', '$state', 'User', '$mdToast',
     function($scope, $rootScope, $state, User, $mdToast) {
       $scope.vm = {
-        formData: {},
+        newUser: {},
         submit: function() {
-          let cred = {password: $scope.vm.formData.password};
-          if (validateEmail($scope.vm.formData.login)) {
-            cred.email = $scope.vm.formData.login;
+          let cred = {password: $scope.vm.newUser.password};
+          if (validateEmail($scope.vm.newUser.login)) {
+            cred.email = $scope.vm.newUser.login;
           } else {
-            cred.username = $scope.vm.formData.login;
+            cred.username = $scope.vm.newUser.login;
           }
 
           User.login(cred,

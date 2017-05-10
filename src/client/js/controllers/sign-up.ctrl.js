@@ -1,32 +1,31 @@
 app.controller('SignUpCtrl', [
   '$scope', '$rootScope', '$state', 'User', '$mdToast', '$q',
   function ($scope, $rootScope, $state, User, $mdToast, $q) {
-    $scope.vm = {
-      formData: {},
-      submit: function () {
-        let cred = {password: $scope.vm.formData.password};
-        cred.email = $scope.vm.formData.email;
-        cred.username = $scope.vm.formData.username;
-        User.create(cred,
-          function success(value, res) {
-            let username = value.username;
-            $mdToast.showSimple('Successfully registered in: ' + username);
-            $state.go('login');
-          },
-          function error(er) {
-            console.log(er);
-            let toast = er && er.data && er.data.error && er.data.error.details && er.data.error.details.messages
-              ? messageString(er.data.error.details.messages)
-              : 'Cannot register with this data';
-            $mdToast.showSimple(toast);
-          });
-      }
+    $scope.newUser = {};
+    
+    $scope.submit = function () {
+      let cred = {password: $scope.newUser.password};
+      cred.email = $scope.newUser.email;
+      cred.username = $scope.newUser.username;
+      User.create(cred,
+        function success(value, res) {
+          let username = value.username;
+          $mdToast.showSimple('Successfully registered in: ' + username);
+          $state.go('login');
+        },
+        function error(er) {
+          console.log(er);
+          let toast = er && er.data && er.data.error && er.data.error.details && er.data.error.details.messages
+            ? messageString(er.data.error.details.messages)
+            : 'Cannot register with this data';
+          $mdToast.showSimple(toast);
+        });
     };
     
     function messageString(messages) {
       let str = '';
-      for(let msg in messages) {
-        str+= _.startCase(msg) +': ' +_.join(messages[msg], ', ')+'. ';
+      for (let msg in messages) {
+        str += _.startCase(msg) + ': ' + _.join(messages[msg], ', ') + '. ';
       }
       return str;
     }
@@ -41,6 +40,6 @@ app.controller('SignUpCtrl', [
           defer.reject();
         });
       return defer.promise;
-    }
+    };
     
   }]);

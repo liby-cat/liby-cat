@@ -10,6 +10,7 @@ app.controller('CatalogSettingsCtrl', [
     $scope.catalogId = $stateParams.id;
     $scope.owners = [];
     $scope.readers = [];
+    $scope.newEntry = {};
     
     $scope.titleEditor = {
       updateFn: function updateTitle(newTitle) {

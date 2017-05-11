@@ -44,7 +44,6 @@ app.controller('CatalogCtrl', [
         }
       );
       $scope.newEntry = {};
-      $scope.newEntryForm.title.$touched = false;
     };
     
     $scope.updateEntry = function updateEntry(row) {
@@ -89,7 +88,29 @@ app.controller('CatalogCtrl', [
             console.log(er);
           })
       }
-    }
+    };
+  
+    $scope.showDelete = function ($event, entryId) {
+      let confirm = $mdDialog.confirm()
+        .title('Would you like to delete this entry?')
+        .ariaLabel('Confirm delete')
+        .targetEvent($event)
+        .ok('Delete')
+        .cancel('Cancel');
+      $mdDialog.show(confirm).then(function () {
+        Catalog.prototype$__destroyById__entries({id: $scope.cat.id, fk: entryId},
+          function s(val) {
+            console.log(val);
+            $mdToast.showSimple('Removed entry');
+            loadEntries();
+          }, function e(er) {
+          console.log(er);
+            $mdToast.showSimple('Cannot remove entry');
+          });
+      }, function () {
+        $mdToast.showSimple('Canceled delete');
+      });
+    };
     
   }
 ]);

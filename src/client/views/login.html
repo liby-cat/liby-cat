@@ -1,9 +1,5 @@
-<div>
-  <md-content ng-controller="LoginCtrl" layout="row"
-              layout-align="space-around"
-              layout-padding="layout-padding"
-              ng-cloak="ng-cloak" class="inset login-form">
-    <md-card flex="flex" flex-gt-sm="50" flex-gt-md="33">
+<liby-simple-content ng-controller="LoginCtrl" layout="column" flex>
+    <md-card>
       <md-toolbar class="form-header">
         <div class="md-toolbar-tools">
           <h2 flex>Sign in</h2>
@@ -16,7 +12,7 @@
         <form name="Form">
           <md-input-container class="md-block">
             <label>Username or email</label>
-            <input type="text" name="login" ng-model="vm.formData.login" placeholder="login" required=""
+            <input type="text" name="login" ng-model="vm.newUser.login" placeholder="login" required=""
                    maxlength="64"/>
             <div ng-messages="Form.login.$error" role="alert" multiple="">
               <div ng-message="required" class="my-message">Please enter your username or email.</div>
@@ -24,7 +20,7 @@
           </md-input-container>
           <md-input-container class="md-block">
             <label>Password</label>
-            <input type="password" name="password" ng-model="vm.formData.password" placeholder="password" required=""/>
+            <input type="password" name="password" ng-model="vm.newUser.password" placeholder="password" required=""/>
             <div ng-messages="Form.password.$error" role="alert">
               <div ng-message="required" class="my-message">Please enter your password.</div>
             </div>
@@ -38,7 +34,4 @@
         </form>
       </md-card-content>
     </md-card>
-  </md-content>
-  <!-- Angular Material Dependencies-->
-
-</div>
+</liby-simple-content>

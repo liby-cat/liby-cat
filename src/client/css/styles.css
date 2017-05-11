@@ -141,7 +141,8 @@ md-toolbar.form-header .md-icon-button:hover md-icon {
 }
 
 liby-simple-content{
-  background: url("../res/bg/bg-simple.jpg");
+  background-size: cover;
+  background: url("../res/bg/bg-simple.jpg") center;
 }
 liby-simple-content md-content{
   background: linear-gradient(to bottom, #2d1c19 5%, rgba(45,28,25,.9) 75%, transparent 100%);

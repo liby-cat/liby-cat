@@ -1,86 +1,77 @@
-<div>
-  <md-content ng-controller="SignUpCtrl" layout="row"
-              layout-align="space-around"
-              layout-padding="layout-padding"
-              ng-cloak="ng-cloak" class="login-form">
-    <md-card flex="flex" flex-gt-sm="50" flex-gt-md="33">
-      <md-toolbar class="form-header">
-        <div class="md-toolbar-tools">
-          <h2 flex>
-            <t>Sign up with us</t>
-          </h2>
-          <md-button class="md-icon-button" ui-sref="frontPage">
-            <md-icon>close</md-icon>
+<liby-simple-content ng-controller="SignUpCtrl" layout="column" flex>
+  <md-card >
+    <md-toolbar class="form-header">
+      <div class="md-toolbar-tools">
+        <h2 flex translate>Sign up with us</h2>
+        <md-button class="md-icon-button" ui-sref="frontPage">
+          <md-icon>close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-card-content>
+      <form name="SignUpForm" ng-submit="submit()">
+        <md-input-container class="md-block">
+          <label>Pick an username</label>
+          <input type="text" name="username" ng-model="newUser.username" placeholder="username"
+                 required minlength="5" maxlength="24"
+                 is-available
+                 is-available-fn="isUsernameAvailable(val)"
+                 ng-pattern="USERNAME_REGEX"/>
+          <div ng-messages="SignUpForm.username.$error" role="alert">
+            <div ng-message="required">Please enter an username that you want to use</div>
+            <div ng-message="minlength">Username is too short</div>
+            <div ng-message="pattern">
+              Please use only lowercase letters and numbers. <br/>First 3 characters should be lowercase letters.
+            </div>
+            <div ng-message="isAvailable">This username is already taken. Try another!</div>
+          </div>
+          <div class="hint" ng-show="SignUpForm.username.$pending.isAvailable">
+            <div>
+              <md-progress-circular md-mode="indeterminate" md-diameter="18px">Checking...</md-progress-circular>
+            </div>
+          </div>
+          <div class="hint" ng-show="SignUpForm.username.$valid">
+            <div>
+              <md-icon md-colors="{'color':'green'}">check</md-icon>
+              Available
+            </div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Email</label>
+          <input type="email" name="email" ng-model="newUser.email" placeholder="email" required
+                 maxlength="64"/>
+          <div ng-messages="SignUpForm.email.$error" multiple>
+            <div ng-message="required">Please enter an email address.</div>
+            <div ng-message="email">Please enter a valid email address.</div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Password</label>
+          <input type="password" name="password" ng-model="newUser.password" placeholder="password" required/>
+          <ng-password-meter password="newUser.password"></ng-password-meter>
+          <div ng-messages="SignUpForm.password.$error" role="alert">
+            <div ng-message="required">Type in a password.</div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Confirm password</label>
+          <input type="password" name="passwordMatch" ng-model="newUser.passwordMatch" placeholder="password"
+                 required match="newUser.password"/>
+          <div ng-messages="SignUpForm.passwordMatch.$error" role="alert">
+            <div ng-message="required">Retype password here to confirm</div>
+            <div ng-message="match">Password and Confirm password should match</div>
+          </div>
+        </md-input-container>
+        <section layout="row" layout-align="space-between center">
+          <md-button type="submit" class="md-raised md-primary">
+            <i class="fa fa-sign-up" aria-hidden="true"></i> Register
           </md-button>
-        </div>
-      </md-toolbar>
-      <md-card-content>
-        <form name="SignUpForm" ng-submit="submit()">
-          <md-input-container class="md-block">
-            <label>Pick an username</label>
-            <input type="text" name="username" ng-model="newUser.username" placeholder="username"
-                   required minlength="5" maxlength="24"
-                   is-available
-                   is-available-fn="isUsernameAvailable(val)"
-                   ng-pattern="USERNAME_REGEX"/>
-            <div ng-messages="SignUpForm.username.$error" role="alert">
-              <div ng-message="required">Please enter an username that you want to use</div>
-              <div ng-message="minlength">Username is too short</div>
-              <div ng-message="pattern">
-                Please use only lowercase letters and numbers. <br/>First 3 characters should be lowercase letters.
-              </div>
-              <div ng-message="isAvailable">This username is already taken. Try another!</div>
-            </div>
-            <div class="hint" ng-show="SignUpForm.username.$pending.isAvailable">
-              <div>
-                <md-progress-circular md-mode="indeterminate" md-diameter="18px">Checking...</md-progress-circular>
-              </div>
-            </div>
-            <div class="hint" ng-show="SignUpForm.username.$valid">
-              <div>
-                <md-icon md-colors="{'color':'green'}">check</md-icon>
-                Available
-              </div>
-            </div>
-          </md-input-container>
-          <md-input-container class="md-block">
-            <label>Email</label>
-            <input type="email" name="email" ng-model="newUser.email" placeholder="email" required
-                   maxlength="64"/>
-            <div ng-messages="SignUpForm.email.$error" multiple>
-              <div ng-message="required">Please enter an email address.</div>
-              <div ng-message="email">Please enter a valid email address.</div>
-            </div>
-          </md-input-container>
-          <md-input-container class="md-block">
-            <label>Password</label>
-            <input type="password" name="password" ng-model="newUser.password" placeholder="password" required/>
-            <ng-password-meter password="newUser.password"></ng-password-meter>
-            <div ng-messages="SignUpForm.password.$error" role="alert">
-              <div ng-message="required">Type in a password.</div>
-            </div>
-          </md-input-container>
-          <md-input-container class="md-block">
-            <label>Confirm password</label>
-            <input type="password" name="passwordMatch" ng-model="newUser.passwordMatch" placeholder="password"
-                   required match="newUser.password"/>
-            <div ng-messages="SignUpForm.passwordMatch.$error" role="alert">
-              <div ng-message="required">Retype password here to confirm</div>
-              <div ng-message="match">Password and Confirm password should match</div>
-            </div>
-          </md-input-container>
-          <section layout="row" layout-align="space-between center">
-            <md-button type="submit" class="md-raised md-primary">
-              <i class="fa fa-sign-up" aria-hidden="true"></i> Register
-            </md-button>
-            <md-button class="push-right" ui-sref="login">
-              Already have an account? Sign in!
-            </md-button>
-          </section>
-        </form>
-      </md-card-content>
-    </md-card>
-  </md-content>
-  <!-- Angular Material Dependencies-->
-
-</div>
+          <md-button class="push-right" ui-sref="login">
+            Already have an account? Sign in!
+          </md-button>
+        </section>
+      </form>
+    </md-card-content>
+  </md-card>
+</liby-simple-content>

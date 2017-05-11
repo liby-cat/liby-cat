@@ -228,12 +228,29 @@ module.exports = function (Catalog) {
     if (ctx.instance) {
       let cat = ctx.instance;
       let entryData = ctx.args.data;
-      if (entryData === {} || !entryData.title) {
-        return next(error('No data provided or title empty.'));
+      if (entryData === undefined || entryData === {}) {
+        return next(error('No data provided.'));
+      }
+      if (!entryData.title) {
+        return next(error('Title cannot be empty.'));
       }
       console.log('WRITE catalog entry to' + cat.orgIdx + '/' + cat.catalogIdx);
       entryData.orgIdx = cat.orgIdx;
       entryData.catalogIdx = cat.catalogIdx;
+      return next();
+    } else {
+      return next(error(404, 'instance not found'));
+    }
+  }
+  
+  Catalog.beforeRemote('prototype.__destroyById__entries', function (ctx, inst, next) {
+    hasWriteAccess(ctx, inst, next, onEntryDelete);
+  });
+  
+  function onEntryDelete(ctx, unused, next, loginId) {
+    if (ctx.instance) {
+      let cat = ctx.instance;
+      console.log('DELETE catalog entry #' + ctx.args.fk + ' from ' + cat.orgIdx + '/' + cat.catalogIdx);
       return next();
     } else {
       return next(error(404, 'instance not found'));

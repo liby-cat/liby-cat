@@ -6,11 +6,11 @@ body {
   cursor: pointer
 }
 
-.login-form md-card {
+.simple-form md-card {
   padding: 0 !important;
 }
 
-.login-form md-card-title {
+.simple-form md-card-title {
   background-color: blue;
 }
 
@@ -81,7 +81,7 @@ md-toolbar.page-header .md-icon-button:hover md-icon {
 }
 
 md-toolbar.form-header {
-  background: #5D4037; /*brown-700*/
+  background: #4E342E; /*brown-700*/
   color: #EFEBE9; /*brown-50*/
 }
 
@@ -138,4 +138,14 @@ md-toolbar.form-header .md-icon-button:hover md-icon {
 
 .pass-meter-col{
   width: 20%;
+}
+
+liby-simple-content{
+  background: url("../res/bg/bg-simple.jpg");
+}
+liby-simple-content md-content{
+  background: linear-gradient(to bottom, #2d1c19 5%, rgba(45,28,25,.9) 75%, transparent 100%);
+}
+liby-simple-content .brand-text{
+  color: white;
 }

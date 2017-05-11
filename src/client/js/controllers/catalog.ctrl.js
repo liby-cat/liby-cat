@@ -55,45 +55,7 @@ app.controller('CatalogCtrl', [
       $mdDialog.show({
         parent: angular.element(document.body),
         targetEvent: $event,
-        template: `
-        <md-dialog aria-label="List dialog" flex="100" flex-gt-sm="60">
-          <md-dialog-content>
-            <div layout="column">
-              <md-toolbar class="form-header">
-                <div class="md-toolbar-tools">
-                  <h2 flex>{{cat.catalogIdx}}: Update Entry</h2>
-                </div>
-              </md-toolbar>
-              <md-card-content>
-                <form layout="column" name="updateEntryForm" flex layout-padding>
-                  <md-input-container flex>
-                    <label>Title</label><input type="text" name="title" ng-model="entry.title" required/>
-                  </md-input-container>
-                  <md-input-container flex>
-                    <label>Author</label><input type="text" name="author" ng-model="entry.author"/>
-                  </md-input-container>
-                  <md-input-container flex>
-                    <label>Publisher</label><input type="text" name="publisher" ng-model="entry.publisher"/>
-                  </md-input-container>
-                  <md-input-container flex>
-                    <label>Translator</label><input type="text" name="translator" ng-model="entry.translator"/>
-                  </md-input-container>
-                  <md-input-container flex>
-                    <label>Editor</label><input type="text" name="editor" ng-model="entry.editor"/>
-                  </md-input-container>
-                </form>
-              </md-card-content>
-            </div>
-          </md-dialog-content>
-          <md-dialog-actions>
-            <md-button ng-click="closeDialog()">
-              <md-icon>cancel</md-icon> cancel
-            </md-button>
-            <md-button ng-click="update()">
-              <md-icon>save</md-icon> save
-            </md-button>
-          </md-dialog-actions>
-        </md-dialog>`,
+        templateUrl: '../../views/catalog-edit-dialog.html',
         locals: {
           cat: $scope.cat
         },

@@ -183,12 +183,21 @@ md-icon {
   min-width: 8px;
 }
 
-.reg {
-  color: rgba(255,255,255,.3);
-  font-size: 8px;
-  margin-left: 1px;
-  margin-right: -8px;
-}
 .v-div {
   color: rgba(255,255,255,.2);
+}
+
+.ack-logo-link a md-icon {
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+
+.ack-logo-link a:hover md-icon {
+  -webkit-filter: none;
+  -moz-filter: none;
+  -o-filter: none;
+  -ms-filter: none;
+  filter: none;
 }

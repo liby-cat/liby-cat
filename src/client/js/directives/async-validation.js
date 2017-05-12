@@ -1,15 +1,15 @@
-app.directive('isAvailable', function ($q) {
+app.directive('asyncValidation', function ($q) {
   return {
     require: 'ngModel',
     restrict: 'A',
     scope: {
-      isAvailableFn: '&'
+      asyncValidator: '&'
     },
     link: function (scope, element, attrs, ctrl) {
       let cache = {};
       
-      ctrl.$asyncValidators.isAvailable = function (val) {
-        if (ctrl.$isEmpty(val) || !attrs.isAvailableFn) {
+      ctrl.$asyncValidators.asyncValidation = function (val) {
+        if (ctrl.$isEmpty(val) || !attrs.asyncValidator) {
           return $q.when();
         }
         let defer = $q.defer();
@@ -18,7 +18,7 @@ app.directive('isAvailable', function ($q) {
         if (cache.hasOwnProperty(val)) {
           cache[val] ? defer.resolve() : defer.reject();
         } else {
-          scope.isAvailableFn({val:val}).then(
+          scope.asyncValidator({val:val}).then(
             function success(ignore) {
               cache[val] = true;
               defer.resolve();

@@ -20,8 +20,7 @@
             <label>Pick an username</label>
             <input type="text" name="username" ng-model="vm.formData.username" placeholder="username"
                    required minlength="5" maxlength="24"
-                   is-available
-                   is-available-fn="isUsernameAvailable(val)"
+                   async-validation async-validator="isUsernameAvailable(val)"
                    ng-pattern="USERNAME_REGEX"/>
             <div ng-messages="Form.username.$error" role="alert">
               <div ng-message="required" class="my-message">Please enter an username that you want to use</div>
@@ -29,9 +28,9 @@
               <div ng-message="pattern" class="my-message">
                 Please use only lowercase letters and numbers. <br/>First 3 characters should be lowercase letters.
               </div>
-              <div ng-message="isAvailable">This username is already taken. Try another!</div>
+              <div ng-message="asyncValidation">This username is already taken. Try another!</div>
             </div>
-            <div class="hint" ng-show="Form.username.$pending.isAvailable">
+            <div class="hint" ng-show="Form.username.$pending.asyncValidation">
               <div>
                 <md-progress-circular md-mode="indeterminate" md-diameter="18px">Checking...</md-progress-circular>
               </div>

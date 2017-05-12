@@ -1,0 +1,24 @@
+<div ng-cloak="ng-cloak" flex layout="column">
+  <md-content layout="row" flex
+              layout-align="space-around"
+              ng-cloak="ng-cloak" class="simple-form">
+    <div flex flex-gt-sm="50" flex-gt-md="33">
+      <section layout="row" layout-sm="column" layout-align="center center"
+               layout-wrap>
+        <img src="../../res/logo.svg" width="128px" hide-xs/>
+        <img src="../../res/logo.svg" width="80px" hide-gt-xs/>
+        <h1 class="md-display-3 brand-text">
+          Liby.cat
+        </h1>
+      </section>
+      <main ng-transclude></main>
+      <footer layout-padding layout-margin>
+        <md-divider></md-divider>
+        <div class="text-center md-body-1" style="color:#795548">
+          Copyright 2017 &copy; Liby.cat<br/>
+          Terms &dot; Privacy
+        </div>
+      </footer>
+    </div>
+  </md-content>
+</div>

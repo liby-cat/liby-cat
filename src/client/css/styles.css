@@ -179,8 +179,8 @@ a:hover {
 }
 
 md-icon {
-  min-height: 8px;
-  min-width: 8px;
+  min-height: 8px !important;
+  min-width: 8px !important;;
 }
 
 .v-div {
@@ -188,9 +188,11 @@ md-icon {
 }
 
 .ack-logo-link a md-icon {
+  width: 16px; height: 16px;
   -webkit-filter: grayscale(100%);
   -moz-filter: grayscale(100%);
   -o-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
   filter: grayscale(100%);
 }
 

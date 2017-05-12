@@ -1,35 +1,37 @@
-<div flex layout="column" layout-align="center center" class="full-height text-center front-page">
-  <md-content ng-controller="FrontPageCtrl">
-    <div class="front-page-center-row">
-      <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-        <img src="../res/logo.svg" width="365px" hide-xs/>
-        <h1 class="md-display-4 brand-text">
-          <img src="../res/logo.svg" width="190px" hide-gt-xs/>
-          Liby.cat
-        </h1>
-      </section>
-      <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-        <h2 class="md-display-1"><em>catalog</em> your library</h2>
-      </section>
-      <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-        <md-button class="md-raised" md-colors="{background:'green'}" ui-sref="signUp">
-          <i class="fa fa-user-plus" aria-hidden="true"></i> Sign up
-        </md-button>
-        <md-button class="md-raised md-primary" ui-sref="login">
-          <i class="fa fa-sign-in" aria-hidden="true"></i> Sign in
-        </md-button>
-      </section>
-    </div>
-    <footer layout-padding layout-margin>
-      <md-divider></md-divider>
-      <div class="text-center md-body-1" style="color:#ccc">
-        Liby.cat &copy; 2017<br>
-        <span class="md-caption">
+<div flex layout="column" class="full-height text-center front-page">
+  <div flex layout="column" class="full-height front-page-grad" layout-align="center center" >
+    <md-content ng-controller="FrontPageCtrl">
+      <div class="front-page-center-row">
+        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+          <img src="../res/logo.svg" width="365px" hide-xs/>
+          <h1 class="md-display-4 brand-text">
+            <img src="../res/logo.svg" width="190px" hide-gt-xs/>
+            Liby.cat
+          </h1>
+        </section>
+        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+          <h2 class="md-display-1 brand-slogan"><em>catalog</em> your library</h2>
+        </section>
+        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+          <md-button class="md-raised" md-colors="{background:'green'}" ui-sref="signUp">
+            <i class="fa fa-user-plus" aria-hidden="true"></i> Sign up
+          </md-button>
+          <md-button class="md-raised md-primary" ui-sref="login">
+            <i class="fa fa-sign-in" aria-hidden="true"></i> Sign in
+          </md-button>
+        </section>
+      </div>
+      <footer layout-padding layout-margin>
+        <md-divider></md-divider>
+        <div class="text-center md-body-1" style="color:#ccc">
+          Liby.cat &copy; 2017<br>
+          <span class="md-caption">
           Powered by
           <i class="fa fa-github"></i> <a href="https://github.com/liby-cat/liby-cat">liby-cat</a>
           with <i class="fa fa-heart"></i> and NodeJS + LoopBack + MongoDB + AngularJS
         </span>
-      </div>
-    </footer>
-  </md-content>
+        </div>
+      </footer>
+    </md-content>
+  </div>
 </div>

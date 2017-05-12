@@ -120,51 +120,59 @@ md-toolbar.form-header .md-icon-button:hover md-icon {
   transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
   color: grey;
 }
-.hint div{
+
+.hint div {
   position: relative;
   top: 4px;
 }
+
 .hint.ng-hide,
 .hint.ng-enter,
 .hint.ng-leave.ng-leave-active {
   bottom: 26px;
   opacity: 0;
 }
+
 .hint.ng-leave,
 .hint.ng-enter.ng-enter-active {
   bottom: 7px;
   opacity: 1;
 }
 
-.pass-meter-col{
+.pass-meter-col {
   width: 20%;
 }
 
 .front-page,
-liby-simple-content{
+liby-simple-content {
   background: url("../res/bg/bg-simple.jpg") center no-repeat;
   background-size: cover;
 }
+
 .front-page-grad,
-liby-simple-content md-content{
-  background: linear-gradient(to bottom, #2d1c19 2%, rgba(45,28,25,.95) 25%, rgba(45,28,25,.7) 75%, transparent 100%);
-}
-.front-page md-content{
-  background: transparent;
-}
-.front-page .brand-text,
-liby-simple-content .brand-text{
-  color: rgba(255,255,255,.85);
-}
-.front-page .brand-slogan{
-  color: rgba(255,255,255,.75);
+liby-simple-content md-content {
+  background: #2d1c19 linear-gradient(to bottom, #2d1c19 2%, rgba(45, 28, 25, .95) 25%, rgba(45, 28, 25, .7) 75%, transparent 100%);
 }
 
-a{
+.front-page md-content {
+  background: transparent;
+}
+
+.front-page .brand-text,
+liby-simple-content .brand-text {
+  color: rgba(255, 255, 255, .85);
+}
+
+.front-page .brand-slogan {
+  color: rgba(255, 255, 255, .75);
+}
+
+a {
   color: inherit;
   text-decoration: dotted underline;
 }
-a:hover{
+
+a:hover {
   text-decoration: solid underline;
   color: #07C;
 }

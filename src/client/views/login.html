@@ -9,24 +9,24 @@
         </div>
       </md-toolbar>
       <md-card-content>
-        <form name="Form">
+        <form name="LoginForm" ng-submit="submit()">
           <md-input-container class="md-block">
             <label>Username or email</label>
-            <input type="text" name="login" ng-model="vm.newUser.login" placeholder="login" required=""
+            <input type="text" name="login" ng-model="userCred.login" placeholder="login" required=""
                    maxlength="64"/>
-            <div ng-messages="Form.login.$error" role="alert" multiple="">
+            <div ng-messages="LoginForm.login.$error" role="alert" multiple>
               <div ng-message="required" class="my-message">Please enter your username or email.</div>
             </div>
           </md-input-container>
           <md-input-container class="md-block">
             <label>Password</label>
-            <input type="password" name="password" ng-model="vm.newUser.password" placeholder="password" required=""/>
-            <div ng-messages="Form.password.$error" role="alert">
+            <input type="password" name="password" ng-model="userCred.password" placeholder="password" required=""/>
+            <div ng-messages="LoginForm.password.$error" role="alert">
               <div ng-message="required" class="my-message">Please enter your password.</div>
             </div>
           </md-input-container>
           <section layout="row" layout-align="space-between center">
-            <md-button ng-click="vm.submit()" class="md-raised md-primary">
+            <md-button  class="md-raised md-primary" type="submit">
               <i class="fa fa-sign-in" aria-hidden="true"></i> Sign in
             </md-button>
             <md-button class="btn-no-trans" ui-sref="signUp">Don't have an account? Sign up!</md-button>

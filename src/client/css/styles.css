@@ -179,8 +179,8 @@ a:hover {
 }
 
 md-icon {
-  min-height: 8px !important;
-  min-width: 8px !important;;
+  min-height: 8px;
+  min-width: 8px;
 }
 
 .v-div {

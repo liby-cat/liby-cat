@@ -38,7 +38,7 @@ app.controller('CatalogSettingsCtrl', [
               addHandler(user.id);
               $scope.cat._meta.userIdMap[user.id] = val;
               $mdToast.showSimple(
-                `Added ${username} as as ${label} of ${$scope.cat.orgIdx}/${$scope.cat.catalogIdx}`);
+                "Added "+username+" as as "+label+" of "+$scope.cat.orgIdx+"/"+$scope.cat.catalogIdx);
             }, function e(er) {
               $mdToast.showSimple(er.data.error.message);
             }
@@ -68,7 +68,7 @@ app.controller('CatalogSettingsCtrl', [
       Catalog[relationKey].unlink({id: $scope.catalogId, fk: userId}, function s(val) {
         let user = $scope.cat._meta.userIdMap[userId];
         $mdToast.showSimple(
-          `Removed ${user.username} from being ${label} of ${$scope.cat.orgIdx}/${$scope.cat.catalogIdx}`);
+          "Removed "+username+" from being "+label+" of "+$scope.cat.orgIdx+"/"+$scope.cat.catalogIdx);
       }, function e(err) {
         $mdToast.showSimple(err.data.error.message);
         rejectHandler(userId);

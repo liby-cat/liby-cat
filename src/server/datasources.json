@@ -1,15 +1,15 @@
 {
-  "db": {
-    "name": "db",
+  "memory": {
+    "name": "memory",
     "connector": "memory"
   },
-  "mongol": {
+  "mongo": {
     "host": "${MONGO_HOST}",
     "port": "${MONGO_PORT}",
     "database": "${MONGO_DB}",
     "username": "${MONGO_USER}",
     "password": "${MONGO_PW}",
-    "name": "mongol",
+    "name": "mongo",
     "connector": "mongodb"
   }
 }

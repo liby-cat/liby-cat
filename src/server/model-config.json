@@ -14,38 +14,38 @@
     ]
   },
   "User": {
-    "dataSource": "mongol",
+    "dataSource": "mongo",
     "public": false
   },
   "AccessToken": {
-    "dataSource": "mongol",
+    "dataSource": "mongo",
     "public": false
   },
   "ACL": {
-    "dataSource": "mongol",
+    "dataSource": "mongo",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "mongol",
+    "dataSource": "mongo",
     "public": false,
     "options": {
       "strictObjectIDCoercion": true
     }
   },
   "Role": {
-    "dataSource": "mongol",
+    "dataSource": "mongo",
     "public": false
   },
   "org": {
-    "dataSource": "mongol",
+    "dataSource": "mongo",
     "public": true
   },
   "catalog": {
-    "dataSource": "mongol",
+    "dataSource": "mongo",
     "public": true
   },
   "user": {
-    "dataSource": "mongol",
+    "dataSource": "mongo",
     "public": true,
     "options": {
       "remoting": {
@@ -61,7 +61,7 @@
     }
   },
   "entry": {
-    "dataSource": "mongol",
+    "dataSource": "mongo",
     "public": false
   }
 }

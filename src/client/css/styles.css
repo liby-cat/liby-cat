@@ -149,14 +149,14 @@ md-toolbar.form-header .md-icon-button:hover md-icon {
 
 .front-page,
 liby-simple-content {
-  background:  #2d1c19 url("../res/bg/pexels-02.jpg") center no-repeat;
+  background: #2d1c19 url("../res/bg/pexels-02.jpg") center no-repeat;
   background-size: cover;
 }
 
 .front-page-grad,
 liby-simple-content md-content {
-  background-color: transparent;
-  background-image: linear-gradient(to top, #2d1c19 2%, rgba(45, 28, 25, .95) 25%, rgba(45, 28, 25, .75) 75%, rgba(45, 28, 25, .5) 100%);
+  background: transparent linear-gradient(
+    to top, #2d1c19 2%, rgba(45, 28, 25, .95) 25%, rgba(45, 28, 25, .75) 75%, rgba(45, 28, 25, .5) 100%);
 }
 
 .front-page md-content {

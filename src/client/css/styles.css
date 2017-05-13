@@ -107,6 +107,10 @@ md-toolbar.form-header .md-icon-button:hover md-icon {
   color: #07C;
   fill: #07C;
 }
+.hover-red md-icon:hover {
+  color: #F44336;
+  fill: #F44336;
+}
 
 .hint {
   /* Position the hint */
@@ -202,4 +206,15 @@ md-icon {
   -o-filter: none;
   -ms-filter: none;
   filter: none;
+}
+.inline-buttons{
+  display:inline-block; white-space: nowrap;
+}
+.inline-buttons .md-button.md-icon-button{
+  padding: 0;
+  width: auto; height: auto;
+}
+.inline-buttons .md-button.md-icon-button md-icon{
+  width: 20px; height: 20px; font-size: 20px;
+  margin: 0;
 }

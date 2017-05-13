@@ -70,11 +70,9 @@
       <mdt-column>SL#</mdt-column>
     </mdt-header-row>
     <mdt-custom-cell column-key="id">
-      <span ng-click="clientScope.showEdit($event, rowId)">
-        <button class="md-button md-icon-button hover-blu"><md-icon>edit</md-icon></button>
-      </span>
-      <span ng-click="clientScope.showDelete($event, rowId)">
-        <button class="md-button md-icon-button hover-blu"><md-icon>delete</md-icon></button>
+      <span class="inline-buttons">
+        <button ng-click="clientScope.showEdit($event, rowId)" class="md-button md-icon-button hover-blu"><md-icon>edit</md-icon></button>
+        <button ng-click="clientScope.showDelete($event, rowId)" class="md-button md-icon-button hover-red"><md-icon>delete</md-icon></button>
       </span>
     </mdt-custom-cell>
   </mdt-table>

@@ -1,4 +1,5 @@
-var error = require('../util/error');
+const error = require('../util/error');
+const path = require('path');
 
 module.exports = function (user) {
   user.validatesUniquenessOf('username');
@@ -6,7 +7,7 @@ module.exports = function (user) {
   
   user.afterRemote('create', function createDefaultOrg(ctx, usr, next) {
     console.log('user>afterRemote>create:createDefaultOrg');
-    user.app.models.Org.create(
+    /*user.app.models.Org.create(
       {orgIdx: usr.username, title: usr.username, adminIds: [usr.id]},
       function createUserDefaultOrg(err, obj) {
         if (err) {
@@ -15,8 +16,42 @@ module.exports = function (user) {
         if (obj) {
           console.log(obj);
         }
-        next();
-      });
+      });*/
+    
+    let options = {
+      type: 'email',
+      to: usr.email,
+      from: 'liby@sfaar.net',
+      subject: 'Thanks for registering.',
+      template: path.resolve(__dirname, '../../server/views/verify.ejs'),
+      redirect: '/login',
+      user: usr
+    };
+  
+    usr.verify(options, function (err, response) {
+      if (err) {
+        user.deleteById(usr.id);
+        return next(err);
+      }
+      console.log('> verification email sent:', response);
+    });
+  });
+  
+  //send password reset link when requested
+  user.on('resetPasswordRequest', function(info) {
+    let url = 'http://localhost:3000/reset-password';
+    let html = 'Click <a href="' + url + '?access_token=' +
+      info.accessToken.id + '">here</a> to reset your password';
+    
+    User.app.models.Email.send({
+      to: info.email,
+      from: info.email,
+      subject: 'Password reset',
+      html: html
+    }, function(err) {
+      if (err) return console.log('> error sending password reset email');
+      console.log('> sending password reset email to:', info.email);
+    });
   });
   
   user.usernameAvailable = function (username, options, cb) {

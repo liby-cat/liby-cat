@@ -36,18 +36,14 @@
     "dataSource": "mongo",
     "public": false
   },
-  "org": {
-    "dataSource": "mongo",
-    "public": true
-  },
-  "catalog": {
-    "dataSource": "mongo",
-    "public": true
+  "Email":{
+    "dataSource":"emailDs"
   },
   "user": {
     "dataSource": "mongo",
     "public": true,
     "options": {
+      "emailVerificationRequired": true,
       "remoting": {
         "sharedMethods": {
           "*": false,
@@ -59,6 +55,14 @@
         }
       }
     }
+  },
+  "org": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "catalog": {
+    "dataSource": "mongo",
+    "public": true
   },
   "entry": {
     "dataSource": "mongo",

@@ -1,5 +1,7 @@
 const loopback = require('loopback');
 const boot = require('loopback-boot');
+const path = require('path');
+const bodyParser = require('body-parser');
 const lcStrongErrorHandler = require('strong-error-handler');
 const lcServeFavicon = require('serve-favicon');
 const lcLoopbackConnectorMongodb = require('loopback-connector-mongodb');
@@ -9,6 +11,15 @@ const cors = require('cors');
 const compression = require('compression');
 
 var app = module.exports = loopback();
+
+// configure view handler
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// configure body parser
+app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(loopback.token());
 
 app.start = function() {
   // start the web server
@@ -34,7 +45,6 @@ boot(app, __dirname, function(err) {
 
 // PRETTY URL
 // https://www.theodo.fr/blog/2017/01/pretty-url-in-angularjs-and-loopback-drop-the/
-const path = require('path');
 
 //List here the paths you do not want to be redirected to the angular application (scripts, stylesheets, templates, loopback REST API, ...)
 const wildcard = ['/api', '/css', '/js', '/lb', '/res', '/vendor', '/views'];

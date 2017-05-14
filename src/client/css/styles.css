@@ -187,7 +187,14 @@ md-icon {
   min-width: 8px;
 }
 
-.v-div {
+.v-div{
+  display: inline-block;
+  margin: 0 4px;
+  height: auto;
+  border-left: 1px solid rgba(255,255,255,.25);
+}
+
+.ack-logo-sep {
   color: rgba(255,255,255,.2);
 }
 

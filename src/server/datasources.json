@@ -17,15 +17,15 @@
     "transports": [
       {
         "type": "smtp",
-        "host": "just13.justhost.com",
-        "secure": true,
-        "port": 465,
+        "host": "mail.sfaar.com",
+        "secure": false,
+        "port": 26,
         "tls": {
           "rejectUnauthorized": false
         },
         "auth": {
           "user": "liby@sfaar.com",
-          "pass": "StzrdZ!{4)]42@"
+          "pass": "GEk{?SE1IgT."
         }
       }
     ]

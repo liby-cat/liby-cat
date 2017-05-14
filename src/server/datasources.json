@@ -13,19 +13,20 @@
     "connector": "mongodb"
   },
   "emailDs": {
+    "name": "emailDs",
     "connector": "mail",
     "transports": [
       {
         "type": "smtp",
-        "host": "mail.sfaar.com",
-        "secure": false,
-        "port": 26,
+        "host": "mail.gandi.net",
+        "secure": true,
+        "port": 465,
         "tls": {
           "rejectUnauthorized": false
         },
         "auth": {
-          "user": "liby@sfaar.com",
-          "pass": "GEk{?SE1IgT."
+          "user": "noreply@liby.cat",
+          "pass": "${LIBY_EMAIL_PW}"
         }
       }
     ]

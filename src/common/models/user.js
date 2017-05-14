@@ -7,21 +7,11 @@ module.exports = function (user) {
   
   user.afterRemote('create', function createDefaultOrg(ctx, usr, next) {
     console.log('user>afterRemote>create:createDefaultOrg');
-    /*user.app.models.Org.create(
-      {orgIdx: usr.username, title: usr.username, adminIds: [usr.id]},
-      function createUserDefaultOrg(err, obj) {
-        if (err) {
-          next(err);
-        }
-        if (obj) {
-          console.log(obj);
-        }
-      });*/
     
     let options = {
       type: 'email',
       to: usr.email,
-      from: 'liby@sfaar.net',
+      from: 'noreply@liby.cat',
       subject: 'Thanks for registering.',
       template: path.resolve(__dirname, '../../server/views/verify.ejs'),
       redirect: '/login',
@@ -34,6 +24,17 @@ module.exports = function (user) {
         return next(err);
       }
       console.log('> verification email sent:', response);
+      user.app.models.Org.create(
+        {orgIdx: usr.username, title: usr.username, adminIds: [usr.id]},
+        function createUserDefaultOrg(err, obj) {
+          if (err) {
+            next(err);
+          }
+          if (obj) {
+            console.log(obj);
+          }
+          return next();
+        });
     });
   });
   

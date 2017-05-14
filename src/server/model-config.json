@@ -46,7 +46,7 @@
       "emailVerificationRequired": true,
       "remoting": {
         "sharedMethods": {
-          "*": false,
+          "*": true,
           "usernameAvailable": true,
           "username2id": true,
           "create": true,

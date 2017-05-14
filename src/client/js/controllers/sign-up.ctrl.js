@@ -1,12 +1,12 @@
 app.controller('SignUpCtrl', [
   '$scope', '$rootScope', '$state', 'User', '$mdToast', '$q',
   function ($scope, $rootScope, $state, User, $mdToast, $q) {
-    $scope.userCred = {};
+    $scope.newUser = {};
     
     $scope.submit = function () {
-      let cred = {password: $scope.userCred.password};
-      cred.email = $scope.userCred.email;
-      cred.username = $scope.userCred.username;
+      let cred = {password: $scope.newUser.password};
+      cred.email = $scope.newUser.email;
+      cred.username = $scope.newUser.username;
       User.create(cred,
         function success(value, res) {
           let username = value.username;

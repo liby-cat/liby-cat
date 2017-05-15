@@ -11,7 +11,7 @@
         </div>
       </md-toolbar>
       <md-card-content>
-        <form layout="column" name="newCatalogForm" flex>
+        <form layout="column" name="newCatalogForm" flex ng-submit="createNewCatalog()">
           <md-input-container layout="row" flex>
             <label>Org</label>
             <md-select name="orgId" ng-model="newCatalog.orgId" required>
@@ -37,7 +37,7 @@
             <label>Title</label>
             <input type="text" name="title" ng-model="newCatalog.title" required/>
           </md-input-container>
-          <md-button ng-click="createNewCatalog()">Submit</md-button>
+          <md-button type="submit">Submit</md-button>
         </form>
       </md-card-content>
     </md-card>

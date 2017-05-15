@@ -22,7 +22,7 @@ app.controller('CreateCatalogCtrl', [
           $state.go('owned-catalogs');
         },
         function error(er) {
-        
+          $mdToast.showSimple(er.data.error.message);
         }
       );
     };

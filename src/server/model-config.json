@@ -37,7 +37,8 @@
     "public": false
   },
   "Email":{
-    "dataSource":"emailDs"
+    "dataSource":"emailDs",
+    "public": false
   },
   "user": {
     "dataSource": "mongo",

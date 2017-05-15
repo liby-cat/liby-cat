@@ -267,5 +267,23 @@ module.exports = function (Catalog) {
       cb(null, res);
     });
   };
+  
+  Catalog.idxAvailable = function (orgIdx, catalogIdx, options, cb) {
+    Catalog.find({
+        fields: {catalogIdx: true},
+        where: {orgIdx: orgIdx, catalogIdx: catalogIdx}
+      },
+      options,
+      function (err, cats) {
+        if (err) {
+          return cb(err);
+        }
+        if (cats === null || cats.length === 0) {
+          return cb(null, true);
+        } else {
+          return cb(null, false);
+        }
+      });
+  }
   // endregion
 };

@@ -76,6 +76,15 @@
       ],
       "returns": {"type": "array", "root": true},
       "http": {"verb": "GET", "path": "/owned"}
+    },
+    "idxAvailable": {
+      "accepts": [
+        {"arg": "orgIdx", "type": "string", "required": true},
+        {"arg": "catalogIdx", "type": "string", "required": true},
+        {"arg": "options", "type": "object", "http": "optionsFromRequest"}
+      ],
+      "http": {"verb": "GET", "path": "/available/:orgIdx/:catalogIdx"},
+      "returns": {"arg":"available", "type": "Boolean"}
     }
   }
 }

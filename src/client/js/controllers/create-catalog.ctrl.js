@@ -36,7 +36,6 @@ app.controller('CreateCatalogCtrl', [
     $scope.isIdxAvailable = function (newCatIdx) {
       if($scope.newCatalog.org===undefined) return false;
       let defer = $q.defer();
-      console.log($scope.newCatalog);
       Catalog.idxAvailable({orgIdx: $scope.newCatalog.org.orgIdx, catalogIdx: newCatIdx},
         function s(val) {
           val.available ? defer.resolve() : defer.reject();

@@ -12,7 +12,7 @@ module.exports = function (user) {
       type: 'email',
       to: usr.email,
       from: 'noreply@liby.cat',
-      subject: 'Thanks for registering.',
+      subject: 'Liby.cat: Please verify you email address.',
       template: path.resolve(__dirname, '../../server/views/verify.ejs'),
       redirect: '/login',
       user: usr

@@ -29,7 +29,12 @@ app.controller('CreateCatalogCtrl', [
       );
     };
     
-    $scope.isCatalogIdxAvailable = function (newCatIdx) {
+    $scope.orgCatIdx = function (catIdx) {
+      return $scope.newCatalog.org.orgIdx+'/'+catIdx;
+    };
+    
+    $scope.isIdxAvailable = function (newCatIdx) {
+      if($scope.newCatalog.org===undefined) return false;
       let defer = $q.defer();
       console.log($scope.newCatalog);
       Catalog.idxAvailable({orgIdx: $scope.newCatalog.org.orgIdx, catalogIdx: newCatIdx},

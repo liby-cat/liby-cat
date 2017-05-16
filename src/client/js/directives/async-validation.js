@@ -3,7 +3,8 @@ app.directive('asyncValidation', function ($q) {
     require: 'ngModel',
     restrict: 'A',
     scope: {
-      asyncValidator: '&'
+      asyncValidator: '&',
+      asyncKeyFn: '&'
     },
     link: function (scope, element, attrs, ctrl) {
       let cache = {};
@@ -15,15 +16,16 @@ app.directive('asyncValidation', function ($q) {
         let defer = $q.defer();
         console.log(cache);
         defer.notify('Looking up');
-        if (cache.hasOwnProperty(val)) {
-          cache[val] ? defer.resolve() : defer.reject();
+        let key = scope.asyncKeyFn ? scope.asyncKeyFn({val:val}) : val;
+        if (cache.hasOwnProperty(key)) {
+          cache[key] ? defer.resolve() : defer.reject();
         } else {
           scope.asyncValidator({val:val}).then(
             function success(ignore) {
-              cache[val] = true;
+              cache[key] = true;
               defer.resolve();
             }, function error(ignore) {
-              cache[val] = false;
+              cache[key] = false;
               defer.reject();
             }
           );

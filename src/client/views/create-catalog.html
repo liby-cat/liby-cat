@@ -26,7 +26,7 @@
             <label>@id</label>
             <input type="text" maxlength="24" name="catalogIdx" ng-model="newCatalog.catalogIdx"
                    ng-pattern="SLUG_REGEX"
-                   async-validation async-validator="isCatalogIdxAvailable(val)"
+                   async-validation async-validator="isIdxAvailable(val)" async-key-fn="orgCatIdx(val)"
                    required/>
             <div ng-messages="newCatalogForm.catalogIdx.$error" multiple md-auto-hide="false">
               <div ng-message="pattern">

@@ -1,4 +1,4 @@
-<liby-std-content ng-controller="CreateCatalogCtrl" layout="column" flex>
+<liby-std-content ng-controller="CreateCatalogCtrl as ctrl" layout="column" flex>
   <div layout="row" flex
        layout-align="space-around">
     <md-card flex="flex" flex-gt-sm="50" flex-gt-md="40">
@@ -14,7 +14,7 @@
         <form layout="column" name="newCatalogForm" flex ng-submit="createNewCatalog()">
           <md-input-container layout="row" flex>
             <label>Org</label>
-            <md-select name="org" ng-model="newCatalog.org" required>
+            <md-select name="org" ng-model="newCatalog.org" required ng-change="newCatalogForm.catalogIdx.$validate()">
               <md-option><em>None</em></md-option>
               <md-option ng-repeat="org in orgs" ng-value="org">
                 {{org.title}}

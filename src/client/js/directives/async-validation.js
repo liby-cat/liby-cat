@@ -16,7 +16,7 @@ app.directive('asyncValidation', function ($q) {
         let defer = $q.defer();
         console.log(cache);
         defer.notify('Looking up');
-        let key = scope.asyncKeyFn ? scope.asyncKeyFn({val:val}) : val;
+        let key = attrs.asyncKeyFn ? scope.asyncKeyFn({val:val}) : val;
         if (cache.hasOwnProperty(key)) {
           cache[key] ? defer.resolve() : defer.reject();
         } else {

@@ -21,9 +21,14 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(loopback.token());
 
-app.set('host', process.env.LIBY_HOST || 'localhost');
-
 app.start = function() {
+  try {
+    let host = process.env.LIBY_HOST;
+    console.log('got hostname:' + host);
+    app.set('host', host || 'localhost');
+  } catch (e) {
+    console.log(e);
+  }
   // start the web server
   return app.listen(function() {
     app.emit('started');

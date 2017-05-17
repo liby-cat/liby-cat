@@ -11,11 +11,11 @@
         </div>
       </md-toolbar>
       <md-card-content>
-        <form layout="column" name="newCatalogForm" flex ng-submit="createNewCatalog()">
+        <form layout="column" name="catForm" flex ng-submit="createNewCatalog()">
           <md-input-container layout="row" flex>
             <label>Org</label>
             <md-select name="org" ng-model="newCatalog.org" required
-                       ng-change="newCatalogForm.catalogIdx.$validate(); newCatalogForm.title.$validate()"
+                       ng-change="catForm.catalogIdx.$validate(); catForm.title.$validate()"
             >
               <md-option><em>None</em></md-option>
               <md-option ng-repeat="org in orgs" ng-value="org">
@@ -30,19 +30,19 @@
                    ng-pattern="SLUG_REGEX"
                    async-validation async-validator="isIdxAvailable(val)" async-key-fn="orgCatIdx(val)"
                    required/>
-            <div ng-messages="newCatalogForm.catalogIdx.$error" multiple md-auto-hide="false">
+            <div ng-messages="catForm.catalogIdx.$error" multiple md-auto-hide="false">
               <div ng-message="pattern">
                 Please use lowercase letters, numbers and single dash (-) between letters<br/>
                 Should start with a letter
               </div>
               <div ng-message="asyncValidation">Already exists, try another!</div>
             </div>
-            <div class="hint" ng-show="newCatalogForm.catalogIdx.$pending.asyncValidation">
+            <div class="hint" ng-show="catForm.catalogIdx.$pending.asyncValidation">
               <div>
                 <md-progress-circular md-mode="indeterminate" md-diameter="18px">Checking...</md-progress-circular>
               </div>
             </div>
-            <div class="hint" ng-show="newCatalogForm.catalogIdx.$valid">
+            <div class="hint" ng-show="catForm.catalogIdx.$valid">
               <div>
                 <md-icon md-colors="{'color':'green'}">check</md-icon>
                 Available
@@ -53,17 +53,17 @@
             <label>Title</label>
             <input type="text" name="title" ng-model="newCatalog.title" required
                    async-validation async-validator="isTitleNew(val)" async-key-fn="orgCatTitle(val)"/>
-            <div ng-messages="newCatalogForm.title.$error" multiple md-auto-hide="false">
+            <div ng-messages="catForm.title.$error" multiple md-auto-hide="false">
               <div ng-message="asyncValidation">
                 Another catalog with same title already exists within same org
               </div>
             </div>
-            <div class="hint" ng-show="newCatalogForm.title.$pending.asyncValidation">
+            <div class="hint" ng-show="catForm.title.$pending.asyncValidation">
               <div>
                 <md-progress-circular md-mode="indeterminate" md-diameter="18px">Checking...</md-progress-circular>
               </div>
             </div>
-            <div class="hint" ng-show="newCatalogForm.title.$valid">
+            <div class="hint" ng-show="catForm.title.$valid">
               <div>
                 <md-icon md-colors="{'color':'green'}">check</md-icon>
                 Available

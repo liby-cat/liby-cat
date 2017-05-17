@@ -26,7 +26,6 @@ app.start = function() {
     console.log(process.env);
     let host = process.env.LIBY_HOST;
     console.log('got hostname:' + host);
-    app.set('host', host || 'localhost');
   } catch (e) {
     console.log(e);
   }

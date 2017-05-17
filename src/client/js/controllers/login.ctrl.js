@@ -19,7 +19,6 @@ app.controller('LoginCtrl', [
         },
         function error(er) {
           $mdToast.showSimple('Invalid credentials');
-          User.logout();
         });
     }
     

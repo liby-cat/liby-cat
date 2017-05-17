@@ -34,11 +34,28 @@ app.controller('CreateCatalogCtrl', [
     };
     
     $scope.isIdxAvailable = function (newCatIdx) {
-      if($scope.newCatalog.org===undefined) return false;
+      if ($scope.newCatalog.org === undefined) return false;
       let defer = $q.defer();
       Catalog.idxAvailable({orgIdx: $scope.newCatalog.org.orgIdx, catalogIdx: newCatIdx},
         function s(val) {
           val.available ? defer.resolve() : defer.reject();
+        }, function e() {
+          defer.reject();
+        });
+      return defer.promise;
+    };
+  
+  
+    $scope.orgCatTitle = function (title) {
+      return $scope.newCatalog.org.orgIdx + ':' + title;
+    };
+  
+    $scope.isTitleNew = function (title) {
+      if($scope.newCatalog.org===undefined) return false;
+      let defer = $q.defer();
+      Catalog.titleExists({orgIdx: $scope.newCatalog.org.orgIdx, title: title},
+        function s(val) {
+          !val.exists ? defer.resolve() : defer.reject();
         }, function e() {
           defer.reject();
         });

@@ -24,7 +24,7 @@
             </div>
             <div ng-message="asyncValidation">This username is already taken. Try another!</div>
           </div>
-          <div class="hint" ng-show="SignUpForm.username.$pending.isAvailable">
+          <div class="hint" ng-show="SignUpForm.username.$pending.asyncValidation">
             <div>
               <md-progress-circular md-mode="indeterminate" md-diameter="18px">Checking...</md-progress-circular>
             </div>

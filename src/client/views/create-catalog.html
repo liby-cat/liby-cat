@@ -14,7 +14,9 @@
         <form layout="column" name="newCatalogForm" flex ng-submit="createNewCatalog()">
           <md-input-container layout="row" flex>
             <label>Org</label>
-            <md-select name="org" ng-model="newCatalog.org" required ng-change="newCatalogForm.catalogIdx.$validate()">
+            <md-select name="org" ng-model="newCatalog.org" required
+                       ng-change="newCatalogForm.catalogIdx.$validate(); newCatalogForm.title.$validate()"
+            >
               <md-option><em>None</em></md-option>
               <md-option ng-repeat="org in orgs" ng-value="org">
                 {{org.title}}
@@ -35,7 +37,7 @@
               </div>
               <div ng-message="asyncValidation">Already exists, try another!</div>
             </div>
-            <div class="hint" ng-show="newCatalogForm.catalogIdx.$pending.isAvailable">
+            <div class="hint" ng-show="newCatalogForm.catalogIdx.$pending.asyncValidation">
               <div>
                 <md-progress-circular md-mode="indeterminate" md-diameter="18px">Checking...</md-progress-circular>
               </div>
@@ -49,7 +51,24 @@
           </md-input-container>
           <md-input-container flex>
             <label>Title</label>
-            <input type="text" name="title" ng-model="newCatalog.title" required/>
+            <input type="text" name="title" ng-model="newCatalog.title" required
+                   async-validation async-validator="isTitleNew(val)" async-key-fn="orgCatTitle(val)"/>
+            <div ng-messages="newCatalogForm.title.$error" multiple md-auto-hide="false">
+              <div ng-message="asyncValidation">
+                Another catalog with same title already exists within same org
+              </div>
+            </div>
+            <div class="hint" ng-show="newCatalogForm.title.$pending.asyncValidation">
+              <div>
+                <md-progress-circular md-mode="indeterminate" md-diameter="18px">Checking...</md-progress-circular>
+              </div>
+            </div>
+            <div class="hint" ng-show="newCatalogForm.title.$valid">
+              <div>
+                <md-icon md-colors="{'color':'green'}">check</md-icon>
+                Available
+              </div>
+            </div>
           </md-input-container>
           <md-button type="submit">Submit</md-button>
         </form>

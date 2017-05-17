@@ -23,6 +23,7 @@ app.use(loopback.token());
 
 app.start = function() {
   try {
+    console.log(process.env);
     let host = process.env.LIBY_HOST;
     console.log('got hostname:' + host);
     app.set('host', host || 'localhost');

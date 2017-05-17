@@ -284,6 +284,24 @@ module.exports = function (Catalog) {
           return cb(null, false);
         }
       });
-  }
+  };
+  
+  Catalog.titleExists = function (orgIdx, title, options, cb) {
+    Catalog.find({
+        fields: {title: true},
+        where: {orgIdx: orgIdx, title: title}
+      },
+      options,
+      function (err, cats) {
+        if (err) {
+          return cb(err);
+        }
+        if (cats === null || cats.length === 0) {
+          return cb(null, false);
+        } else {
+          return cb(null, true);
+        }
+      });
+  };
   // endregion
 };

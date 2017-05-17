@@ -85,6 +85,15 @@
       ],
       "http": {"verb": "GET", "path": "/available/:orgIdx/:catalogIdx"},
       "returns": {"arg":"available", "type": "Boolean"}
+    },
+    "titleExists": {
+      "accepts": [
+        {"arg": "orgIdx", "type": "string", "required": true},
+        {"arg": "title", "type": "string", "required": true},
+        {"arg": "options", "type": "object", "http": "optionsFromRequest"}
+      ],
+      "http": {"verb": "GET", "path": "/title/exists/:orgIdx/:title"},
+      "returns": {"arg":"exists", "type": "Boolean"}
     }
   }
 }

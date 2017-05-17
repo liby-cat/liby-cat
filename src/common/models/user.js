@@ -15,7 +15,8 @@ module.exports = function (user) {
       subject: 'Liby.cat: Please verify you email address.',
       template: path.resolve(__dirname, '../../server/views/verify.ejs'),
       redirect: '/login',
-      user: usr
+      user: usr,
+      host: user.app.get('hostname')
     };
   
     usr.verify(options, function (err, response) {

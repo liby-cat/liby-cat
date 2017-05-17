@@ -21,6 +21,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(loopback.token());
 
+app.set('host', process.env.LIBY_HOST || 'localhost');
+
 app.start = function() {
   // start the web server
   return app.listen(function() {

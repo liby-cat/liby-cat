@@ -28,21 +28,32 @@ app.controller('CreateCatalogCtrl', [
         }
       );
     };
-    
+  
+    function isValidFn(val, validatorFn, key, resultFn) {
+      let defer = $q.defer();
+      if ($scope.newCatalog.org === undefined) {
+        defer.reject();
+      } else {
+        let query = {orgIdx: $scope.newCatalog.org.orgIdx};
+        query[key] = val;
+        validatorFn(query,
+          function s(val) {
+            resultFn(val) ? defer.resolve() : defer.reject();
+          }, function e() {
+            defer.reject();
+          });
+      }
+      return defer.promise;
+    }
+  
     $scope.orgCatIdx = function (catIdx) {
       return $scope.newCatalog.org.orgIdx+'/'+catIdx;
     };
     
     $scope.isIdxAvailable = function (newCatIdx) {
-      if ($scope.newCatalog.org === undefined) return false;
-      let defer = $q.defer();
-      Catalog.idxAvailable({orgIdx: $scope.newCatalog.org.orgIdx, catalogIdx: newCatIdx},
-        function s(val) {
-          val.available ? defer.resolve() : defer.reject();
-        }, function e() {
-          defer.reject();
-        });
-      return defer.promise;
+      return isValidFn(newCatIdx, Catalog.idxAvailable, 'catalogIdx', function (val) {
+        return val.available;
+      });
     };
   
   
@@ -51,15 +62,9 @@ app.controller('CreateCatalogCtrl', [
     };
   
     $scope.isTitleNew = function (title) {
-      if($scope.newCatalog.org===undefined) return false;
-      let defer = $q.defer();
-      Catalog.titleExists({orgIdx: $scope.newCatalog.org.orgIdx, title: title},
-        function s(val) {
-          !val.exists ? defer.resolve() : defer.reject();
-        }, function e() {
-          defer.reject();
-        });
-      return defer.promise;
+      return isValidFn(title, Catalog.titleExists, 'title', function (val) {
+        return !val.exists;
+      });
     };
   }
 ]);

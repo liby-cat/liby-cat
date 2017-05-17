@@ -15,9 +15,7 @@
           <md-input-container layout="row" flex>
             <label>Org</label>
             <md-select name="org" ng-model="newCatalog.org" required
-                       ng-change="catForm.catalogIdx.$validate(); catForm.title.$validate()"
-            >
-              <md-option><em>None</em></md-option>
+                       ng-change="catForm.catalogIdx.$validate(); catForm.title.$validate()">
               <md-option ng-repeat="org in orgs" ng-value="org">
                 {{org.title}}
                 <small md-colors="{color:'grey'}">@{{org.orgIdx}}</small>
@@ -29,44 +27,50 @@
             <input type="text" maxlength="24" name="catalogIdx" ng-model="newCatalog.catalogIdx"
                    ng-pattern="SLUG_REGEX"
                    async-validation async-validator="isIdxAvailable(val)" async-key-fn="orgCatIdx(val)"
+                   ng-disabled="!newCatalog.org || newCatalog.org=='None'"
                    required/>
-            <div ng-messages="catForm.catalogIdx.$error" multiple md-auto-hide="false">
-              <div ng-message="pattern">
-                Please use lowercase letters, numbers and single dash (-) between letters<br/>
-                Should start with a letter
+            <div>
+              <div ng-messages="catForm.catalogIdx.$error" multiple md-auto-hide="false">
+                <div ng-message="pattern">
+                  Please use lowercase letters, numbers and single dash (-) between letters<br/>
+                  Should start with a letter
+                </div>
+                <div ng-message="asyncValidation">Already exists, try another!</div>
               </div>
-              <div ng-message="asyncValidation">Already exists, try another!</div>
-            </div>
-            <div class="hint" ng-show="catForm.catalogIdx.$pending.asyncValidation">
-              <div>
-                <md-progress-circular md-mode="indeterminate" md-diameter="18px">Checking...</md-progress-circular>
+              <div class="hint" ng-show="catForm.catalogIdx.$pending.asyncValidation">
+                <div>
+                  <md-progress-circular md-mode="indeterminate" md-diameter="18px">Checking...</md-progress-circular>
+                </div>
               </div>
-            </div>
-            <div class="hint" ng-show="catForm.catalogIdx.$valid">
-              <div>
-                <md-icon md-colors="{'color':'green'}">check</md-icon>
-                Available
+              <div class="hint" ng-show="catForm.catalogIdx.$valid">
+                <div>
+                  <md-icon md-colors="{'color':'green'}">check</md-icon>
+                  Available
+                </div>
               </div>
             </div>
           </md-input-container>
           <md-input-container flex>
             <label>Title</label>
             <input type="text" name="title" ng-model="newCatalog.title" required
+                   ng-disabled="!newCatalog.org || newCatalog.org=='None'"
                    async-validation async-validator="isTitleNew(val)" async-key-fn="orgCatTitle(val)"/>
-            <div ng-messages="catForm.title.$error" multiple md-auto-hide="false">
-              <div ng-message="asyncValidation">
-                Another catalog with same title already exists within same org
+            <div>
+              <div ng-messages="catForm.title.$error" multiple md-auto-hide="false">
+                <div ng-message="asyncValidation">
+                  Another catalog with same title already exists within same org
+                </div>
               </div>
-            </div>
-            <div class="hint" ng-show="catForm.title.$pending.asyncValidation">
-              <div>
-                <md-progress-circular md-mode="indeterminate" md-diameter="18px">Checking...</md-progress-circular>
+              <div class="hint" ng-show="catForm.title.$pending.asyncValidation">
+                <div>
+                  <md-progress-circular md-mode="indeterminate" md-diameter="18px">Checking...</md-progress-circular>
+                </div>
               </div>
-            </div>
-            <div class="hint" ng-show="catForm.title.$valid">
-              <div>
-                <md-icon md-colors="{'color':'green'}">check</md-icon>
-                Available
+              <div class="hint" ng-show="catForm.title.$valid">
+                <div>
+                  <md-icon md-colors="{'color':'green'}">check</md-icon>
+                  Available
+                </div>
               </div>
             </div>
           </md-input-container>

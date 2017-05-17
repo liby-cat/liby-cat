@@ -165,20 +165,23 @@ liby-simple-content md-content {
 
 .front-page .brand-text,
 liby-simple-content .brand-text {
+  color: #FCFCFC;
   color: rgba(255, 255, 255, .85);
 }
 
 .front-page .brand-slogan {
+  color: #EEEEEE;
   color: rgba(255, 255, 255, .75);
 }
 
 a {
   color: inherit;
-  text-decoration: dotted underline;
+  text-decoration: underline;
+  text-decoration-style: dotted;
 }
 
 a:hover {
-  text-decoration: solid underline;
+  text-decoration: underline;
   color: #07C;
 }
 
@@ -191,10 +194,12 @@ md-icon {
   display: inline-block;
   margin: 0 4px;
   height: auto;
+  border-left: 1px solid #666;
   border-left: 1px solid rgba(255,255,255,.25);
 }
 
 .ack-logo-sep {
+  color: #666;
   color: rgba(255,255,255,.2);
 }
 

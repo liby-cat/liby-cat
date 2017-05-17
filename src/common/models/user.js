@@ -16,7 +16,9 @@ module.exports = function (user) {
       template: path.resolve(__dirname, '../../server/views/verify.ejs'),
       redirect: '/login',
       user: usr,
-      host: user.app.get('hostname')
+      host: user.app.get('displayName'),
+      port: user.app.get('displayPort'),
+      protocol: user.app.get('displayProtocol')
     };
   
     usr.verify(options, function (err, response) {

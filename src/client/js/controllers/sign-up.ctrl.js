@@ -10,7 +10,7 @@ app.controller('SignUpCtrl', [
       User.create(cred,
         function success(value, res) {
           let username = value.username;
-          $mdToast.showSimple('Successfully registered in: ' + username);
+          $mdToast.showSimple('Successfully registered: ' + username);
           $state.go('login');
         },
         function error(er) {

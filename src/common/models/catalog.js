@@ -268,40 +268,34 @@ module.exports = function (Catalog) {
     });
   };
   
-  Catalog.idxAvailable = function (orgIdx, catalogIdx, options, cb) {
-    Catalog.find({
-        fields: {catalogIdx: true},
-        where: {orgIdx: orgIdx, catalogIdx: catalogIdx}
-      },
+  
+  function inExistingCatalogs(query, foundValue, options, cb) {
+    Catalog.find(query,
       options,
       function (err, cats) {
         if (err) {
           return cb(err);
         }
-        if (cats === null || cats.length === 0) {
-          return cb(null, true);
+        if (cats !== null && cats.length > 0) {
+          return cb(null, foundValue);
         } else {
-          return cb(null, false);
+          return cb(null, !foundValue);
         }
       });
+  }
+  
+  Catalog.idxAvailable = function (orgIdx, catalogIdx, options, cb) {
+    return inExistingCatalogs({
+      fields: {catalogIdx: true},
+      where: {orgIdx: orgIdx, catalogIdx: catalogIdx}
+    }, false, options, cb);
   };
   
   Catalog.titleExists = function (orgIdx, title, options, cb) {
-    Catalog.find({
-        fields: {title: true},
-        where: {orgIdx: orgIdx, title: title}
-      },
-      options,
-      function (err, cats) {
-        if (err) {
-          return cb(err);
-        }
-        if (cats === null || cats.length === 0) {
-          return cb(null, false);
-        } else {
-          return cb(null, true);
-        }
-      });
+    return inExistingCatalogs({
+      fields: {title: true},
+      where: {orgIdx: orgIdx, title: title}
+    }, true, options, cb);
   };
   // endregion
 };

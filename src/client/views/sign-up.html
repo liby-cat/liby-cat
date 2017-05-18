@@ -62,11 +62,10 @@
             <div ng-message="match">Password and Confirm password should match</div>
           </div>
         </md-input-container>
+        <div vc-recaptcha key="'6Lfn3CEUAAAAADIhx5ff1dMnoAcuzUPEeTVs3pQy'"
+             ng-model="newUser.reCaptcha"></div>
         <section layout="row" layout-align="space-between center">
-          <md-button type="submit" class="md-raised md-primary"
-                     class="g-recaptcha"
-                     data-sitekey="6Lfn3CEUAAAAADIhx5ff1dMnoAcuzUPEeTVs3pQy"
-                     data-callback="submit()">
+          <md-button type="submit" class="md-raised md-primary">
             <i class="fa fa-sign-up" aria-hidden="true"></i> Register
           </md-button>
           <md-button class="push-right" ui-sref="login">

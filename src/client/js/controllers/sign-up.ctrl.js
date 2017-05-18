@@ -5,6 +5,7 @@ app.controller('SignUpCtrl', [
     
     $scope.submit = function () {
       let cred = {password: $scope.newUser.password};
+      console.log($scope.newUser.reCaptcha);
       cred.email = $scope.newUser.email;
       cred.username = $scope.newUser.username;
       User.create(cred,

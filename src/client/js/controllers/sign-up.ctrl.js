@@ -19,7 +19,9 @@ app.controller('SignUpCtrl', [
           console.log(er);
           let toast = er && er.data && er.data.error && er.data.error.details && er.data.error.details.messages
             ? messageString(er.data.error.details.messages)
-            : 'Cannot register with this data';
+            : er && er.data && er.data.error && er.data.error.message
+              ? er.data.error.message
+              : 'Cannot register with this data';
           $mdToast.showSimple(toast);
         });
     };

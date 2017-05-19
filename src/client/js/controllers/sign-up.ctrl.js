@@ -8,6 +8,7 @@ app.controller('SignUpCtrl', [
       console.log($scope.newUser.reCaptcha);
       cred.email = $scope.newUser.email;
       cred.username = $scope.newUser.username;
+      cred.reCaptcha = $scope.newUser.reCaptcha;
       User.create(cred,
         function success(value, res) {
           let username = value.username;

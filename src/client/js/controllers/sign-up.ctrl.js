@@ -46,4 +46,6 @@ app.controller('SignUpCtrl', [
       return defer.promise;
     };
     
+    $scope.newUser.reCaptchaSiteKey = $rootScope.reCaptchaSiteKey;
+    
   }]);

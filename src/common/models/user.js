@@ -9,7 +9,7 @@ module.exports = function (user) {
   user.beforeRemote('create', function beforeCreateNewUser(ctx, usr, next) {
     "use strict";
     let reCaptcha = ctx.args.data.reCaptcha;
-    util.verifyReCaptcha(reCaptcha, '6Lfn3CEUAAAAAP0EW-yzD7QQ9LWjprQ2CO2NL5DR',
+    util.verifyReCaptcha(reCaptcha,
       function success() {
         delete ctx.args.data.reCaptcha;
         return next();
@@ -37,7 +37,7 @@ module.exports = function (user) {
       port: user.app.get('displayPort'),
       protocol: user.app.get('displayProtocol')
     };
-  
+    
     usr.verify(options, function (err, response) {
       if (err) {
         user.deleteById(usr.id);
@@ -59,7 +59,7 @@ module.exports = function (user) {
   });
   
   //send password reset link when requested
-  user.on('resetPasswordRequest', function(info) {
+  user.on('resetPasswordRequest', function (info) {
     let url = 'http://localhost:3000/reset-password';
     let html = 'Click <a href="' + url + '?access_token=' +
       info.accessToken.id + '">here</a> to reset your password';
@@ -69,7 +69,7 @@ module.exports = function (user) {
       from: info.email,
       subject: 'Password reset',
       html: html
-    }, function(err) {
+    }, function (err) {
       if (err) return console.log('> error sending password reset email');
       console.log('> sending password reset email to:', info.email);
     });

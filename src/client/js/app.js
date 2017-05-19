@@ -19,9 +19,13 @@ var app = angular
     }])
   .constant('SLUG_REGEX','^[a-z]+[a-z0-9]+(-[a-z0-9]+)*$')
   .constant('USERNAME_REGEX','^[a-z]{3}[a-z0-9]{2,}$')
-  .run(function ($rootScope, SLUG_REGEX, USERNAME_REGEX) {
+  .run(function ($rootScope, SLUG_REGEX, USERNAME_REGEX, $http) {
     $rootScope.SLUG_REGEX = SLUG_REGEX;
     $rootScope.USERNAME_REGEX = USERNAME_REGEX;
+    $http.get('api/reCaptcha/siteKey').then(function (r) {
+      $rootScope.reCaptchaSiteKey = r.data;
+      console.log(r.data);
+    });
   });
 
 function setStates($stateProvider) {

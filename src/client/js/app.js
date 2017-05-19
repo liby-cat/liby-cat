@@ -24,7 +24,6 @@ var app = angular
     $rootScope.USERNAME_REGEX = USERNAME_REGEX;
     $http.get('api/reCaptcha/siteKey').then(function (r) {
       $rootScope.reCaptchaSiteKey = r.data;
-      console.log(r.data);
     });
   });
 

@@ -1,6 +1,6 @@
 app.controller('SignUpCtrl', [
-  '$scope', '$rootScope', '$state', 'User', '$mdToast', '$q', '$http',
-  function ($scope, $rootScope, $state, User, $mdToast, $q, $http) {
+  '$scope', '$rootScope', '$state', 'User', '$mdToast', '$q',
+  function ($scope, $rootScope, $state, User, $mdToast, $q) {
     $scope.newUser = {};
     
     $scope.submit = function () {
@@ -46,16 +46,6 @@ app.controller('SignUpCtrl', [
       return defer.promise;
     };
     
-    $scope.newUser.reCaptchaKey = function () {
-      if(!$rootScope.reCaptchaSiteKey){
-        $http.get('api/reCaptcha/siteKey').then(function (r) {
-          $rootScope.reCaptchaSiteKey = r.data;
-          console.log(r.data);
-          return $rootScope.reCaptchaSiteKey;
-        });
-      } else {
-        return $rootScope.reCaptchaSiteKey;
-      }
-    }
+    $scope.newUser.reCaptchaSiteKey = $rootScope.reCaptchaSiteKey;
     
   }]);

@@ -2,7 +2,7 @@
   "name": "liby-cat",
   "version": "0.4.0",
   "license": "UNLICENSED",
-  "contributors":[
+  "contributors": [
     "nafSadh khan (http://nafSadh.com)"
   ],
   "repository": {
@@ -16,7 +16,8 @@
   },
   "dependencies": {
     "bower": "^1.8.0",
-    "eslint": "^3.19.0"
+    "eslint": "^3.19.0",
+    "request": "^2.81.0"
   },
   "engines": {
     "node": "7.x"

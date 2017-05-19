@@ -1,11 +1,28 @@
 const error = require('../util/error');
+const util = require('../util/util');
 const path = require('path');
 
 module.exports = function (user) {
   user.validatesUniquenessOf('username');
   user.validatesPresenceOf('username');
   
-  user.afterRemote('create', function createDefaultOrg(ctx, usr, next) {
+  user.beforeRemote('create', function beforeCreateNewUser(ctx, usr, next) {
+    "use strict";
+    let reCaptcha = ctx.args.data.reCaptcha;
+    util.verifyReCaptcha(reCaptcha, '6Lfn3CEUAAAAAP0EW-yzD7QQ9LWjprQ2CO2NL5DR',
+      function success() {
+        delete ctx.args.data.reCaptcha;
+        return next();
+      }, function failed() {
+        delete ctx.args.data.reCaptcha;
+        return next(error('Cannot validate reCaptcha'));
+      }, function (err) {
+        delete ctx.args.data.reCaptcha;
+        return next(err);
+      });
+  });
+  
+  user.afterRemote('create', function afterCreateNewUser(ctx, usr, next) {
     console.log('user>afterRemote>create:createDefaultOrg');
     
     let options = {

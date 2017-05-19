@@ -9,7 +9,7 @@ module.exports = function (user) {
   user.beforeRemote('create', function beforeCreateNewUser(ctx, usr, next) {
     "use strict";
     let reCaptcha = ctx.args.data.reCaptcha;
-    util.verifyReCaptcha(reCaptcha, '6Lfn3CEUAAAAAP0EW-yzD7QQ9LWjprQ2CO2NL5DR',
+    util.verifyReCaptcha(reCaptcha,
       function success() {
         delete ctx.args.data.reCaptcha;
         return next();

@@ -7,12 +7,12 @@ module.exports = {
     return /^[a-z0-9]+(-[a-z0-9]+)*$/.test(str);
   },
   
-  verifyReCaptcha: function (gReCaptchaResponse, secret, successFn, failedFn, errFn) {
+  verifyReCaptcha: function (gReCaptchaResponse, successFn, failedFn, errFn) {
     request.post(
       {
         url: 'https://www.google.com/recaptcha/api/siteverify',
         form: {
-          secret: secret,
+          secret: process.env.LIBY_RE_CAPTCHA_SECRET_KEY,
           response: gReCaptchaResponse
         }
       },

@@ -8,6 +8,7 @@ module.exports = function (user) {
   
   user.beforeRemote('create', function beforeCreateNewUser(ctx, usr, next) {
     "use strict";
+    ctx.args.data.name = ctx.args.data.name ? ctx.args.data.name : ctx.args.data.username;
     let reCaptcha = ctx.args.data.reCaptcha;
     util.verifyReCaptcha(reCaptcha,
       function success() {

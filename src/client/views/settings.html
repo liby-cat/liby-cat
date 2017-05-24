@@ -1,17 +1,28 @@
 <liby-std-content ng-controller="SettingsCtrl" layout="column" flex>
   <liby-page-header headline="Settings"></liby-page-header>
-    <md-card>
-      <div>
+  <div flex layout-align="center" layout="row">
+    <md-card layout-padding flex-xs flex-sm="80" flex-gt-sm="50" layout="column">
+      <h4 class="md-headline">Account</h4>
+      <div class="present">
+        <md-icon>account_circle</md-icon>
         <label>Username</label>
-        {{user.username}}
+        <span>{{user.username}}</span>
       </div>
-      <div>
-        <label>Name</label>
-        {{user.name}}
-      </div>
-      <div>
+      <div class="present">
+        <md-icon>email</md-icon>
         <label>Email</label>
-        {{user.email}}
+        <span>{{user.email}}</span>
+      </div>
+      <div class="present">
+        <md-icon>label_outline</md-icon>
+        <label>Name</label>
+        <span>{{user.name}}</span>
+        <span class="inline-buttons">
+          <button ng-click="editNamePrompt($event, rowId)" class="md-button md-icon-button hover-blu">
+            <md-icon>edit</md-icon>
+          </button>
+        </span>
       </div>
     </md-card>
+  </div>
 </liby-std-content>

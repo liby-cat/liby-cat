@@ -230,3 +230,16 @@ md-icon {
   width: 20px; height: 20px; font-size: 20px;
   margin: 0;
 }
+
+.present label{
+  font-weight: bold;
+  line-height: 24px;
+  vertical-align: bottom;
+}
+.present label:after{
+  content: ":";
+}
+.present span{
+  line-height: 24px;
+  vertical-align: bottom;
+}

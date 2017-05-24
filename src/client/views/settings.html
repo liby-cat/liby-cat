@@ -1,3 +1,17 @@
 <liby-std-content ng-controller="SettingsCtrl" layout="column" flex>
-  <liby-page-header headline="Settings">
+  <liby-page-header headline="Settings"></liby-page-header>
+    <md-card>
+      <div>
+        <label>Username</label>
+        {{user.username}}
+      </div>
+      <div>
+        <label>Name</label>
+        {{user.name}}
+      </div>
+      <div>
+        <label>Email</label>
+        {{user.email}}
+      </div>
+    </md-card>
 </liby-std-content>

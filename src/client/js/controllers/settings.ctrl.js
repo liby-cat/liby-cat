@@ -7,7 +7,7 @@ app.controller('SettingsCtrl', [
     
     $scope.editNamePrompt = function (ev) {
       // Appending dialog to document.body to cover sidenav in docs app
-      var confirm = $mdDialog.prompt()
+      let confirm = $mdDialog.prompt()
         .title('Edit name')
         .placeholder($scope.user.name ? $scope.user.name : 'Name')
         .initialValue($scope.user.name)

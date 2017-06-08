@@ -29,7 +29,7 @@
     "angular-sanitize": "^1.6.4",
     "angular-translate": "^2.15.1",
     "angular-translate-loader-static-files": "^2.15.1",
-    "angular-xeditable": "^0.7.1",
+    "angular-xeditable": "^0.8.0",
     "components-font-awesome": "^4.7.0",
     "md-data-table": "https://github.com/nafSadh/mdDataTable.git#2.2.2",
     "angular-touch": "^1.6.4",
